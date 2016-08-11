@@ -1,0 +1,35 @@
+{
+  "name": "cd-messenger",
+  "version": "2.0.0",
+  "description": "console log file logger gulp notification",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikeerickson/cd-messenger.git"
+  },
+  "keywords": [
+    "console",
+    "log",
+    "file",
+    "logger",
+    "gulp",
+    "notification",
+    "debug",
+    "error",
+    "info",
+    "warning",
+    "dump"
+  ],
+  "author": "Mike Erickson <codedungeon@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mikeerickson/cd-messenger/issues"
+  },
+  "homepage": "https://github.com/mikeerickson/cd-messenger#readme"
+}
