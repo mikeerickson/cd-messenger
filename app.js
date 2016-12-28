@@ -7,13 +7,14 @@ let data = [
   {fname: 'Trevor', lname: 'Erickson'},
 ];
 
-messenger.log('test logger',[{fname: 'MIke'}]);
-
+// messenger.log('test logger',[{fname: 'MIke'}]);
+//
 messenger.info('info');
 messenger.success('success');
 messenger.warning('warning');
 messenger.error('error');
 messenger.table([{fname: 'Mike'}]);
+messenger.table(data);
 //
 // messenger.chalkline('*');
 

@@ -7,7 +7,12 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha"
+    "all": "npm run eslint",
+    "clean": "rimraf lib",
+    "build": "webpack",
+    "test": "mocha",
+    "eslint": "eslint \"./**/*.js\"",
+    "lint": "npm run eslint"
   },
   "repository": {
     "type": "git",

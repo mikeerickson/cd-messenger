@@ -24,8 +24,8 @@ let messenger = {
     logger.warning(msg, ...params);
     showMessasge(msg, 'yellow', ...params);
   },
-  table: function (...params) {
-    console.table(...params);
+  table: function (data) {
+    console.table(data);
   },
   dir: function (...params) {
     console.dir(...params);

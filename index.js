@@ -1,8 +1,8 @@
 var bowser = require('bowser');
-
 let messenger;
+
 if (bowser.name !== '') {
-  console.log(`Browser Detected: ${bowser.name} ${bowser.version}`);
+  // console.log(`Browser Detected: ${bowser.name} ${bowser.version}`);
   messenger = require('./src/messenger-browser');
 }
 else {
