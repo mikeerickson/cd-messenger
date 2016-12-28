@@ -1,2 +1,6 @@
 node_modules
 dist
+sandbox
+logs
+TODO.md
+todo.json
