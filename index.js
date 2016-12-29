@@ -1,12 +1,5 @@
-var bowser = require('bowser');
-let messenger;
+const bowser = require('bowser');
 
-if (bowser.name !== '') {
-  // console.log(`Browser Detected: ${bowser.name} ${bowser.version}`);
-  messenger = require('./src/messenger-browser');
-}
-else {
-  messenger = require('./src/messenger-node');
-}
-
-module.exports = messenger;
+module.exports = (bowser.name !== '')
+  ? require('./src/messenger-browser')
+  : require('./src/messenger-node');

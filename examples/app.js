@@ -10,11 +10,12 @@ let data = [
 // messenger.log('test logger',[{fname: 'MIke'}]);
 //
 messenger.info('info');
+messenger.note('note');
 messenger.success('success');
 messenger.warning('warning');
 messenger.error('error');
-messenger.table([{fname: 'Mike'}]);
-messenger.table(data);
+// messenger.table([{fname: 'Mike'}]);
+// messenger.table(data);
 //
 // messenger.chalkline('*');
 

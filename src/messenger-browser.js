@@ -9,8 +9,10 @@ let messenger = {
     logger.log(msg, ...params);
   },
   info: function (msg, ...params) {
-    logger.info(msg, ...params);
     showMessasge(msg, 'blue', ...params);
+  },
+  note: function (msg, ...params) {
+    showMessasge(msg, 'orange', ...params);
   },
   success: function (msg, ...params) {
     logger.info(msg, ...params);

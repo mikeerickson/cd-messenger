@@ -4,12 +4,19 @@ var chalk     = require('chalk');
 var cl        = require('chalkline');
 var Table     = require('cli-table2');
 
+// const COLOR_ORANGE = '\033[38;5;214m';
+// const COLOR_RESET  = '\033[m';
+
 var messenger = {
   log: function (...params) {
     console.log(...params);
   },
   info: function (...params) {
     console.log(chalk.cyan(...params));
+  },
+  note: function (msg, ...params) {
+    // msg = COLOR_ORANGE + msg + COLOR_RESET;
+    console.log(msg, ...params);
   },
   success: function (...params) {
     console.log(chalk.green(...params));

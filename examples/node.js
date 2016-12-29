@@ -9,9 +9,10 @@ let data = [
   {fname: 'Trevor', lname: 'Erickson'},
 ];
 
-let msg = require('./index.js');
+let msg = require('../index.js');
 msg.log(chalk.green.bold('Node Messenger: Log'));
 msg.info('Node Messenger: Info',['mike','kira']);
+msg.note('Node Messenger: Note',['mike','kira']);
 msg.success('Node Messenger: Success');
 msg.warning('Node Messenger: Warning');
 msg.error('Node Messenger: Error');
@@ -36,7 +37,3 @@ msg.table([
   ['Kira','Erickson'],
   ['Joelle','Asoau'],
 ]);
-//
-//
-// msg.log(['mike','david'])
-// msg.info(['mike','david'])

@@ -1,15 +1,13 @@
 {
   "name": "cd-messenger",
-  "version": "2.0.0-build.155",
+  "version": "2.0.0-build.160",
   "description": "console log file logger gulp notification browser node",
   "main": "index.js",
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
     "all": "npm run eslint",
     "clean": "rimraf lib",
-    "build": "webpack",
+    "build": "webpack -p",
+    "dev": "webpack -w -p",
     "test": "mocha",
     "eslint": "eslint \"./**/*.js\"",
     "lint": "npm run eslint"
@@ -40,13 +38,16 @@
   "devDependencies": {
     "babel-core": "6.21.0",
     "babel-loader": "6.2.10",
-    "babel-preset-es2015": "6.18.0",
+    "babel-preset-es2015-without-strict": "0.0.4",
     "chai": "3.5.0",
     "eslint": "3.12.2",
     "eslint-loader": "1.6.1",
     "eslint-plugin-you-dont-need-lodash-underscore": "5.0.4",
     "mocha": "3.2.0",
-    "webpack": "1.14.0"
+    "progress-bar-webpack-plugin": "1.9.1",
+    "semver-extended-webpack-plugin": "1.2.4",
+    "webpack": "1.14.0",
+    "webpack-build-notifier": "0.1.13"
   },
   "dependencies": {
     "bowser": "1.6.0",
