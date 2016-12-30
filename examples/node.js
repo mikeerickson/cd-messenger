@@ -10,6 +10,8 @@ let data = [
 ];
 
 let msg = require('../index.js');
+
+console.log(chalk.green.bold('Version: ' + msg.version()));
 msg.log(chalk.green.bold('Node Messenger: Log'));
 msg.info('Node Messenger: Info',['mike','kira']);
 msg.note('Node Messenger: Note',['mike','kira']);

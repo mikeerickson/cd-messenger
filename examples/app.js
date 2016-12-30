@@ -9,6 +9,10 @@ let data = [
 
 // messenger.log('test logger',[{fname: 'MIke'}]);
 //
+
+let vers = messenger.version();
+console.log('Version: ' + vers);
+
 messenger.info('info');
 messenger.note('note');
 messenger.success('success');

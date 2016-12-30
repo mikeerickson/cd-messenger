@@ -1,5 +1,3 @@
-// webpack.config.js
-
 const webpack             = require('webpack');
 const path                = require('path');
 const chalk               = require('chalk');
@@ -26,6 +24,8 @@ var config = {
   module: {
     loaders: [
       {test: /(\.jsx|\.js)$/, loaders: ['babel', 'eslint-loader'], exclude: /(node_modules)/},
+      {test: /\.json?$/, loaders: ['json-loader'], exclude: /node_modules/},
+
     ]
   },
   resolve: {
@@ -34,7 +34,7 @@ var config = {
   },
   plugins: [
     new ProgressBarPlugin({
-      format: chalk.yellow.bold('  Building Development [:bar] ') + chalk.green.bold(':percent') + chalk.bold(' (:elapsed seconds)'),
+      format: chalk.yellow.bold('Building Development [:bar] ') + chalk.green.bold(':percent') + chalk.bold(' (:elapsed seconds)'),
       clear: true,
       summary: true
     }),

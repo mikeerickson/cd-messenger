@@ -3,11 +3,15 @@ var _         = require('lodash');
 var chalk     = require('chalk');
 var cl        = require('chalkline');
 var Table     = require('cli-table2');
+var pkgInfo   = require('../package.json');
 
 // const COLOR_ORANGE = '\033[38;5;214m';
 // const COLOR_RESET  = '\033[m';
 
 var messenger = {
+  version: function () {
+    return pkgInfo.version;
+  },
   log: function (...params) {
     console.log(...params);
   },

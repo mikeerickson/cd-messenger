@@ -1,6 +1,6 @@
 {
   "name": "cd-messenger",
-  "version": "2.0.0-build.163",
+  "version": "2.0.0-build.179",
   "description": "console log file logger gulp notification browser node",
   "main": "index.js",
   "scripts": {
@@ -9,6 +9,7 @@
     "build": "webpack -p",
     "dev": "webpack -w -p",
     "test": "mocha",
+    "test:node": "node examples/node",
     "eslint": "eslint \"./**/*.js\"",
     "lint": "npm run eslint"
   },
@@ -43,6 +44,7 @@
     "eslint": "3.12.2",
     "eslint-loader": "1.6.1",
     "eslint-plugin-you-dont-need-lodash-underscore": "5.0.4",
+    "json-loader": "0.5.4",
     "mocha": "3.2.0",
     "progress-bar-webpack-plugin": "1.9.1",
     "semver-extended-webpack-plugin": "1.2.4",
