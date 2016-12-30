@@ -1,3 +1,5 @@
+/*global require*/
+
 const bowser  = require('bowser');
 const pkgInfo = require('./package.json');
 const Browser = require('./src/messenger-browser');
