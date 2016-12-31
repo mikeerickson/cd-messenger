@@ -1,5 +1,5 @@
-let logger = require('pretty-web-logger');
-let _      = require('lodash');
+let logger  = require('pretty-web-logger');
+let _       = require('lodash');
 
 let bgColor = 'white';
 let mgStyle = '';
