@@ -1,17 +1,15 @@
 const pkgInfo = require('../package.json');
 const chalk   = require('chalk');
 const cl      = require('chalkline');
-var Table     = require('cli-table2');
-var _         = require('lodash');
+const _       = require('lodash');
+let Table     = require('cli-table2');
 
 class MessengerNode {
   construtor(pkgInfo = pkgInfo) {
     this.pkgInfo = pkgInfo;
   }
   version() {
-    console.log(this.pkgInfo);
-    return 'tes';
-    // return this.pkgInfo.version;
+    return this.pkgInfo.version;
   }
   log(...params) {
     console.log(...params);
