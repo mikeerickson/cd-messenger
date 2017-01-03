@@ -9,6 +9,7 @@
     "build": "webpack -p",
     "deploy": "np --yolo",
     "dev": "webpack -w -p",
+    "publish": "npm run deploy",
     "test": "mocha -w",
     "test:node": "node examples/node",
     "eslint": "eslint \"./**/*.js\"",
