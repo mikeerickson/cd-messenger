@@ -4,6 +4,8 @@ const chalk               = require('chalk');
 const ProgressBarPlugin   = require('progress-bar-webpack-plugin');
 const SemverPlugin        = require('semver-extended-webpack-plugin');
 const BuildNotifierPlugin = require('webpack-build-notifier');
+const CopyWebpackPlugin   = require('copy-webpack-plugin');
+
 
 const libraryName         = 'messenger';
 const outputFile          = libraryName + '.js';
@@ -47,6 +49,9 @@ var config = {
       logo: path.resolve(__dirname, 'src/assets/cd-logo.png'),
       suppressSuccess: true
     }),
+    new CopyWebpackPlugin([
+      {from: './lib/messenger.js', to: '../examples/lib/messenger.js'},
+    ]),
 
   ]
 
