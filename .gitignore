@@ -4,6 +4,4 @@ sandbox
 logs
 TODO.md
 todo.json
-/lib/
 /.idea/
-/examples/lib/
