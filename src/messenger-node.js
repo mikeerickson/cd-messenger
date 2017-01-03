@@ -18,19 +18,24 @@ var messenger = {
   },
   info: function (...params) {
     console.log(chalk.cyan(...params));
+    return params;
   },
   note: function (msg, ...params) {
     // msg = COLOR_ORANGE + msg + COLOR_RESET;
     console.log(msg, ...params);
+    return params;
   },
   success: function (...params) {
     console.log(chalk.green(...params));
+    return params;
   },
   warning: function (...params) {
     console.log(chalk.yellow(...params));
+    return params;
   },
   error: function (...params) {
     console.log(chalk.red(...params));
+    return params;
   },
   table: function (data) {
     var table = new Table({});
@@ -58,6 +63,7 @@ var messenger = {
   },
   dir: function (data) {
     console.dir(data);
+    return params;
   }
 };
 

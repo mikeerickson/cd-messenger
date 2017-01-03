@@ -1,9 +1,11 @@
-let assert = require('chai').assert;
-let expect = require('chai').expect;
-
+let chai   = require('chai');
+let chalk  = require('chalk');
+let assert = chai.assert;
+let expect = chai.expect;
 let _      = require('lodash');
 
-describe('==> Messenger Node (Console)', () => {
+describe(chalk.cyan.bold('==> Messenger Node (Console)'), () => {
+
   let messenger;
   let methods = ['version','info','note','log','error','success','warning','table','dir']
   beforeEach(function () {
@@ -23,6 +25,7 @@ describe('==> Messenger Node (Console)', () => {
       assert(messenger.hasOwnProperty(item));
     });
   });
+
   it('should return supplied message', function () {
     var result = messenger.log('test message');
     expect(result).to.be.array;
