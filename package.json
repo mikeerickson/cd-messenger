@@ -8,7 +8,7 @@
     "clean": "rimraf lib",
     "build": "webpack -p",
     "dev": "webpack -w -p",
-    "test": "mocha -w",
+    "__test__": "mocha -w",
     "test:node": "node examples/node",
     "eslint": "eslint \"./**/*.js\"",
     "lint": "npm run eslint"
