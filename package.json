@@ -8,7 +8,6 @@
     "clean": "rimraf lib",
     "build": "webpack -p",
     "dev": "webpack -w -p",
-    "publish": "npm run deploy",
     "test": "mocha -w",
     "test:node": "node examples/node",
     "eslint": "eslint \"./**/*.js\"",
