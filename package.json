@@ -1,6 +1,6 @@
 {
   "name": "cd-messenger",
-  "version": "2.0.0-build.185",
+  "version": "2.0.0-build.186",
   "description": "console log logger gulp notification browser node",
   "main": "index.js",
   "scripts": {
