@@ -6,9 +6,10 @@ const SemverPlugin        = require('semver-extended-webpack-plugin');
 const BuildNotifierPlugin = require('webpack-build-notifier');
 const CopyWebpackPlugin   = require('copy-webpack-plugin');
 
-
 const libraryName         = 'messenger';
 const outputFile          = libraryName + '.js';
+const outputPath          = path.join(__dirname, 'lib');
+const publicPath          = path.join(__dirname, 'examples');
 
 var config = {
   entry: path.join(__dirname, 'index.js'),
@@ -17,7 +18,7 @@ var config = {
     warnings: false
   },
   output: {
-    path: __dirname + '/lib',
+    path: outputPath,
     filename: outputFile,
     library: libraryName,
     libraryTarget: 'umd',
@@ -27,7 +28,6 @@ var config = {
     loaders: [
       {test: /(\.jsx|\.js)$/, loaders: ['babel', 'eslint-loader'], exclude: /(node_modules)/},
       {test: /\.json?$/, loaders: ['json-loader'], exclude: /node_modules/},
-
     ]
   },
   resolve: {
@@ -50,7 +50,7 @@ var config = {
       suppressSuccess: true
     }),
     new CopyWebpackPlugin([
-      {from: './lib/messenger.js', to: '../examples/lib/messenger.js'},
+      {from: './lib/messenger.*', to: path.join(publicPath)},
     ]),
 
   ]
