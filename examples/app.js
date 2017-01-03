@@ -21,4 +21,4 @@ messenger.error('error');
 messenger.chalkline('*');
 
 let el = document.querySelector('#app');
-el.innerHTML = 'v' + vers;
+el.innerHTML = '<pre>v' + vers + '</pre>';

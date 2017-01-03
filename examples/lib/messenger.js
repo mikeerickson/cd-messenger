@@ -661,7 +661,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = {
 		"name": "cd-messenger",
-		"version": "2.0.0-build.200",
+		"version": "2.0.0-build.201",
 		"description": "console log logger gulp notification browser node",
 		"main": "index.js",
 		"scripts": {
