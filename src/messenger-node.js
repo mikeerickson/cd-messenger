@@ -14,6 +14,7 @@ var messenger = {
   },
   log: function (...params) {
     console.log(...params);
+    return params;
   },
   info: function (...params) {
     console.log(chalk.cyan(...params));
