@@ -1,6 +1,6 @@
 {
   "name": "cd-messenger",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "console log logger gulp notification browser node",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "clean": "rimraf lib",
     "build": "webpack -p",
     "dev": "webpack -w -p",
-    "__test__": "mocha -w",
+    "test": "mocha -w",
     "test:node": "node examples/node",
     "eslint": "eslint \"./**/*.js\"",
     "lint": "npm run eslint"
