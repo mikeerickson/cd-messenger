@@ -1,7 +1,7 @@
 
 var _         = require('lodash');
 var chalk     = require('chalk');
-var cl        = require('chalkline');
+// var cl        = require('chalkline');
 var Table     = require('cli-table2');
 var pkgInfo   = require('../package.json');
 
@@ -63,7 +63,7 @@ var messenger = {
   },
   dir: function (data) {
     console.dir(data);
-    return params;
+    return data;
   }
 };
 
