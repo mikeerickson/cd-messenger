@@ -1,7 +1,7 @@
 
 var _         = require('lodash');
 var chalk     = require('chalk');
-// var cl        = require('chalkline');
+var cl        = require('chalkline');
 var Table     = require('cli-table2');
 var pkgInfo   = require('../package.json');
 
@@ -11,6 +11,9 @@ var pkgInfo   = require('../package.json');
 var messenger = {
   version: function () {
     return pkgInfo.version;
+  },
+  name: function () {
+    return pkgInfo.name;
   },
   log: function (...params) {
     console.log(...params);

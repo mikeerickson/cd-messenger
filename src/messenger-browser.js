@@ -18,6 +18,9 @@ class MessengerBrowser {
   version() {
     return this.pkgInfo.version;
   }
+  name() {
+    return this.pkgInfo.name;
+  }
   log(msg, ...params) {
     logger.log(msg, ...params);
   }

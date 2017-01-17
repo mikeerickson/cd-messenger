@@ -1,16 +1,18 @@
 {
   "name": "cd-messenger",
-  "version": "2.0.6",
+  "version": "2.1.0-build.15",
   "description": "console log logger gulp notification browser node",
   "main": "index.js",
   "scripts": {
     "all": "npm run eslint",
     "clean": "rimraf lib",
-    "build": "webpack -p",
-    "dev": "webpack -w -p",
-    "test": "mocha",
+    "build": "npm run build:dev && npm run build:prod",
+    "build:dev": "webpack",
+    "build:prod": "webpack -p",
+    "build:watch": "webpack -w",
+    "test": "./node_modules/.bin/mocha --compilers js:babel-core/register",
     "test:watch": "mocha -w",
-    "test:node": "node examples/node",
+    "test:node": "node examples/node-test",
     "eslint": "eslint \"./**/*.js\"",
     "lint": "npm run eslint"
   },
@@ -42,7 +44,7 @@
     "babel-preset-es2015-without-strict": "0.0.4",
     "chai": "3.5.0",
     "copy-webpack-plugin": "4.0.1",
-    "eslint": "3.12.2",
+    "eslint": "3.13.1",
     "eslint-loader": "1.6.1",
     "eslint-plugin-you-dont-need-lodash-underscore": "5.0.4",
     "json-loader": "0.5.4",
@@ -51,7 +53,7 @@
     "progress-bar-webpack-plugin": "1.9.2",
     "semver-extended-webpack-plugin": "1.2.4",
     "sinon": "1.17.7",
-    "webpack": "1.14.0",
+    "webpack": "2.2.0",
     "webpack-build-notifier": "0.1.13"
   },
   "dependencies": {
