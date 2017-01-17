@@ -2,13 +2,15 @@ import webpack             from 'webpack';
 import path                from 'path';
 import chalk               from 'chalk';
 
+import BuildNotifierPlugin from 'webpack-build-notifier';
 import ProgressBarPlugin   from 'progress-bar-webpack-plugin';
 import SemverPlugin        from 'semver-extended-webpack-plugin';
-import BuildNotifierPlugin from 'webpack-build-notifier';
-import CopyWebpackPlugin   from 'copy-webpack-plugin';
+
+const isProd   = (process.env.ENV === 'production');
 
 const libraryName = 'messenger';
-const outputFile  = libraryName + '.js';
+
+const outputFile  = isProd ? libraryName + '.min.js' : libraryName + '.js';
 const outputPath  = path.join(__dirname, 'lib');
 const publicPath  = path.join(__dirname, 'examples');
 
@@ -16,7 +18,8 @@ webpackConfig = {
   entry: path.join(__dirname, 'index.js'),
   devtool: 'source-map',
   stats: {
-    warnings: false
+    warnings: false,
+    silent: true
   },
   output: {
     path: outputPath,
@@ -32,7 +35,7 @@ webpackConfig = {
   },
   plugins: [
     new ProgressBarPlugin({
-      format: chalk.yellow.bold('Building Development [:bar] ') + chalk.green.bold(':percent') + chalk.bold(' (:elapsed seconds)'),
+      format: chalk.yellow.bold('Building [:bar] ') + chalk.green.bold(':percent') + chalk.bold(' (:elapsed seconds)'),
       clear: true,
       summary: true
     }),
@@ -44,12 +47,13 @@ webpackConfig = {
       title: 'CD Messenger',
       logo: path.resolve(__dirname, 'src/assets/cd-logo.png'),
       suppressSuccess: true
-    }),
-    new CopyWebpackPlugin([
-      {from: './lib/messenger.*', to: path.join(publicPath)},
-    ]),
-
+    })
   ]
 
 };
+
+if (isProd) {
+  delete webpackConfig.devtool;
+}
+
 export default webpackConfig;
