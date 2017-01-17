@@ -5,16 +5,16 @@
   "main": "index.js",
   "scripts": {
     "all": "npm run eslint",
-    "clean": "rimraf lib && rimraf examples/lib",
-    "build": "npm run clean && npm run build:dev && npm run build:prod",
     "build:dev": "node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.babel.js && bash ./scripts/copy.sh",
     "build:prod": "ENV=production node -r babel-register node_modules/.bin/webpack --hide-modules -p --config=webpack.config.babel.js && bash ./scripts/copy.sh",
     "build:watch": "node -r babel-register node_modules/.bin/webpack --hide-modules -w --config=webpack.config.babel.js && bash ./scripts/copy.s",
-    "test": "./node_modules/.bin/mocha --compilers js:babel-core/register",
-    "test:watch": "./node_modules/.bin/mocha --compilers js:babel-core/register -w",
-    "test:node": "node examples/node-test",
+    "build": "npm run clean && npm run build:dev && npm run build:prod",
+    "clean": "rimraf lib && rimraf examples/lib",
     "eslint": "eslint \"./**/*.js\"",
-    "lint": "npm run eslint"
+    "lint": "npm run eslint",
+    "test:node": "node examples/node-test",
+    "test:watch": "./node_modules/.bin/mocha --compilers js:babel-core/register -w",
+    "test": "./node_modules/.bin/mocha --compilers js:babel-core/register"
   },
   "repository": {
     "type": "git",
