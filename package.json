@@ -1,12 +1,12 @@
 {
   "name": "cd-messenger",
-  "version": "2.2.1-build.24",
+  "version": "2.2.1-build.36",
   "description": "console log logger gulp notification browser node message",
   "main": "index.js",
   "scripts": {
     "all": "npm run eslint",
     "build:dev": "node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.babel.js && bash ./scripts/copy.sh",
-    "build:prod": "ENV=production node -r babel-register node_modules/.bin/webpack --hide-modules -p --config=webpack.config.babel.js && bash ./scripts/copy.sh",
+    "build:prod": "ENV=production node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.babel.js -p && bash ./scripts/copy.sh",
     "build:watch": "node -r babel-register node_modules/.bin/webpack --hide-modules -w --config=webpack.config.babel.js && bash ./scripts/copy.s",
     "build": "npm run clean && npm run build:dev && npm run build:prod",
     "clean": "./node_modules/.bin/rimraf lib && ./node_modules/.bin/rimraf examples/lib",
@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "bowser": "1.6.0",
-    "chalk": "github:chalk/chalk#256-truecolor",
+    "chalk": "1.1.3",
     "chalkline": "0.0.5",
     "cli-table2": "0.2.0",
     "lodash": "4.17.4",

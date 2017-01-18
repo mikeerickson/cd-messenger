@@ -24,7 +24,8 @@ var messenger = {
     return params;
   },
   note: function (msg, ...params) {
-    console.log(chalk.keyword('orange')(msg, ...params));
+    // console.log(chalk.keyword('orange')(msg, ...params));
+    console.log(msg, ...params);
     return params;
   },
   success: function (...params) {
