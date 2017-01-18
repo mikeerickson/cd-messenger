@@ -24,8 +24,7 @@ var messenger = {
     return params;
   },
   note: function (msg, ...params) {
-    // msg = COLOR_ORANGE + msg + COLOR_RESET;
-    console.log(msg, ...params);
+    console.log(chalk.keyword('orange')(msg, ...params));
     return params;
   },
   success: function (...params) {
