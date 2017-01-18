@@ -14,7 +14,8 @@
     "lint": "npm run eslint",
     "test:node": "node examples/node-test",
     "test:watch": "./node_modules/.bin/mocha --compilers js:babel-core/register -w",
-    "test": "./node_modules/.bin/mocha --compilers js:babel-core/register"
+    "test": "./node_modules/.bin/mocha --compilers js:babel-core/register",
+    "publish": "npm run build:prod"
   },
   "repository": {
     "type": "git",
