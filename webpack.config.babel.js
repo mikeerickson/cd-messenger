@@ -6,7 +6,8 @@ import BuildNotifierPlugin from 'webpack-build-notifier';
 import ProgressBarPlugin   from 'progress-bar-webpack-plugin';
 import SemverPlugin        from 'semver-extended-webpack-plugin';
 
-const isProd   = (process.env.ENV === 'production');
+const isProd = (process.env.ENV === 'production') || (process.env.NODE_ENV === 'production');
+const isDev  = !isProd;
 
 const libraryName = 'messenger';
 
@@ -39,10 +40,6 @@ webpackConfig = {
       clear: true,
       summary: true
     }),
-    new SemverPlugin({
-      files: [path.resolve(__dirname, 'package.json')],
-      incArgs: ['prerelease','build']
-    }),
     new BuildNotifierPlugin({
       title: 'CD Messenger',
       logo: path.resolve(__dirname, 'src/assets/cd-logo.png'),
@@ -51,6 +48,15 @@ webpackConfig = {
   ]
 
 };
+
+if (isDev) {
+  webpackConfig.plugins.push(
+    new SemverPlugin({
+      files: [path.resolve(__dirname, 'package.json')],
+      incArgs: ['prerelease','build']
+    })
+  );
+}
 
 if (isProd) {
   delete webpackConfig.devtool;
