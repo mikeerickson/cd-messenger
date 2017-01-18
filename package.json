@@ -1,6 +1,6 @@
 {
   "name": "cd-messenger",
-  "version": "2.2.1-build.7",
+  "version": "2.2.1-build.23",
   "description": "console log logger gulp notification browser node message",
   "main": "index.js",
   "scripts": {
@@ -61,6 +61,7 @@
     "chalkline": "0.0.5",
     "cli-table2": "0.2.0",
     "lodash": "4.17.4",
-    "pretty-web-logger": "1.0.7"
+    "pretty-web-logger": "1.0.7",
+    "purdy": "2.2.0"
   }
 }

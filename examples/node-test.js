@@ -29,8 +29,8 @@ msg.chalkline('magenta');
 msg.chalkline('purple');
 msg.chalkline('blue');
 
-
 msg.dir(data);
+
 msg.table([
   {fname: 'Mike', lname: 'Erickson'},
   {fname: 'Kira', lname: 'Erickson'},

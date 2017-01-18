@@ -26,6 +26,7 @@ msg.info    (`name: ${name}`);  // default color Cyan
 msg.success (`name: ${name}`);  // default color Green
 msg.warning (`name: ${name}`);  // default color Yellow
 msg.error   (`name: ${name}`);  // default color Red
+msg.note    (`name: ${name}`);  // default color Orange
 msg.debug   (`name: ${name}`);  // default color white
 msg.table   (array|object)
 ```
