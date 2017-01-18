@@ -12874,7 +12874,7 @@ module.exports = function(module) {
 
 module.exports = {
 	"name": "cd-messenger",
-	"version": "2.2.2-build.4",
+	"version": "2.2.4-build.26",
 	"description": "console log logger gulp notification browser node message",
 	"main": "index.js",
 	"scripts": {
@@ -12888,7 +12888,8 @@ module.exports = {
 		"lint": "npm run eslint",
 		"test:node": "node examples/node-test",
 		"test:watch": "./node_modules/.bin/mocha --compilers js:babel-core/register -w",
-		"test": "./node_modules/.bin/mocha --compilers js:babel-core/register"
+		"test": "./node_modules/.bin/mocha --compilers js:babel-core/register",
+		"publish": "npm run build:prod"
 	},
 	"repository": {
 		"type": "git",
@@ -12919,6 +12920,7 @@ module.exports = {
 		"chai": "3.5.0",
 		"eslint": "3.13.1",
 		"eslint-loader": "1.6.1",
+		"html-webpack-plugin": "2.26.0",
 		"json-loader": "0.5.4",
 		"mocha": "3.2.0",
 		"mocha-sinon": "1.1.6",
@@ -30714,6 +30716,9 @@ module.exports = MessengerBrowser;
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var _ = __webpack_require__(11);
 var chalk = __webpack_require__(8);
@@ -30724,96 +30729,127 @@ var pkgInfo = __webpack_require__(5);
 // const COLOR_ORANGE = '\033[38;5;214m';
 // const COLOR_RESET  = '\033[m';
 
-var messenger = {
-  version: function version() {
-    return pkgInfo.version;
-  },
-  name: function name() {
-    return pkgInfo.name;
-  },
-  log: function log() {
-    var _console;
+var MessengerNode = function () {
+  function MessengerNode() {
+    _classCallCheck(this, MessengerNode);
 
-    for (var _len = arguments.length, params = Array(_len), _key = 0; _key < _len; _key++) {
-      params[_key] = arguments[_key];
-    }
-
-    (_console = console).log.apply(_console, params);
-    return params;
-  },
-  info: function info() {
-    for (var _len2 = arguments.length, params = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-      params[_key2] = arguments[_key2];
-    }
-
-    console.log(chalk.cyan.apply(chalk, params));
-    return params;
-  },
-  note: function note(msg) {
-    var _console2;
-
-    for (var _len3 = arguments.length, params = Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
-      params[_key3 - 1] = arguments[_key3];
-    }
-
-    // console.log(chalk.keyword('orange')(msg, ...params));
-    (_console2 = console).log.apply(_console2, [msg].concat(params));
-    return params;
-  },
-  success: function success() {
-    for (var _len4 = arguments.length, params = Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
-      params[_key4] = arguments[_key4];
-    }
-
-    console.log(chalk.green.apply(chalk, params));
-    return params;
-  },
-  warning: function warning() {
-    for (var _len5 = arguments.length, params = Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
-      params[_key5] = arguments[_key5];
-    }
-
-    console.log(chalk.yellow.apply(chalk, params));
-    return params;
-  },
-  error: function error() {
-    for (var _len6 = arguments.length, params = Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
-      params[_key6] = arguments[_key6];
-    }
-
-    console.log(chalk.red.apply(chalk, params));
-    return params;
-  },
-  table: function table(data) {
-    var table = new Table({});
-
-    if (data.length > 0) {
-      if (!_.isArray(data[0])) {
-        table.push(Object.keys(data[0]));
-      }
-    }
-
-    data.map(function (item) {
-      table.push(_.values(item));
-    });
-    console.log(table.toString());
-  },
-  chalkline: function chalkline(color) {
-    if (color.length > 0) {
-      try {
-        eval('cl.' + color + '()'); // eslint-disable-line
-      } catch (e) {
-        console.error(chalk.bgRed.bold('Invalid Color: ' + color));
-      }
-    }
-  },
-  dir: function dir(data) {
-    console.dir(data);
-    return data;
+    this.pkgInfo = pkgInfo;
   }
-};
 
-module.exports = messenger;
+  _createClass(MessengerNode, [{
+    key: 'version',
+    value: function version() {
+      return this.pkgInfo.version;
+    }
+  }, {
+    key: 'name',
+    value: function name() {
+      return this.pkgInfo.name;
+    }
+  }, {
+    key: 'log',
+    value: function log() {
+      var _console;
+
+      for (var _len = arguments.length, params = Array(_len), _key = 0; _key < _len; _key++) {
+        params[_key] = arguments[_key];
+      }
+
+      (_console = console).log.apply(_console, params);
+      return params;
+    }
+  }, {
+    key: 'info',
+    value: function info() {
+      for (var _len2 = arguments.length, params = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        params[_key2] = arguments[_key2];
+      }
+
+      console.log(chalk.cyan.apply(chalk, params));
+      return params;
+    }
+  }, {
+    key: 'note',
+    value: function note(msg) {
+      var _console2;
+
+      for (var _len3 = arguments.length, params = Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
+        params[_key3 - 1] = arguments[_key3];
+      }
+
+      // console.log(chalk.keyword('orange')(msg, ...params));
+      (_console2 = console).log.apply(_console2, [msg].concat(params));
+      return params;
+    }
+  }, {
+    key: 'success',
+    value: function success() {
+      for (var _len4 = arguments.length, params = Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+        params[_key4] = arguments[_key4];
+      }
+
+      console.log(chalk.green.apply(chalk, params));
+      return params;
+    }
+  }, {
+    key: 'warning',
+    value: function warning() {
+      for (var _len5 = arguments.length, params = Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
+        params[_key5] = arguments[_key5];
+      }
+
+      console.log(chalk.yellow.apply(chalk, params));
+      return params;
+    }
+  }, {
+    key: 'error',
+    value: function error() {
+      for (var _len6 = arguments.length, params = Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
+        params[_key6] = arguments[_key6];
+      }
+
+      console.log(chalk.red.apply(chalk, params));
+      return params;
+    }
+  }, {
+    key: 'table',
+    value: function table(data) {
+      var table = new Table({});
+
+      if (data.length > 0) {
+        if (!_.isArray(data[0])) {
+          table.push(Object.keys(data[0]));
+        }
+      }
+
+      data.map(function (item) {
+        table.push(_.values(item));
+      });
+      console.log(table.toString());
+    }
+  }, {
+    key: 'chalkline',
+    value: function chalkline(color) {
+      if (color.length > 0) {
+        try {
+          eval('cl.' + color + '()'); // eslint-disable-line
+        } catch (e) {
+          console.error(chalk.bgRed.bold('Invalid Color: ' + color));
+        }
+      }
+    }
+  }, {
+    key: 'dir',
+    value: function dir(data) {
+      console.dir(data);
+      return data;
+    }
+  }]);
+
+  return MessengerNode;
+}();
+
+module.exports = MessengerNode;
 
 /***/ }),
 /* 15 */

@@ -1,60 +1,66 @@
 
-var _         = require('lodash');
-var chalk     = require('chalk');
-var cl        = require('chalkline');
-var Table     = require('cli-table2');
-var pkgInfo   = require('../package.json');
+const _       = require('lodash');
+const chalk   = require('chalk');
+const cl      = require('chalkline');
+const Table   = require('cli-table2');
+const pkgInfo = require('../package.json');
 
-// const COLOR_ORANGE = '\033[38;5;214m';
-// const COLOR_RESET  = '\033[m';
-
-var messenger = {
-  version: function () {
+const messenger = {
+  version: () => {
     return pkgInfo.version;
   },
-  name: function () {
+  name: () => {
     return pkgInfo.name;
   },
-  log: function (...params) {
+  log: (...params) => {
     console.log(...params);
     return params;
   },
-  info: function (...params) {
+  info: (...params) => {
     console.log(chalk.cyan(...params));
     return params;
   },
-  note: function (msg, ...params) {
+  note: (msg, ...params) => {
     // console.log(chalk.keyword('orange')(msg, ...params));
     console.log(msg, ...params);
     return params;
   },
-  success: function (...params) {
+  success: (...params) => {
     console.log(chalk.green(...params));
     return params;
   },
-  warning: function (...params) {
+  warning: (...params) => {
     console.log(chalk.yellow(...params));
     return params;
   },
-  error: function (...params) {
+  error: (...params) => {
     console.log(chalk.red(...params));
     return params;
   },
-  table: function (data) {
-    var table = new Table({});
-
+  table: (data) => {
+    let table;
+    let head = [];
     if (data.length > 0) {
-      if (!_.isArray(data[0])) {
-        table.push(Object.keys(data[0]));
-      }
-    }
 
-    data.map(function (item){
-      table.push(_.values(item));
-    });
-    console.log(table.toString());
+      if (_.isArray(data[0])) {
+        header = data[0];
+        data.splice(0,1);
+      }
+      else {
+        header = Object.keys(data[0]);
+      }
+      header = header.map(function (item){
+        return chalk.cyan.bold(item);
+      });
+      table = new Table({head: header});
+
+      data.map((item) => {
+        table.push(_.values(item));
+      });
+      console.log(table.toString());
+    }
   },
-  chalkline: function (color) {
+  chalkline: (color) => {
     if (color.length > 0) {
       try {
         eval(`cl.${color}()`); // eslint-disable-line
@@ -64,7 +70,7 @@ var messenger = {
       }
     }
   },
-  dir: function (data) {
+  dir: (data) => {
     console.dir(data);
     return data;
   }

@@ -1,12 +1,12 @@
 const chalk = require('chalk');
 
 let data = [
-  {fname: 'Mike', lname: 'Erickson'},
-  {fname: 'Kira', lname: 'Erickson'},
-  {fname: 'Joelle', lname: 'Asoau'},
-  {fname: 'Brady', lname: 'Erickson'},
-  {fname: 'Bailey', lname: 'Erickson'},
-  {fname: 'Trevor', lname: 'Erickson'},
+  {fname: 'Mike', lname: 'Erickson', gender: 'Male', role: 'Parent', kids: 'yes'},
+  {fname: 'Kira', lname: 'Erickson', gender: 'Female', role: 'Parent', kids: 'yes'},
+  {fname: 'Joelle', lname: 'Erickson (Asoau)', gender: 'Female', role: 'Child', kids: 'yes'},
+  {fname: 'Brady', lname: 'Erickson', gender: 'Male', role: 'Child', kids: 'no'},
+  {fname: 'Bailey', lname: 'Erickson', gender: 'Female', role: 'Child', kids: 'no'},
+  {fname: 'Trevor', lname: 'Erickson', gender: 'Male', role: 'Child', kids: 'no'},
 ];
 
 let msg = require('../index.js');
@@ -30,15 +30,17 @@ msg.chalkline('purple');
 msg.chalkline('blue');
 
 msg.dir(data);
+msg.chalkline('blue');
+
+msg.table(data);
+msg.chalkline('blue');
 
 msg.table([
-  {fname: 'Mike', lname: 'Erickson'},
-  {fname: 'Kira', lname: 'Erickson'},
-]);
-
-msg.table([
-  ['fname','lname'],
-  ['Mike','Erickson'],
-  ['Kira','Erickson'],
-  ['Joelle','Asoau'],
+  ['fname','lname','role'],
+  ['Mike','Erickson','Parent'],
+  ['Kira','Erickson','Parent'],
+  ['Joelle','Erickson (Asoau)','Child'],
+  ['Brady','Erickson','Child'],
+  ['Bailey','Erickson','Child'],
+  ['Trevor','Erickson','Child'],
 ]);

@@ -5,6 +5,7 @@ import chalk               from 'chalk';
 import BuildNotifierPlugin from 'webpack-build-notifier';
 import ProgressBarPlugin   from 'progress-bar-webpack-plugin';
 import SemverPlugin        from 'semver-extended-webpack-plugin';
+import HtmlWebpackPlugin   from 'html-webpack-plugin';
 
 const isProd = (process.env.ENV === 'production') || (process.env.NODE_ENV === 'production');
 const isDev  = !isProd;
@@ -14,6 +15,8 @@ const libraryName = 'messenger';
 const outputFile  = isProd ? libraryName + '.min.js' : libraryName + '.js';
 const outputPath  = path.join(__dirname, 'lib');
 const publicPath  = path.join(__dirname, 'examples');
+
+
 
 webpackConfig = {
   entry: path.join(__dirname, 'index.js'),
@@ -44,6 +47,12 @@ webpackConfig = {
       title: 'CD Messenger',
       logo: path.resolve(__dirname, 'src/assets/cd-logo.png'),
       suppressSuccess: true
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname,'src/index.ejs'),
+      inject: false,
+      title: 'CD Messenger',
+      script: outputFile
     })
   ]
 

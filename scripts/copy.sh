@@ -12,4 +12,6 @@ COL_CYAN=$ESC_SEQ"36;01m"
 
 mkdir ./examples/lib
 cp lib/*.js ./examples/lib
+mv lib/index.html ./examples
+
 printf " [${COL_GREEN} ok ${CO_RESET}] ${COL_YELLOW} ==> Files copied to examples...   ${COL_RESET}\n"
