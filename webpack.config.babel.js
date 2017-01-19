@@ -7,19 +7,16 @@ import HtmlWebpackPlugin   from 'html-webpack-plugin';
 import ProgressBarPlugin   from 'progress-bar-webpack-plugin';
 import SemverPlugin        from 'semver-extended-webpack-plugin';
 
-const isProd = (process.env.ENV === 'production') || (process.env.NODE_ENV === 'production');
-const isDev  = !isProd;
+const isProd      = (process.env.ENV === 'production') || (process.env.NODE_ENV === 'production');
+const isDev       = !isProd;
 
 const libraryName = 'messenger';
-
-const outputFile = isProd ? libraryName + '.min.js' : libraryName + '.js';
-const outputPath = path.join(__dirname, 'lib');
-const publicPath = path.join(__dirname, 'examples');
-
+const outputFile  = isProd ? libraryName + '.min.js' : libraryName + '.js';
+const outputPath  = path.join(__dirname, 'lib');
+const publicPath  = path.join(__dirname, 'examples');
 
 webpackConfig = {
   entry: path.join(__dirname, 'index.js'),
-  devtool: 'source-map',
   stats: {
     warnings: false,
     silent: true
@@ -58,16 +55,13 @@ webpackConfig = {
 };
 
 if (isDev) {
+  webpackConfig.devtool = 'source-map';
   webpackConfig.plugins.push(
     new SemverPlugin({
       files: [path.resolve(__dirname, 'package.json')],
       incArgs: ['prerelease','build']
     })
   );
-}
-
-if (isProd) {
-  delete webpackConfig.devtool;
 }
 
 export default webpackConfig;
