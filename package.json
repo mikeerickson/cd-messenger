@@ -3,6 +3,7 @@
   "version": "2.3.2",
   "description": "console log logger gulp notification browser node message",
   "main": "index.js",
+  "reveal": true,
   "scripts": {
     "all": "npm run eslint",
     "build:dev": "node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.babel.js && bash ./scripts/copy.sh",
