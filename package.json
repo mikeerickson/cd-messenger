@@ -12,10 +12,10 @@
     "clean": "./node_modules/.bin/rimraf lib && ./node_modules/.bin/rimraf examples/lib",
     "eslint": "eslint \"./**/*.js\"",
     "lint": "npm run eslint",
+    "publish": "npm run build:prod",
     "test:node": "node examples/node-test",
     "test:watch": "./node_modules/.bin/mocha --compilers js:babel-core/register -w",
-    "test": "./node_modules/.bin/mocha --compilers js:babel-core/register",
-    "publish": "npm run build:prod"
+    "test": "./node_modules/.bin/mocha --compilers js:babel-core/register"
   },
   "repository": {
     "type": "git",

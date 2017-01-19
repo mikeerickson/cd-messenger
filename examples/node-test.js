@@ -1,13 +1,5 @@
-const chalk = require('chalk');
-
-let data = [
-  {fname: 'Mike', lname: 'Erickson', gender: 'Male', role: 'Parent', kids: 'yes'},
-  {fname: 'Kira', lname: 'Erickson', gender: 'Female', role: 'Parent', kids: 'yes'},
-  {fname: 'Joelle', lname: 'Erickson (Asoau)', gender: 'Female', role: 'Child', kids: 'yes'},
-  {fname: 'Brady', lname: 'Erickson', gender: 'Male', role: 'Child', kids: 'no'},
-  {fname: 'Bailey', lname: 'Erickson', gender: 'Female', role: 'Child', kids: 'no'},
-  {fname: 'Trevor', lname: 'Erickson', gender: 'Male', role: 'Child', kids: 'no'},
-];
+const chalk  = require('chalk');
+const family = require('../data/family.json');
 
 let msg = require('../index.js');
 
@@ -29,10 +21,10 @@ msg.chalkline('magenta');
 msg.chalkline('purple');
 msg.chalkline('blue');
 
-msg.dir(data);
+msg.dir(family);
 msg.chalkline('blue');
 
-msg.table(data);
+msg.table(family);
 msg.chalkline('blue');
 
 msg.table([

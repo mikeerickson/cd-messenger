@@ -1,0 +1,8 @@
+[
+  {"fname": "Mike", "lname": "Erickson", "gender": "Male", "role": "Parent", "kids": "yes"},
+  {"fname": "Kira", "lname": "Erickson", "gender": "Female", "role": "Parent", "kids": "yes"},
+  {"fname": "Joelle", "lname": "Erickson (Asoau)", "gender": "Female", "role": "Child", "kids": "yes"},
+  {"fname": "Brady", "lname": "Erickson", "gender": "Male", "role": "Child", "kids": "no"},
+  {"fname": "Bailey", "lname": "Erickson", "gender": "Female", "role": "Child", "kids": "no"},
+  {"fname": "Trevor", "lname": "Erickson", "gender": "Male", "role": "Child", "kids": "no"}
+]
