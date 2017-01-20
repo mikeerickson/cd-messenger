@@ -1,9 +1,9 @@
 /*global require*/
 
-const bowser  = require('bowser');
-const pkgInfo = require('./package.json');
-const Browser = require('./src/messenger-browser');
-
-module.exports = (bowser.name !== '')
-  ? new Browser(pkgInfo)
-  : require('./src/messenger-node');
+if (process.browser) {
+  let Browser = require('./src/messenger-browser');
+  module.exports = new Browser(require('./package.json'));
+}
+else {
+  module.exports = require('./src/messenger-node');
+}
