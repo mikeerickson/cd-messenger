@@ -1,6 +1,6 @@
 {
   "name": "cd-messenger",
-  "version": "2.4.1",
+  "version": "2.4.2-build.47",
   "description": "console log logger gulp notification browser node message",
   "main": "index.js",
   "reveal": true,
@@ -8,7 +8,7 @@
     "all": "npm run eslint",
     "build:dev": "node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.babel.js && bash ./scripts/copy.sh",
     "build:prod": "ENV=production node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.babel.js -p && bash ./scripts/copy.sh",
-    "build:watch": "node -r babel-register node_modules/.bin/webpack --hide-modules -w --config=webpack.config.babel.js && bash ./scripts/copy.s",
+    "build:watch": "node -r babel-register node_modules/.bin/webpack --hide-modules -w --config=webpack.config.babel.js",
     "build": "npm run clean && npm run build:dev && npm run build:prod",
     "clean": "./node_modules/.bin/rimraf lib && ./node_modules/.bin/rimraf examples/lib",
     "eslint": "eslint \"./**/*.js\"",
@@ -41,9 +41,12 @@
   },
   "homepage": "https://github.com/mikeerickson/cd-messenger#readme",
   "devDependencies": {
+    "@slightlytyler/webpack-shell-plugin": "0.4.5",
     "babel-core": "6.21.0",
     "babel-loader": "6.2.10",
+    "babel-preset-babili": "0.0.10",
     "babel-preset-es2015-without-strict": "0.0.4",
+    "bump-version": "github:ianstormtaylor/bump",
     "chai": "3.5.0",
     "eslint": "3.13.1",
     "eslint-loader": "1.6.1",
@@ -53,7 +56,6 @@
     "mocha-sinon": "1.1.6",
     "progress-bar-webpack-plugin": "1.9.2",
     "rimraf": "2.5.4",
-    "semver-extended-webpack-plugin": "1.2.4",
     "sinon": "1.17.7",
     "webpack": "2.2.0",
     "webpack-build-notifier": "0.1.13"
@@ -63,6 +65,7 @@
     "chalkline": "0.0.5",
     "cli-table2": "0.2.0",
     "lodash": "4.17.4",
+    "object-assign": "4.1.1",
     "pretty-web-logger": "1.0.7",
     "purdy": "2.2.0"
   }

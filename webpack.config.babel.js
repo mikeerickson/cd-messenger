@@ -5,7 +5,7 @@ import chalk               from 'chalk';
 import BuildNotifierPlugin from 'webpack-build-notifier';
 import HtmlWebpackPlugin   from 'html-webpack-plugin';
 import ProgressBarPlugin   from 'progress-bar-webpack-plugin';
-import SemverPlugin        from 'semver-extended-webpack-plugin';
+import WebpackShellPlugin  from '@slightlytyler/webpack-shell-plugin';
 
 const isProd      = (process.env.ENV === 'production') || (process.env.NODE_ENV === 'production');
 const isDev       = !isProd;
@@ -56,12 +56,10 @@ webpackConfig = {
 
 if (isDev) {
   webpackConfig.devtool = 'source-map';
-  webpackConfig.plugins.push(
-    new SemverPlugin({
-      files: [path.resolve(__dirname, 'package.json')],
-      incArgs: ['prerelease','build']
-    })
-  );
+  webpackConfig.plugins.push(new WebpackShellPlugin({
+    onBuildStart: ['./node_modules/.bin/bump prerelease'], // need to bump version first before files copied etc
+    onBuildExit: ['echo "test"']
+  }));
 }
 
 export default webpackConfig;
