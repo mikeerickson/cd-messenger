@@ -10,8 +10,19 @@ COL_BLUE=$ESC_SEQ"34;01m"
 COL_MAGENTA=$ESC_SEQ"35;01m"
 COL_CYAN=$ESC_SEQ"36;01m"
 
-mkdir ./examples/lib
-cp lib/*.js ./examples/lib
-mv lib/index.html ./examples
+# if examples/lib does not exist, create
+if [ ! -d "./examples/lib" ]; then
+  mkdir ./examples/lib
+fi
 
-printf " [${COL_GREEN} ok ${CO_RESET}] ${COL_YELLOW} ==> Files copied to examples...   ${COL_RESET}\n"
+printf "\n ${COL_GREEN}[ •• ${CO_RESET}] ${COL_YELLOW} ==> Copying files to ${COL_CYAN}./examples${COL_GREEN} ...   ${COL_RESET}\n"
+
+# copy built lib files to examples
+cp lib/*.js ./examples/lib
+
+# copy built index.html
+if [ -d "./lib/index.html" ]; then
+  mv lib/index.html ./examples
+fi
+
+printf " ${COL_GREEN}[ ok ${CO_RESET}] ${COL_YELLOW} ==> Build Completed Successfully ... ${COL_RESET}\n\n"

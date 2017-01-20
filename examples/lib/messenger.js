@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 41);
+/******/ 	return __webpack_require__(__webpack_require__.s = 40);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -301,10 +301,10 @@ module['exports'] = colors;
 
 colors.themes = {};
 
-var ansiStyles = colors.styles = __webpack_require__(28);
+var ansiStyles = colors.styles = __webpack_require__(27);
 var defineProps = Object.defineProperties;
 
-colors.supportsColor = __webpack_require__(29);
+colors.supportsColor = __webpack_require__(28);
 
 if (typeof colors.enabled === "undefined") {
   colors.enabled = colors.supportsColor;
@@ -434,15 +434,15 @@ var sequencer = function sequencer (map, str) {
 };
 
 // custom formatter methods
-colors.trap = __webpack_require__(22);
-colors.zalgo = __webpack_require__(23);
+colors.trap = __webpack_require__(21);
+colors.zalgo = __webpack_require__(22);
 
 // maps
 colors.maps = {};
-colors.maps.america = __webpack_require__(24);
-colors.maps.zebra = __webpack_require__(27);
-colors.maps.rainbow = __webpack_require__(25);
-colors.maps.random = __webpack_require__(26)
+colors.maps.america = __webpack_require__(23);
+colors.maps.zebra = __webpack_require__(26);
+colors.maps.rainbow = __webpack_require__(24);
+colors.maps.random = __webpack_require__(25)
 
 for (var map in colors.maps) {
   (function(map){
@@ -12874,7 +12874,7 @@ module.exports = function(module) {
 
 module.exports = {
 	"name": "cd-messenger",
-	"version": "2.4.2-build.47",
+	"version": "2.5.1-15",
 	"description": "console log logger gulp notification browser node message",
 	"main": "index.js",
 	"reveal": true,
@@ -12926,6 +12926,7 @@ module.exports = {
 		"eslint-loader": "1.6.1",
 		"html-webpack-plugin": "2.26.0",
 		"json-loader": "0.5.4",
+		"lodash": "4.17.4",
 		"mocha": "3.2.0",
 		"mocha-sinon": "1.1.6",
 		"progress-bar-webpack-plugin": "1.9.2",
@@ -12938,7 +12939,6 @@ module.exports = {
 		"chalk": "1.1.3",
 		"chalkline": "0.0.5",
 		"cli-table2": "0.2.0",
-		"lodash": "4.17.4",
 		"object-assign": "4.1.1",
 		"pretty-web-logger": "1.0.7",
 		"purdy": "2.2.0"
@@ -13037,9 +13037,9 @@ Object.defineProperty(module, 'exports', {
 /* WEBPACK VAR INJECTION */(function(process) {
 var escapeStringRegexp = __webpack_require__(10);
 var ansiStyles = __webpack_require__(7);
-var stripAnsi = __webpack_require__(12);
-var hasAnsi = __webpack_require__(31);
-var supportsColor = __webpack_require__(37);
+var stripAnsi = __webpack_require__(11);
+var hasAnsi = __webpack_require__(30);
+var supportsColor = __webpack_require__(36);
 var defineProps = Object.defineProperties;
 var isSimpleWindowsTerm = process.platform === 'win32' && !/^xterm/i.test(process.env.TERM);
 
@@ -13158,7 +13158,7 @@ module.exports.supportsColor = supportsColor;
 /***/ (function(module, exports, __webpack_require__) {
 
 var _ = __webpack_require__(2);
-var stringWidth = __webpack_require__(36);
+var stringWidth = __webpack_require__(35);
 
 function codeRegex(capture){
   return capture ? /\u001b\[((?:\d*;){0,5}\d*)m/g : /\u001b\[(?:\d*;){0,5}\d*m/g
@@ -13483,6 +13483,1590 @@ module.exports = function (str) {
 
 /***/ }),
 /* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var ansiRegex = __webpack_require__(6)();
+
+module.exports = function (str) {
+	return typeof str === 'string' ? str.replace(ansiRegex, '') : str;
+};
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var logger = __webpack_require__(34);
+
+function showColorMessage(msg) {
+  var bgColor = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'white';
+
+  var mgStyle = 'background: ' + bgColor + '; color: white; display: block;';
+  if (bgColor === 'yellow') {
+    mgStyle = 'background: ' + bgColor + '; color: black; display: block;';
+  }
+
+  for (var _len = arguments.length, params = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+    params[_key - 2] = arguments[_key];
+  }
+
+  params.length > 0 ? console.log('%c%s', mgStyle, msg, params) : console.log('%c%s', mgStyle, msg);
+}
+
+var MessengerBrowser = function () {
+  function MessengerBrowser() {
+    var pkgInfo = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    _classCallCheck(this, MessengerBrowser);
+
+    this.options = {
+      logger: false
+    };
+    this.pkgInfo = pkgInfo;
+  }
+
+  _createClass(MessengerBrowser, [{
+    key: 'setOptions',
+    value: function setOptions() {
+      var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      this.options = Object.assign(this.options, opts);
+    }
+  }, {
+    key: 'version',
+    value: function version() {
+      return this.pkgInfo.version;
+    }
+  }, {
+    key: 'name',
+    value: function name() {
+      return this.pkgInfo.name;
+    }
+  }, {
+    key: 'log',
+    value: function log(msg) {
+      var _console, _console2;
+
+      for (var _len2 = arguments.length, params = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+        params[_key2 - 1] = arguments[_key2];
+      }
+
+      this.options.logger ? logger.log.apply(logger, [msg].concat(params)) : (_console = console).log.apply(_console, [msg].concat(params));
+      (_console2 = console).log.apply(_console2, [msg].concat(params));
+    }
+  }, {
+    key: 'info',
+    value: function info(msg) {
+      for (var _len3 = arguments.length, params = Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
+        params[_key3 - 1] = arguments[_key3];
+      }
+
+      this.options.logger ? logger.info.apply(logger, [msg].concat(params)) : showColorMessage.apply(undefined, [msg, 'blue'].concat(params));
+    }
+  }, {
+    key: 'note',
+    value: function note(msg) {
+      for (var _len4 = arguments.length, params = Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
+        params[_key4 - 1] = arguments[_key4];
+      }
+
+      this.options.logger ? logger.info.apply(logger, [msg].concat(params)) : showColorMessage.apply(undefined, [msg, 'orange'].concat(params));
+    }
+  }, {
+    key: 'success',
+    value: function success(msg) {
+      for (var _len5 = arguments.length, params = Array(_len5 > 1 ? _len5 - 1 : 0), _key5 = 1; _key5 < _len5; _key5++) {
+        params[_key5 - 1] = arguments[_key5];
+      }
+
+      this.options.logger ? logger.info.apply(logger, [msg].concat(params)) : showColorMessage.apply(undefined, [msg, 'green'].concat(params));
+    }
+  }, {
+    key: 'error',
+    value: function error(msg) {
+      for (var _len6 = arguments.length, params = Array(_len6 > 1 ? _len6 - 1 : 0), _key6 = 1; _key6 < _len6; _key6++) {
+        params[_key6 - 1] = arguments[_key6];
+      }
+
+      this.options.logger ? logger.error.apply(logger, [msg].concat(params)) : showColorMessage.apply(undefined, [msg, 'red'].concat(params));
+    }
+  }, {
+    key: 'warning',
+    value: function warning(msg) {
+      for (var _len7 = arguments.length, params = Array(_len7 > 1 ? _len7 - 1 : 0), _key7 = 1; _key7 < _len7; _key7++) {
+        params[_key7 - 1] = arguments[_key7];
+      }
+
+      this.options.logger ? logger.warning.apply(logger, [msg].concat(params)) : showColorMessage.apply(undefined, [msg, 'yellow'].concat(params));
+    }
+  }, {
+    key: 'table',
+    value: function table(data) {
+      console.table(data);
+    }
+  }, {
+    key: 'dir',
+    value: function dir() {
+      var _console3;
+
+      (_console3 = console).dir.apply(_console3, arguments);
+    }
+  }, {
+    key: 'chalkline',
+    value: function chalkline() {
+      var char = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      var fgColor = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'white';
+      var width = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 80;
+
+      char = char.length > 0 ? char.substring(0, 1) : '\u2584'; // '\u2584' <-- bigger box
+      console.log('%c%s', 'color: ' + fgColor + '; display: block', char.repeat(width));
+    }
+  }]);
+
+  return MessengerBrowser;
+}();
+
+module.exports = MessengerBrowser;
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var _ = __webpack_require__(32);
+var chalk = __webpack_require__(8);
+var cl = __webpack_require__(14);
+var Table = __webpack_require__(15);
+var pkgInfo = __webpack_require__(5);
+
+var messenger = {
+  version: function version() {
+    return pkgInfo.version;
+  },
+  name: function name() {
+    return pkgInfo.name;
+  },
+  log: function log() {
+    var _console;
+
+    for (var _len = arguments.length, params = Array(_len), _key = 0; _key < _len; _key++) {
+      params[_key] = arguments[_key];
+    }
+
+    (_console = console).log.apply(_console, params);
+    return params;
+  },
+  info: function info() {
+    for (var _len2 = arguments.length, params = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      params[_key2] = arguments[_key2];
+    }
+
+    console.log(chalk.cyan.apply(chalk, params));
+    return params;
+  },
+  note: function note(msg) {
+    var _console2;
+
+    for (var _len3 = arguments.length, params = Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
+      params[_key3 - 1] = arguments[_key3];
+    }
+
+    // console.log(chalk.keyword('orange')(msg, ...params));
+    (_console2 = console).log.apply(_console2, [msg].concat(params));
+    return params;
+  },
+  success: function success() {
+    for (var _len4 = arguments.length, params = Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+      params[_key4] = arguments[_key4];
+    }
+
+    console.log(chalk.green.apply(chalk, params));
+    return params;
+  },
+  warning: function warning() {
+    for (var _len5 = arguments.length, params = Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
+      params[_key5] = arguments[_key5];
+    }
+
+    console.log(chalk.yellow.apply(chalk, params));
+    return params;
+  },
+  error: function error() {
+    for (var _len6 = arguments.length, params = Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
+      params[_key6] = arguments[_key6];
+    }
+
+    console.log(chalk.red.apply(chalk, params));
+    return params;
+  },
+  table: function table(data) {
+    var table = void 0;
+    var head = [];
+    if (data.length > 0) {
+
+      if (_.isArray(data[0])) {
+        header = data[0];
+        data.splice(0, 1);
+      } else {
+        header = Object.keys(data[0]);
+      }
+      header = header.map(function (item) {
+        return chalk.cyan.bold(item);
+      });
+      table = new Table({ head: header });
+
+      data.map(function (item) {
+        table.push(_.values(item));
+      });
+      console.log(table.toString());
+    }
+  },
+  chalkline: function chalkline(color) {
+    if (color.length > 0) {
+      try {
+        eval('cl.' + color + '()'); // eslint-disable-line
+      } catch (e) {
+        console.error(chalk.bgRed.bold('Invalid Color: ' + color));
+      }
+    }
+  },
+  dir: function dir(data) {
+    console.dir(data);
+    return data;
+  }
+};
+
+module.exports = messenger;
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process) {
+// TODO: expose more of `chalk` and condense this file more
+// directly copy/pasted and manipulated from `chalk`'s index.js file
+
+var escapeStringRegexp = __webpack_require__(10);
+var defineProps = Object.defineProperties;
+var isSimpleWindowsTerm = process.platform === 'win32' && !/^xterm/i.test(process.env.TERM);
+var ansiStyles = __webpack_require__(7);
+var util = __webpack_require__(39);
+var chalk = __webpack_require__(8);
+var block = "\u2588";
+
+var columns = 80;
+
+if (process.stdout.isTTY && process.stdout.columns)
+  columns = process.stdout.columns;
+
+var str = new Array(columns + 1).join(block);
+
+var styles = (function () {
+	var ret = {};
+
+	Object.keys(ansiStyles).forEach(function (key) {
+		ansiStyles[key].closeRe = new RegExp(escapeStringRegexp(ansiStyles[key].close), 'g');
+
+		ret[key] = {
+			get: function () {
+				return build.call(this, this._styles.concat(key));
+			}
+		};
+	});
+
+	return ret;
+})();
+
+var proto = defineProps(function chalk() {}, styles);
+
+function Chalkline(options) {
+  this.enabled = !options || options.enabled === undefined ? chalk.supportsColor : options.enabled;
+}
+
+function init() {
+  var chalkline = {};
+  Object.keys(chalk.styles).forEach(function(name) {
+		chalkline[name] = {
+			get: function () {
+				return build.call(this, [name]);
+			}
+		};
+	});
+  return chalkline;
+}
+
+function applyStyle() {
+	// support varags, but simply cast to string in case there's only one arg
+	var args = arguments;
+	var argsLen = args.length;
+	var str = argsLen !== 0 && String(arguments[0]);
+
+	if (argsLen > 1) {
+		// don't slice `arguments`, it prevents v8 optimizations
+		for (var a = 1; a < argsLen; a++) {
+			str += ' ' + args[a];
+		}
+	}
+
+	if (!this.enabled || !str) {
+		return str;
+	}
+
+	var nestedStyles = this._styles;
+	var i = nestedStyles.length;
+
+	// Turns out that on Windows dimmed gray text becomes invisible in cmd.exe,
+	// see https://github.com/chalk/chalk/issues/58
+	// If we're on Windows and we're dealing with a gray color, temporarily make 'dim' a noop.
+	var originalDim = ansiStyles.dim.open;
+	if (isSimpleWindowsTerm && (nestedStyles.indexOf('gray') !== -1 || nestedStyles.indexOf('grey') !== -1)) {
+		ansiStyles.dim.open = '';
+	}
+
+	while (i--) {
+		var code = ansiStyles[nestedStyles[i]];
+
+		// Replace any instances already present with a re-opening code
+		// otherwise only the part of the string until said closing code
+		// will be colored, and the rest will simply be 'plain'.
+		str = code.open + str.replace(code.closeRe, code.open) + code.close;
+	}
+
+	// Reset the original 'dim' if we changed it to work around the Windows dimmed gray issue.
+	ansiStyles.dim.open = originalDim;
+	return str;
+}
+
+
+function build(_styles) {
+  // This is where the magic happens by using `.call(builder, str)`
+  // instead of calling `applyStyle.apply(builder, arguments)`
+  // like `chalk` does, we simply pass it the argument of str
+  // maybe we can rewrite this a better way! PR's welcome
+  var builder = function () {
+    return console.log(applyStyle.call(builder, str));
+  };
+  builder._styles = _styles;
+  builder.enabled = this.enabled;
+  // __proto__ is used because we must return a function, but there is
+  // no way to create a function with a different prototype.
+  /* eslint-disable no-proto */
+  builder.__proto__ = proto;
+  return builder;
+}
+
+
+defineProps(Chalkline.prototype, init());
+module.exports = new Chalkline();
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(18);
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _ = __webpack_require__(2);
+var utils = __webpack_require__(9);
+
+/**
+ * A representation of a cell within the table.
+ * Implementations must have `init` and `draw` methods,
+ * as well as `colSpan`, `rowSpan`, `desiredHeight` and `desiredWidth` properties.
+ * @param options
+ * @constructor
+ */
+function Cell(options){
+  this.setOptions(options);
+}
+
+Cell.prototype.setOptions = function(options){
+  if(_.isString(options) || _.isNumber(options) || _.isBoolean(options)){
+    options = {content:''+options};
+  }
+  options = options || {};
+  this.options = options;
+  var content = options.content;
+  if (_.isString(content) || _.isNumber(content) || _.isBoolean(content)) {
+    this.content = String(content);
+  } else if (!content) {
+    this.content = '';
+  } else {
+    throw new Error('Content needs to be a primitive, got: ' + (typeof  content));
+  }
+  this.colSpan = options.colSpan || 1;
+  this.rowSpan = options.rowSpan || 1;
+};
+
+Cell.prototype.mergeTableOptions = function(tableOptions,cells){
+  this.cells = cells;
+
+  var optionsChars = this.options.chars || {};
+  var tableChars = tableOptions.chars;
+  var chars = this.chars = {};
+  _.forEach(CHAR_NAMES,function(name){
+     setOption(optionsChars,tableChars,name,chars);
+  });
+
+  this.truncate = this.options.truncate || tableOptions.truncate;
+
+  var style = this.options.style = this.options.style || {};
+  var tableStyle = tableOptions.style;
+  setOption(style, tableStyle, 'padding-left', this);
+  setOption(style, tableStyle, 'padding-right', this);
+  this.head = style.head || tableStyle.head;
+  this.border = style.border || tableStyle.border;
+
+  var fixedWidth = tableOptions.colWidths[this.x];
+  if(tableOptions.wordWrap && fixedWidth){
+    fixedWidth -= this.paddingLeft + this.paddingRight;
+    this.lines = utils.colorizeLines(utils.wordWrap(fixedWidth,this.content));
+  }
+  else {
+    this.lines = utils.colorizeLines(this.content.split('\n'));
+  }
+
+  this.desiredWidth = utils.strlen(this.content) + this.paddingLeft + this.paddingRight;
+  this.desiredHeight = this.lines.length;
+};
+
+/**
+ * Each cell will have it's `x` and `y` values set by the `layout-manager` prior to
+ * `init` being called;
+ * @type {Number}
+ */
+
+Cell.prototype.x = null;
+Cell.prototype.y = null;
+
+/**
+ * Initializes the Cells data structure.
+ *
+ * @param tableOptions - A fully populated set of tableOptions.
+ * In addition to the standard default values, tableOptions must have fully populated the
+ * `colWidths` and `rowWidths` arrays. Those arrays must have lengths equal to the number
+ * of columns or rows (respectively) in this table, and each array item must be a Number.
+ *
+ */
+Cell.prototype.init = function(tableOptions){
+  var x = this.x;
+  var y = this.y;
+  this.widths = tableOptions.colWidths.slice(x, x + this.colSpan);
+  this.heights = tableOptions.rowHeights.slice(y, y + this.rowSpan);
+  this.width = _.reduce(this.widths,sumPlusOne);
+  this.height = _.reduce(this.heights,sumPlusOne);
+
+  this.hAlign = this.options.hAlign || tableOptions.colAligns[x];
+  this.vAlign = this.options.vAlign || tableOptions.rowAligns[y];
+
+  this.drawRight = x + this.colSpan == tableOptions.colWidths.length;
+};
+
+/**
+ * Draws the given line of the cell.
+ * This default implementation defers to methods `drawTop`, `drawBottom`, `drawLine` and `drawEmpty`.
+ * @param lineNum - can be `top`, `bottom` or a numerical line number.
+ * @param spanningCell - will be a number if being called from a RowSpanCell, and will represent how
+ * many rows below it's being called from. Otherwise it's undefined.
+ * @returns {String} The representation of this line.
+ */
+Cell.prototype.draw = function(lineNum,spanningCell){
+  if(lineNum == 'top') return this.drawTop(this.drawRight);
+  if(lineNum == 'bottom') return this.drawBottom(this.drawRight);
+  var padLen = Math.max(this.height - this.lines.length, 0);
+  var padTop;
+  switch (this.vAlign){
+    case 'center':
+      padTop = Math.ceil(padLen / 2);
+      break;
+    case 'bottom':
+      padTop = padLen;
+      break;
+    default :
+      padTop = 0;
+  }
+  if( (lineNum < padTop) || (lineNum >= (padTop + this.lines.length))){
+    return this.drawEmpty(this.drawRight,spanningCell);
+  }
+  var forceTruncation = (this.lines.length > this.height) && (lineNum + 1 >= this.height);
+  return this.drawLine(lineNum - padTop, this.drawRight, forceTruncation,spanningCell);
+};
+
+/**
+ * Renders the top line of the cell.
+ * @param drawRight - true if this method should render the right edge of the cell.
+ * @returns {String}
+ */
+Cell.prototype.drawTop = function(drawRight){
+  var content = [];
+  if(this.cells){  //TODO: cells should always exist - some tests don't fill it in though
+    _.forEach(this.widths,function(width,index){
+      content.push(this._topLeftChar(index));
+      content.push(
+        utils.repeat(this.chars[this.y == 0 ? 'top' : 'mid'],width)
+      );
+    },this);
+  }
+  else {
+    content.push(this._topLeftChar(0));
+    content.push(utils.repeat(this.chars[this.y == 0 ? 'top' : 'mid'],this.width));
+  }
+  if(drawRight){
+    content.push(this.chars[this.y == 0 ? 'topRight' : 'rightMid']);
+  }
+  return this.wrapWithStyleColors('border',content.join(''));
+};
+
+Cell.prototype._topLeftChar = function(offset){
+  var x = this.x+offset;
+  var leftChar;
+  if(this.y == 0){
+    leftChar = x == 0 ? 'topLeft' : (offset == 0 ? 'topMid' : 'top');
+  } else  {
+    if(x == 0){
+      leftChar = 'leftMid';
+    }
+    else {
+      leftChar = offset == 0 ? 'midMid' : 'bottomMid';
+      if(this.cells){  //TODO: cells should always exist - some tests don't fill it in though
+        var spanAbove = this.cells[this.y-1][x] instanceof Cell.ColSpanCell;
+        if(spanAbove){
+          leftChar = offset == 0 ? 'topMid' : 'mid';
+        }
+        if(offset == 0){
+          var i = 1;
+          while(this.cells[this.y][x-i] instanceof Cell.ColSpanCell){
+            i++;
+          }
+          if(this.cells[this.y][x-i] instanceof Cell.RowSpanCell){
+            leftChar = 'leftMid';
+          }
+        }
+      }
+    }
+  }
+  return this.chars[leftChar];
+};
+
+Cell.prototype.wrapWithStyleColors = function(styleProperty,content){
+  if(this[styleProperty] && this[styleProperty].length){
+    try {
+      var colors = __webpack_require__(29);
+      for(var i = this[styleProperty].length - 1; i >= 0; i--){
+        colors = colors[this[styleProperty][i]];
+      }
+      return colors(content);
+    } catch (e) {
+      return content;
+    }
+  }
+  else {
+    return content;
+  }
+};
+
+/**
+ * Renders a line of text.
+ * @param lineNum - Which line of text to render. This is not necessarily the line within the cell.
+ * There may be top-padding above the first line of text.
+ * @param drawRight - true if this method should render the right edge of the cell.
+ * @param forceTruncationSymbol - `true` if the rendered text should end with the truncation symbol even
+ * if the text fits. This is used when the cell is vertically truncated. If `false` the text should
+ * only include the truncation symbol if the text will not fit horizontally within the cell width.
+ * @param spanningCell - a number of if being called from a RowSpanCell. (how many rows below). otherwise undefined.
+ * @returns {String}
+ */
+Cell.prototype.drawLine = function(lineNum,drawRight,forceTruncationSymbol,spanningCell){
+  var left = this.chars[this.x == 0 ? 'left' : 'middle'];
+  if(this.x && spanningCell && this.cells){
+    var cellLeft = this.cells[this.y+spanningCell][this.x-1];
+    while(cellLeft instanceof ColSpanCell){
+      cellLeft = this.cells[cellLeft.y][cellLeft.x-1];
+    }
+    if(!(cellLeft instanceof RowSpanCell)){
+      left = this.chars['rightMid'];
+    }
+  }
+  var leftPadding = utils.repeat(' ', this.paddingLeft);
+  var right = (drawRight ? this.chars['right'] : '');
+  var rightPadding = utils.repeat(' ', this.paddingRight);
+  var line = this.lines[lineNum];
+  var len = this.width - (this.paddingLeft + this.paddingRight);
+  if(forceTruncationSymbol) line += this.truncate || '…';
+  var content = utils.truncate(line,len,this.truncate);
+  content = utils.pad(content, len, ' ', this.hAlign);
+  content = leftPadding + content + rightPadding;
+  return this.stylizeLine(left,content,right);
+};
+
+Cell.prototype.stylizeLine = function(left,content,right){
+  left = this.wrapWithStyleColors('border',left);
+  right = this.wrapWithStyleColors('border',right);
+  if(this.y === 0){
+    content = this.wrapWithStyleColors('head',content);
+  }
+  return left + content + right;
+};
+
+/**
+ * Renders the bottom line of the cell.
+ * @param drawRight - true if this method should render the right edge of the cell.
+ * @returns {String}
+ */
+Cell.prototype.drawBottom = function(drawRight){
+  var left = this.chars[this.x == 0 ? 'bottomLeft' : 'bottomMid'];
+  var content = utils.repeat(this.chars.bottom,this.width);
+  var right = drawRight ? this.chars['bottomRight'] : '';
+  return this.wrapWithStyleColors('border',left + content + right);
+};
+
+/**
+ * Renders a blank line of text within the cell. Used for top and/or bottom padding.
+ * @param drawRight - true if this method should render the right edge of the cell.
+ * @param spanningCell - a number of if being called from a RowSpanCell. (how many rows below). otherwise undefined.
+ * @returns {String}
+ */
+Cell.prototype.drawEmpty = function(drawRight,spanningCell){
+  var left = this.chars[this.x == 0 ? 'left' : 'middle'];
+  if(this.x && spanningCell && this.cells){
+    var cellLeft = this.cells[this.y+spanningCell][this.x-1];
+    while(cellLeft instanceof ColSpanCell){
+      cellLeft = this.cells[cellLeft.y][cellLeft.x-1];
+    }
+    if(!(cellLeft instanceof RowSpanCell)){
+      left = this.chars['rightMid'];
+    }
+  }
+  var right = (drawRight ? this.chars['right'] : '');
+  var content = utils.repeat(' ',this.width);
+  return this.stylizeLine(left , content , right);
+};
+
+/**
+ * A Cell that doesn't do anything. It just draws empty lines.
+ * Used as a placeholder in column spanning.
+ * @constructor
+ */
+function ColSpanCell(){}
+
+ColSpanCell.prototype.draw = function(){
+  return '';
+};
+
+ColSpanCell.prototype.init = function(tableOptions){};
+
+
+/**
+ * A placeholder Cell for a Cell that spans multiple rows.
+ * It delegates rendering to the original cell, but adds the appropriate offset.
+ * @param originalCell
+ * @constructor
+ */
+function RowSpanCell(originalCell){
+  this.originalCell = originalCell;
+}
+
+RowSpanCell.prototype.init = function(tableOptions){
+  var y = this.y;
+  var originalY = this.originalCell.y;
+  this.cellOffset = y - originalY;
+  this.offset = findDimension(tableOptions.rowHeights,originalY,this.cellOffset);
+};
+
+RowSpanCell.prototype.draw = function(lineNum){
+  if(lineNum == 'top'){
+    return this.originalCell.draw(this.offset,this.cellOffset);
+  }
+  if(lineNum == 'bottom'){
+    return this.originalCell.draw('bottom');
+  }
+  return this.originalCell.draw(this.offset + 1 + lineNum);
+};
+
+ColSpanCell.prototype.mergeTableOptions =
+RowSpanCell.prototype.mergeTableOptions = function(){};
+
+// HELPER FUNCTIONS
+function setOption(objA,objB,nameB,targetObj){
+  var nameA = nameB.split('-');
+  if(nameA.length > 1) {
+    nameA[1] = nameA[1].charAt(0).toUpperCase() + nameA[1].substr(1);
+    nameA = nameA.join('');
+    targetObj[nameA] = objA[nameA] || objA[nameB] || objB[nameA] || objB[nameB];
+  }
+  else {
+    targetObj[nameB] = objA[nameB] || objB[nameB];
+  }
+}
+
+function findDimension(dimensionTable, startingIndex, span){
+  var ret = dimensionTable[startingIndex];
+  for(var i = 1; i < span; i++){
+    ret += 1 + dimensionTable[startingIndex + i];
+  }
+  return ret;
+}
+
+function sumPlusOne(a,b){
+  return a+b+1;
+}
+
+var CHAR_NAMES = [  'top'
+  , 'top-mid'
+  , 'top-left'
+  , 'top-right'
+  , 'bottom'
+  , 'bottom-mid'
+  , 'bottom-left'
+  , 'bottom-right'
+  , 'left'
+  , 'left-mid'
+  , 'mid'
+  , 'mid-mid'
+  , 'right'
+  , 'right-mid'
+  , 'middle'
+];
+module.exports = Cell;
+module.exports.ColSpanCell = ColSpanCell;
+module.exports.RowSpanCell = RowSpanCell;
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _ = __webpack_require__(2);
+var Cell = __webpack_require__(16);
+var RowSpanCell = Cell.RowSpanCell;
+var ColSpanCell = Cell.ColSpanCell;
+
+(function(){
+  function layoutTable(table){
+    _.forEach(table,function(row,rowIndex){
+      _.forEach(row,function(cell,columnIndex){
+        cell.y = rowIndex;
+        cell.x = columnIndex;
+        for(var y = rowIndex; y >= 0; y--){
+          var row2 = table[y];
+          var xMax = (y === rowIndex) ? columnIndex : row2.length;
+          for(var x = 0; x < xMax; x++){
+            var cell2 = row2[x];
+            while(cellsConflict(cell,cell2)){
+              cell.x++;
+            }
+          }
+        }
+      });
+    });
+  }
+
+  function maxWidth(table) {
+    var mw = 0;
+    _.forEach(table, function (row) {
+      _.forEach(row, function (cell) {
+        mw = Math.max(mw,cell.x + (cell.colSpan || 1));
+      });
+    });
+    return mw;
+  }
+
+  function maxHeight(table){
+    return table.length;
+  }
+
+  function cellsConflict(cell1,cell2){
+    var yMin1 = cell1.y;
+    var yMax1 = cell1.y - 1 + (cell1.rowSpan || 1);
+    var yMin2 = cell2.y;
+    var yMax2 = cell2.y - 1 + (cell2.rowSpan || 1);
+    var yConflict = !(yMin1 > yMax2 || yMin2 > yMax1);
+
+    var xMin1= cell1.x;
+    var xMax1 = cell1.x - 1 + (cell1.colSpan || 1);
+    var xMin2= cell2.x;
+    var xMax2 = cell2.x - 1 + (cell2.colSpan || 1);
+    var xConflict = !(xMin1 > xMax2 || xMin2 > xMax1);
+
+    return yConflict && xConflict;
+  }
+
+  function conflictExists(rows,x,y){
+    var i_max = Math.min(rows.length-1,y);
+    var cell = {x:x,y:y};
+    for(var i = 0; i <= i_max; i++){
+      var row = rows[i];
+      for(var j = 0; j < row.length; j++){
+        if(cellsConflict(cell,row[j])){
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  function allBlank(rows,y,xMin,xMax){
+    for(var x = xMin; x < xMax; x++){
+      if(conflictExists(rows,x,y)){
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function addRowSpanCells(table){
+    _.forEach(table,function(row,rowIndex){
+      _.forEach(row,function(cell){
+        for(var i = 1; i < cell.rowSpan; i++){
+          var rowSpanCell = new RowSpanCell(cell);
+          rowSpanCell.x = cell.x;
+          rowSpanCell.y = cell.y + i;
+          rowSpanCell.colSpan = cell.colSpan;
+          insertCell(rowSpanCell,table[rowIndex+i]);
+        }
+      });
+    });
+  }
+
+  function addColSpanCells(cellRows){
+    for(var rowIndex = cellRows.length-1; rowIndex >= 0; rowIndex--) {
+      var cellColumns = cellRows[rowIndex];
+      for (var columnIndex = 0; columnIndex < cellColumns.length; columnIndex++) {
+        var cell = cellColumns[columnIndex];
+        for (var k = 1; k < cell.colSpan; k++) {
+          var colSpanCell = new ColSpanCell();
+          colSpanCell.x = cell.x + k;
+          colSpanCell.y = cell.y;
+          cellColumns.splice(columnIndex + 1, 0, colSpanCell);
+        }
+      }
+    }
+  }
+
+  function insertCell(cell,row){
+    var x = 0;
+    while(x < row.length && (row[x].x < cell.x)) {
+      x++;
+    }
+    row.splice(x,0,cell);
+  }
+
+  function fillInTable(table){
+    var h_max = maxHeight(table);
+    var w_max = maxWidth(table);
+    for(var y = 0; y < h_max; y++){
+      for(var x = 0; x < w_max; x++){
+        if(!conflictExists(table,x,y)){
+          var opts = {x:x,y:y,colSpan:1,rowSpan:1};
+          x++;
+          while(x < w_max && !conflictExists(table,x,y)){
+            opts.colSpan++;
+            x++;
+          }
+          var y2 = y + 1;
+          while(y2 < h_max && allBlank(table,y2,opts.x,opts.x+opts.colSpan)){
+            opts.rowSpan++;
+            y2++;
+          }
+
+          var cell = new Cell(opts);
+          cell.x = opts.x;
+          cell.y = opts.y;
+          insertCell(cell,table[y]);
+        }
+      }
+    }
+  }
+
+  function generateCells(rows){
+    return _.map(rows,function(row){
+      if(!_.isArray(row)){
+        var key = Object.keys(row)[0];
+        row = row[key];
+        if(_.isArray(row)){
+          row = row.slice();
+          row.unshift(key);
+        }
+        else {
+          row = [key,row];
+        }
+      }
+      return _.map(row,function(cell){
+        return new Cell(cell);
+      });
+    });
+  }
+
+  function makeTableLayout(rows){
+    var cellRows = generateCells(rows);
+    layoutTable(cellRows);
+    fillInTable(cellRows);
+    addRowSpanCells(cellRows);
+    addColSpanCells(cellRows);
+    return cellRows;
+  }
+
+  module.exports = {
+    makeTableLayout: makeTableLayout,
+    layoutTable: layoutTable,
+    addRowSpanCells: addRowSpanCells,
+    maxWidth:maxWidth,
+    fillInTable:fillInTable,
+    computeWidths:makeComputeWidths('colSpan','desiredWidth','x',1),
+    computeHeights:makeComputeWidths('rowSpan','desiredHeight','y',1)
+  };
+})();
+
+function makeComputeWidths(colSpan,desiredWidth,x,forcedMin){
+  return function(vals,table){
+    var result = [];
+    var spanners = [];
+    _.forEach(table,function(row){
+      _.forEach(row,function(cell){
+        if((cell[colSpan] || 1) > 1){
+          spanners.push(cell);
+        }
+        else {
+          result[cell[x]] = Math.max(result[cell[x]] || 0, cell[desiredWidth] || 0, forcedMin);
+        }
+      });
+    });
+
+    _.forEach(vals,function(val,index){
+      if(_.isNumber(val)){
+        result[index] = val;
+      }
+    });
+
+    //_.forEach(spanners,function(cell){
+    for(var k = spanners.length - 1; k >=0; k--){
+      var cell = spanners[k];
+      var span = cell[colSpan];
+      var col = cell[x];
+      var existingWidth = result[col];
+      var editableCols = _.isNumber(vals[col]) ? 0 : 1;
+      for(var i = 1; i < span; i ++){
+        existingWidth += 1 + result[col + i];
+        if(!_.isNumber(vals[col + i])){
+          editableCols++;
+        }
+      }
+      if(cell[desiredWidth] > existingWidth){
+        i = 0;
+        while(editableCols > 0 && cell[desiredWidth] > existingWidth){
+          if(!_.isNumber(vals[col+i])){
+            var dif = Math.round( (cell[desiredWidth] - existingWidth) / editableCols );
+            existingWidth += dif;
+            result[col + i] += dif;
+            editableCols--;
+          }
+          i++;
+        }
+      }
+    }
+
+    _.extend(vals,result);
+    for(var j = 0; j < vals.length; j++){
+      vals[j] = Math.max(forcedMin, vals[j] || 0);
+    }
+  };
+}
+
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var utils = __webpack_require__(9);
+var tableLayout = __webpack_require__(17);
+var _ = __webpack_require__(2);
+
+function Table(options){
+  this.options = utils.mergeOptions(options);
+}
+
+Table.prototype.__proto__ = Array.prototype;
+
+Table.prototype.toString = function(){
+  var array = this;
+  var headersPresent = this.options.head && this.options.head.length;
+  if(headersPresent){
+    array = [this.options.head];
+    if(this.length){
+      array.push.apply(array,this);
+    }
+  }
+  else {
+    this.options.style.head=[];
+  }
+
+  var cells = tableLayout.makeTableLayout(array);
+
+  _.forEach(cells,function(row){
+    _.forEach(row,function(cell){
+      cell.mergeTableOptions(this.options,cells);
+    },this);
+  },this);
+
+  tableLayout.computeWidths(this.options.colWidths,cells);
+  tableLayout.computeHeights(this.options.rowHeights,cells);
+
+  _.forEach(cells,function(row,rowIndex){
+    _.forEach(row,function(cell,cellIndex){
+      cell.init(this.options);
+    },this);
+  },this);
+
+  var result = [];
+
+  for(var rowIndex = 0; rowIndex < cells.length; rowIndex++){
+    var row = cells[rowIndex];
+    var heightOfRow = this.options.rowHeights[rowIndex];
+
+    if(rowIndex === 0 || !this.options.style.compact || (rowIndex == 1 && headersPresent)){
+      doDraw(row,'top',result);
+    }
+
+    for(var lineNum = 0; lineNum < heightOfRow; lineNum++){
+      doDraw(row,lineNum,result);
+    }
+
+    if(rowIndex + 1 == cells.length){
+      doDraw(row,'bottom',result);
+    }
+  }
+
+  return result.join('\n');
+};
+
+function doDraw(row,lineNum,result){
+  var line = [];
+  _.forEach(row,function(cell){
+    line.push(cell.draw(lineNum));
+  });
+  var str = line.join('');
+  if(str.length) result.push(str);
+}
+
+Table.prototype.__defineGetter__('width', function (){
+  var str = this.toString().split("\n");
+  return str[0].length;
+});
+
+module.exports = Table;
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* eslint-disable babel/new-cap, xo/throw-new-error */
+
+module.exports = function (str, pos) {
+	if (str === null || str === undefined) {
+		throw TypeError();
+	}
+
+	str = String(str);
+
+	var size = str.length;
+	var i = pos ? Number(pos) : 0;
+
+	if (Number.isNaN(i)) {
+		i = 0;
+	}
+
+	if (i < 0 || i >= size) {
+		return undefined;
+	}
+
+	var first = str.charCodeAt(i);
+
+	if (first >= 0xD800 && first <= 0xDBFF && size > i + 1) {
+		var second = str.charCodeAt(i + 1);
+
+		if (second >= 0xDC00 && second <= 0xDFFF) {
+			return ((first - 0xD800) * 0x400) + second - 0xDC00 + 0x10000;
+		}
+	}
+
+	return first;
+};
+
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports) {
+
+function webpackEmptyContext(req) {
+	throw new Error("Cannot find module '" + req + "'.");
+}
+webpackEmptyContext.keys = function() { return []; };
+webpackEmptyContext.resolve = webpackEmptyContext;
+module.exports = webpackEmptyContext;
+webpackEmptyContext.id = 20;
+
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports) {
+
+module['exports'] = function runTheTrap (text, options) {
+  var result = "";
+  text = text || "Run the trap, drop the bass";
+  text = text.split('');
+  var trap = {
+    a: ["\u0040", "\u0104", "\u023a", "\u0245", "\u0394", "\u039b", "\u0414"],
+    b: ["\u00df", "\u0181", "\u0243", "\u026e", "\u03b2", "\u0e3f"],
+    c: ["\u00a9", "\u023b", "\u03fe"],
+    d: ["\u00d0", "\u018a", "\u0500" , "\u0501" ,"\u0502", "\u0503"],
+    e: ["\u00cb", "\u0115", "\u018e", "\u0258", "\u03a3", "\u03be", "\u04bc", "\u0a6c"],
+    f: ["\u04fa"],
+    g: ["\u0262"],
+    h: ["\u0126", "\u0195", "\u04a2", "\u04ba", "\u04c7", "\u050a"],
+    i: ["\u0f0f"],
+    j: ["\u0134"],
+    k: ["\u0138", "\u04a0", "\u04c3", "\u051e"],
+    l: ["\u0139"],
+    m: ["\u028d", "\u04cd", "\u04ce", "\u0520", "\u0521", "\u0d69"],
+    n: ["\u00d1", "\u014b", "\u019d", "\u0376", "\u03a0", "\u048a"],
+    o: ["\u00d8", "\u00f5", "\u00f8", "\u01fe", "\u0298", "\u047a", "\u05dd", "\u06dd", "\u0e4f"],
+    p: ["\u01f7", "\u048e"],
+    q: ["\u09cd"],
+    r: ["\u00ae", "\u01a6", "\u0210", "\u024c", "\u0280", "\u042f"],
+    s: ["\u00a7", "\u03de", "\u03df", "\u03e8"],
+    t: ["\u0141", "\u0166", "\u0373"],
+    u: ["\u01b1", "\u054d"],
+    v: ["\u05d8"],
+    w: ["\u0428", "\u0460", "\u047c", "\u0d70"],
+    x: ["\u04b2", "\u04fe", "\u04fc", "\u04fd"],
+    y: ["\u00a5", "\u04b0", "\u04cb"],
+    z: ["\u01b5", "\u0240"]
+  }
+  text.forEach(function(c){
+    c = c.toLowerCase();
+    var chars = trap[c] || [" "];
+    var rand = Math.floor(Math.random() * chars.length);
+    if (typeof trap[c] !== "undefined") {
+      result += trap[c][rand];
+    } else {
+      result += c;
+    }
+  });
+  return result;
+
+}
+
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports) {
+
+// please no
+module['exports'] = function zalgo(text, options) {
+  text = text || "   he is here   ";
+  var soul = {
+    "up" : [
+      '̍', '̎', '̄', '̅',
+      '̿', '̑', '̆', '̐',
+      '͒', '͗', '͑', '̇',
+      '̈', '̊', '͂', '̓',
+      '̈', '͊', '͋', '͌',
+      '̃', '̂', '̌', '͐',
+      '̀', '́', '̋', '̏',
+      '̒', '̓', '̔', '̽',
+      '̉', 'ͣ', 'ͤ', 'ͥ',
+      'ͦ', 'ͧ', 'ͨ', 'ͩ',
+      'ͪ', 'ͫ', 'ͬ', 'ͭ',
+      'ͮ', 'ͯ', '̾', '͛',
+      '͆', '̚'
+    ],
+    "down" : [
+      '̖', '̗', '̘', '̙',
+      '̜', '̝', '̞', '̟',
+      '̠', '̤', '̥', '̦',
+      '̩', '̪', '̫', '̬',
+      '̭', '̮', '̯', '̰',
+      '̱', '̲', '̳', '̹',
+      '̺', '̻', '̼', 'ͅ',
+      '͇', '͈', '͉', '͍',
+      '͎', '͓', '͔', '͕',
+      '͖', '͙', '͚', '̣'
+    ],
+    "mid" : [
+      '̕', '̛', '̀', '́',
+      '͘', '̡', '̢', '̧',
+      '̨', '̴', '̵', '̶',
+      '͜', '͝', '͞',
+      '͟', '͠', '͢', '̸',
+      '̷', '͡', ' ҉'
+    ]
+  },
+  all = [].concat(soul.up, soul.down, soul.mid),
+  zalgo = {};
+
+  function randomNumber(range) {
+    var r = Math.floor(Math.random() * range);
+    return r;
+  }
+
+  function is_char(character) {
+    var bool = false;
+    all.filter(function (i) {
+      bool = (i === character);
+    });
+    return bool;
+  }
+  
+
+  function heComes(text, options) {
+    var result = '', counts, l;
+    options = options || {};
+    options["up"] =   typeof options["up"]   !== 'undefined' ? options["up"]   : true;
+    options["mid"] =  typeof options["mid"]  !== 'undefined' ? options["mid"]  : true;
+    options["down"] = typeof options["down"] !== 'undefined' ? options["down"] : true;
+    options["size"] = typeof options["size"] !== 'undefined' ? options["size"] : "maxi";
+    text = text.split('');
+    for (l in text) {
+      if (is_char(l)) {
+        continue;
+      }
+      result = result + text[l];
+      counts = {"up" : 0, "down" : 0, "mid" : 0};
+      switch (options.size) {
+      case 'mini':
+        counts.up = randomNumber(8);
+        counts.mid = randomNumber(2);
+        counts.down = randomNumber(8);
+        break;
+      case 'maxi':
+        counts.up = randomNumber(16) + 3;
+        counts.mid = randomNumber(4) + 1;
+        counts.down = randomNumber(64) + 3;
+        break;
+      default:
+        counts.up = randomNumber(8) + 1;
+        counts.mid = randomNumber(6) / 2;
+        counts.down = randomNumber(8) + 1;
+        break;
+      }
+
+      var arr = ["up", "mid", "down"];
+      for (var d in arr) {
+        var index = arr[d];
+        for (var i = 0 ; i <= counts[index]; i++) {
+          if (options[index]) {
+            result = result + soul[index][randomNumber(soul[index].length)];
+          }
+        }
+      }
+    }
+    return result;
+  }
+  // don't summon him
+  return heComes(text, options);
+}
+
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var colors = __webpack_require__(1);
+
+module['exports'] = (function() {
+  return function (letter, i, exploded) {
+    if(letter === " ") return letter;
+    switch(i%3) {
+      case 0: return colors.red(letter);
+      case 1: return colors.white(letter)
+      case 2: return colors.blue(letter)
+    }
+  }
+})();
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var colors = __webpack_require__(1);
+
+module['exports'] = (function () {
+  var rainbowColors = ['red', 'yellow', 'green', 'blue', 'magenta']; //RoY G BiV
+  return function (letter, i, exploded) {
+    if (letter === " ") {
+      return letter;
+    } else {
+      return colors[rainbowColors[i++ % rainbowColors.length]](letter);
+    }
+  };
+})();
+
+
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var colors = __webpack_require__(1);
+
+module['exports'] = (function () {
+  var available = ['underline', 'inverse', 'grey', 'yellow', 'red', 'green', 'blue', 'white', 'cyan', 'magenta'];
+  return function(letter, i, exploded) {
+    return letter === " " ? letter : colors[available[Math.round(Math.random() * (available.length - 1))]](letter);
+  };
+})();
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var colors = __webpack_require__(1);
+
+module['exports'] = function (letter, i, exploded) {
+  return i % 2 === 0 ? letter : colors.inverse(letter);
+};
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports) {
+
+/*
+The MIT License (MIT)
+
+Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+*/
+
+var styles = {};
+module['exports'] = styles;
+
+var codes = {
+  reset: [0, 0],
+
+  bold: [1, 22],
+  dim: [2, 22],
+  italic: [3, 23],
+  underline: [4, 24],
+  inverse: [7, 27],
+  hidden: [8, 28],
+  strikethrough: [9, 29],
+
+  black: [30, 39],
+  red: [31, 39],
+  green: [32, 39],
+  yellow: [33, 39],
+  blue: [34, 39],
+  magenta: [35, 39],
+  cyan: [36, 39],
+  white: [37, 39],
+  gray: [90, 39],
+  grey: [90, 39],
+
+  bgBlack: [40, 49],
+  bgRed: [41, 49],
+  bgGreen: [42, 49],
+  bgYellow: [43, 49],
+  bgBlue: [44, 49],
+  bgMagenta: [45, 49],
+  bgCyan: [46, 49],
+  bgWhite: [47, 49],
+
+  // legacy styles for colors pre v1.0.0
+  blackBG: [40, 49],
+  redBG: [41, 49],
+  greenBG: [42, 49],
+  yellowBG: [43, 49],
+  blueBG: [44, 49],
+  magentaBG: [45, 49],
+  cyanBG: [46, 49],
+  whiteBG: [47, 49]
+
+};
+
+Object.keys(codes).forEach(function (key) {
+  var val = codes[key];
+  var style = styles[key] = [];
+  style.open = '\u001b[' + val[0] + 'm';
+  style.close = '\u001b[' + val[1] + 'm';
+});
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process) {/*
+The MIT License (MIT)
+
+Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+*/
+
+var argv = process.argv;
+
+module.exports = (function () {
+  if (argv.indexOf('--no-color') !== -1 ||
+    argv.indexOf('--color=false') !== -1) {
+    return false;
+  }
+
+  if (argv.indexOf('--color') !== -1 ||
+    argv.indexOf('--color=true') !== -1 ||
+    argv.indexOf('--color=always') !== -1) {
+    return true;
+  }
+
+  if (process.stdout && !process.stdout.isTTY) {
+    return false;
+  }
+
+  if (process.platform === 'win32') {
+    return true;
+  }
+
+  if ('COLORTERM' in process.env) {
+    return true;
+  }
+
+  if (process.env.TERM === 'dumb') {
+    return false;
+  }
+
+  if (/^screen|^xterm|^vt100|color|ansi|cygwin|linux/i.test(process.env.TERM)) {
+    return true;
+  }
+
+  return false;
+})();
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+//
+// Remark: Requiring this file will use the "safe" colors API which will not touch String.prototype
+//
+//   var colors = require('colors/safe);
+//   colors.red("foo")
+//
+//
+var colors = __webpack_require__(1);
+module['exports'] = colors;
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var ansiRegex = __webpack_require__(6);
+var re = new RegExp(ansiRegex().source); // remove the `g` flag
+module.exports = re.test.bind(re);
+
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var numberIsNan = __webpack_require__(33);
+
+module.exports = function (x) {
+	if (numberIsNan(x)) {
+		return false;
+	}
+
+	// https://github.com/nodejs/io.js/blob/cff7300a578be1b10001f2d967aaedc88aee6402/lib/readline.js#L1369
+
+	// code points are derived from:
+	// http://www.unix.org/Public/UNIDATA/EastAsianWidth.txt
+	if (x >= 0x1100 && (
+		x <= 0x115f ||  // Hangul Jamo
+		0x2329 === x || // LEFT-POINTING ANGLE BRACKET
+		0x232a === x || // RIGHT-POINTING ANGLE BRACKET
+		// CJK Radicals Supplement .. Enclosed CJK Letters and Months
+		(0x2e80 <= x && x <= 0x3247 && x !== 0x303f) ||
+		// Enclosed CJK Letters and Months .. CJK Unified Ideographs Extension A
+		0x3250 <= x && x <= 0x4dbf ||
+		// CJK Unified Ideographs .. Yi Radicals
+		0x4e00 <= x && x <= 0xa4c6 ||
+		// Hangul Jamo Extended-A
+		0xa960 <= x && x <= 0xa97c ||
+		// Hangul Syllables
+		0xac00 <= x && x <= 0xd7a3 ||
+		// CJK Compatibility Ideographs
+		0xf900 <= x && x <= 0xfaff ||
+		// Vertical Forms
+		0xfe10 <= x && x <= 0xfe19 ||
+		// CJK Compatibility Forms .. Small Form Variants
+		0xfe30 <= x && x <= 0xfe6b ||
+		// Halfwidth and Fullwidth Forms
+		0xff01 <= x && x <= 0xff60 ||
+		0xffe0 <= x && x <= 0xffe6 ||
+		// Kana Supplement
+		0x1b000 <= x && x <= 0x1b001 ||
+		// Enclosed Ideographic Supplement
+		0x1f200 <= x && x <= 0x1f251 ||
+		// CJK Unified Ideographs Extension B .. Tertiary Ideographic Plane
+		0x20000 <= x && x <= 0x3fffd)) {
+		return true;
+	}
+
+	return false;
+}
+
+
+/***/ }),
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -30574,1352 +32158,6 @@ module.exports = function (str) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(4)(module)))
 
 /***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var ansiRegex = __webpack_require__(6)();
-
-module.exports = function (str) {
-	return typeof str === 'string' ? str.replace(ansiRegex, '') : str;
-};
-
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _createClass=function(){function a(b,c){for(var e,d=0;d<c.length;d++)e=c[d],e.enumerable=e.enumerable||!1,e.configurable=!0,'value'in e&&(e.writable=!0),Object.defineProperty(b,e.key,e)}return function(b,c,d){return c&&a(b.prototype,c),d&&a(b,d),b}}();function _classCallCheck(a,b){if(!(a instanceof b))throw new TypeError('Cannot call a class as a function')}var logger=__webpack_require__(35),_=__webpack_require__(11),assign=__webpack_require__(34);function showColorMessage(a){var e=1<arguments.length&&arguments[1]!==void 0?arguments[1]:'white',f='background: '+e+'; color: white; display: block;';'yellow'===e&&(f='background: '+e+'; color: black; display: block;');for(var c=arguments.length,b=Array(2<c?c-2:0),d=2;d<c;d++)b[d-2]=arguments[d];0<b.length?console.log('%c%s',f,a,b):console.log('%c%s',f,a)}var MessengerBrowser=function(){function a(){var p=0<arguments.length&&void 0!==arguments[0]?arguments[0]:{};_classCallCheck(this,a),this.options={logger:!1},this.pkgInfo=p}return _createClass(a,[{key:'setOptions',value:function setOptions(){var p=0<arguments.length&&void 0!==arguments[0]?arguments[0]:{};this.options=assign(this.options,p)}},{key:'version',value:function version(){return this.pkgInfo.version}},{key:'name',value:function name(){return this.pkgInfo.name}},{key:'log',value:function log(p){for(var t,u,r=arguments.length,q=Array(1<r?r-1:0),s=1;s<r;s++)q[s-1]=arguments[s];this.options.logger?logger.log.apply(logger,[p].concat(q)):(t=console).log.apply(t,[p].concat(q)),(u=console).log.apply(u,[p].concat(q))}},{key:'info',value:function info(p){for(var r=arguments.length,q=Array(1<r?r-1:0),s=1;s<r;s++)q[s-1]=arguments[s];this.options.logger?logger.info.apply(logger,[p].concat(q)):showColorMessage.apply(void 0,[p,'blue'].concat(q))}},{key:'note',value:function note(p){for(var r=arguments.length,q=Array(1<r?r-1:0),s=1;s<r;s++)q[s-1]=arguments[s];this.options.logger?logger.info.apply(logger,[p].concat(q)):showColorMessage.apply(void 0,[p,'orange'].concat(q))}},{key:'success',value:function success(p){for(var r=arguments.length,q=Array(1<r?r-1:0),s=1;s<r;s++)q[s-1]=arguments[s];this.options.logger?logger.info.apply(logger,[p].concat(q)):showColorMessage.apply(void 0,[p,'green'].concat(q))}},{key:'error',value:function error(p){for(var r=arguments.length,q=Array(1<r?r-1:0),s=1;s<r;s++)q[s-1]=arguments[s];this.options.logger?logger.error.apply(logger,[p].concat(q)):showColorMessage.apply(void 0,[p,'red'].concat(q))}},{key:'warning',value:function warning(p){for(var r=arguments.length,q=Array(1<r?r-1:0),s=1;s<r;s++)q[s-1]=arguments[s];this.options.logger?logger.warning.apply(logger,[p].concat(q)):showColorMessage.apply(void 0,[p,'yellow'].concat(q))}},{key:'table',value:function table(p){console.table(p)}},{key:'dir',value:function dir(){var q;(q=console).dir.apply(q,p)}},{key:'chalkline',value:function chalkline(){var p=0<arguments.length&&void 0!==arguments[0]?arguments[0]:'',q=1<arguments.length&&void 0!==arguments[1]?arguments[1]:'white',r=2<arguments.length&&void 0!==arguments[2]?arguments[2]:80;p=0<p.length?p.substring(0,1):'\u2584',console.log('%c%s','color: '+q+'; display: block',_.repeat(p,r))}}]),a}();module.exports=MessengerBrowser;
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _=__webpack_require__(11),chalk=__webpack_require__(8),cl=__webpack_require__(15),Table=__webpack_require__(16),pkgInfo=__webpack_require__(5),messenger={version:function version(){return pkgInfo.version},name:function name(){return pkgInfo.name},log:function log(){for(var d,b=arguments.length,a=Array(b),c=0;c<b;c++)a[c]=arguments[c];return(d=console).log.apply(d,a),a},info:function info(){for(var b=arguments.length,a=Array(b),c=0;c<b;c++)a[c]=arguments[c];return console.log(chalk.cyan.apply(chalk,a)),a},note:function note(a){for(var f,c=arguments.length,b=Array(1<c?c-1:0),d=1;d<c;d++)b[d-1]=arguments[d];return(f=console).log.apply(f,[a].concat(b)),b},success:function success(){for(var b=arguments.length,a=Array(b),c=0;c<b;c++)a[c]=arguments[c];return console.log(chalk.green.apply(chalk,a)),a},warning:function warning(){for(var b=arguments.length,a=Array(b),c=0;c<b;c++)a[c]=arguments[c];return console.log(chalk.yellow.apply(chalk,a)),a},error:function error(){for(var b=arguments.length,a=Array(b),c=0;c<b;c++)a[c]=arguments[c];return console.log(chalk.red.apply(chalk,a)),a},table:function table(a){var b;0<a.length&&(_.isArray(a[0])?(header=a[0],a.splice(0,1)):header=Object.keys(a[0]),header=header.map(function(d){return chalk.cyan.bold(d)}),b=new Table({head:header}),a.map(function(d){b.push(_.values(d))}),console.log(b.toString()))},chalkline:function chalkline(color){if(0<color.length)try{eval('cl.'+color+'()')}catch(a){console.error(chalk.bgRed.bold('Invalid Color: '+color))}},dir:function dir(a){return console.dir(a),a}};module.exports=messenger;
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(process) {
-// TODO: expose more of `chalk` and condense this file more
-// directly copy/pasted and manipulated from `chalk`'s index.js file
-
-var escapeStringRegexp = __webpack_require__(10);
-var defineProps = Object.defineProperties;
-var isSimpleWindowsTerm = process.platform === 'win32' && !/^xterm/i.test(process.env.TERM);
-var ansiStyles = __webpack_require__(7);
-var util = __webpack_require__(40);
-var chalk = __webpack_require__(8);
-var block = "\u2588";
-
-var columns = 80;
-
-if (process.stdout.isTTY && process.stdout.columns)
-  columns = process.stdout.columns;
-
-var str = new Array(columns + 1).join(block);
-
-var styles = (function () {
-	var ret = {};
-
-	Object.keys(ansiStyles).forEach(function (key) {
-		ansiStyles[key].closeRe = new RegExp(escapeStringRegexp(ansiStyles[key].close), 'g');
-
-		ret[key] = {
-			get: function () {
-				return build.call(this, this._styles.concat(key));
-			}
-		};
-	});
-
-	return ret;
-})();
-
-var proto = defineProps(function chalk() {}, styles);
-
-function Chalkline(options) {
-  this.enabled = !options || options.enabled === undefined ? chalk.supportsColor : options.enabled;
-}
-
-function init() {
-  var chalkline = {};
-  Object.keys(chalk.styles).forEach(function(name) {
-		chalkline[name] = {
-			get: function () {
-				return build.call(this, [name]);
-			}
-		};
-	});
-  return chalkline;
-}
-
-function applyStyle() {
-	// support varags, but simply cast to string in case there's only one arg
-	var args = arguments;
-	var argsLen = args.length;
-	var str = argsLen !== 0 && String(arguments[0]);
-
-	if (argsLen > 1) {
-		// don't slice `arguments`, it prevents v8 optimizations
-		for (var a = 1; a < argsLen; a++) {
-			str += ' ' + args[a];
-		}
-	}
-
-	if (!this.enabled || !str) {
-		return str;
-	}
-
-	var nestedStyles = this._styles;
-	var i = nestedStyles.length;
-
-	// Turns out that on Windows dimmed gray text becomes invisible in cmd.exe,
-	// see https://github.com/chalk/chalk/issues/58
-	// If we're on Windows and we're dealing with a gray color, temporarily make 'dim' a noop.
-	var originalDim = ansiStyles.dim.open;
-	if (isSimpleWindowsTerm && (nestedStyles.indexOf('gray') !== -1 || nestedStyles.indexOf('grey') !== -1)) {
-		ansiStyles.dim.open = '';
-	}
-
-	while (i--) {
-		var code = ansiStyles[nestedStyles[i]];
-
-		// Replace any instances already present with a re-opening code
-		// otherwise only the part of the string until said closing code
-		// will be colored, and the rest will simply be 'plain'.
-		str = code.open + str.replace(code.closeRe, code.open) + code.close;
-	}
-
-	// Reset the original 'dim' if we changed it to work around the Windows dimmed gray issue.
-	ansiStyles.dim.open = originalDim;
-	return str;
-}
-
-
-function build(_styles) {
-  // This is where the magic happens by using `.call(builder, str)`
-  // instead of calling `applyStyle.apply(builder, arguments)`
-  // like `chalk` does, we simply pass it the argument of str
-  // maybe we can rewrite this a better way! PR's welcome
-  var builder = function () {
-    return console.log(applyStyle.call(builder, str));
-  };
-  builder._styles = _styles;
-  builder.enabled = this.enabled;
-  // __proto__ is used because we must return a function, but there is
-  // no way to create a function with a different prototype.
-  /* eslint-disable no-proto */
-  builder.__proto__ = proto;
-  return builder;
-}
-
-
-defineProps(Chalkline.prototype, init());
-module.exports = new Chalkline();
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(19);
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _ = __webpack_require__(2);
-var utils = __webpack_require__(9);
-
-/**
- * A representation of a cell within the table.
- * Implementations must have `init` and `draw` methods,
- * as well as `colSpan`, `rowSpan`, `desiredHeight` and `desiredWidth` properties.
- * @param options
- * @constructor
- */
-function Cell(options){
-  this.setOptions(options);
-}
-
-Cell.prototype.setOptions = function(options){
-  if(_.isString(options) || _.isNumber(options) || _.isBoolean(options)){
-    options = {content:''+options};
-  }
-  options = options || {};
-  this.options = options;
-  var content = options.content;
-  if (_.isString(content) || _.isNumber(content) || _.isBoolean(content)) {
-    this.content = String(content);
-  } else if (!content) {
-    this.content = '';
-  } else {
-    throw new Error('Content needs to be a primitive, got: ' + (typeof  content));
-  }
-  this.colSpan = options.colSpan || 1;
-  this.rowSpan = options.rowSpan || 1;
-};
-
-Cell.prototype.mergeTableOptions = function(tableOptions,cells){
-  this.cells = cells;
-
-  var optionsChars = this.options.chars || {};
-  var tableChars = tableOptions.chars;
-  var chars = this.chars = {};
-  _.forEach(CHAR_NAMES,function(name){
-     setOption(optionsChars,tableChars,name,chars);
-  });
-
-  this.truncate = this.options.truncate || tableOptions.truncate;
-
-  var style = this.options.style = this.options.style || {};
-  var tableStyle = tableOptions.style;
-  setOption(style, tableStyle, 'padding-left', this);
-  setOption(style, tableStyle, 'padding-right', this);
-  this.head = style.head || tableStyle.head;
-  this.border = style.border || tableStyle.border;
-
-  var fixedWidth = tableOptions.colWidths[this.x];
-  if(tableOptions.wordWrap && fixedWidth){
-    fixedWidth -= this.paddingLeft + this.paddingRight;
-    this.lines = utils.colorizeLines(utils.wordWrap(fixedWidth,this.content));
-  }
-  else {
-    this.lines = utils.colorizeLines(this.content.split('\n'));
-  }
-
-  this.desiredWidth = utils.strlen(this.content) + this.paddingLeft + this.paddingRight;
-  this.desiredHeight = this.lines.length;
-};
-
-/**
- * Each cell will have it's `x` and `y` values set by the `layout-manager` prior to
- * `init` being called;
- * @type {Number}
- */
-
-Cell.prototype.x = null;
-Cell.prototype.y = null;
-
-/**
- * Initializes the Cells data structure.
- *
- * @param tableOptions - A fully populated set of tableOptions.
- * In addition to the standard default values, tableOptions must have fully populated the
- * `colWidths` and `rowWidths` arrays. Those arrays must have lengths equal to the number
- * of columns or rows (respectively) in this table, and each array item must be a Number.
- *
- */
-Cell.prototype.init = function(tableOptions){
-  var x = this.x;
-  var y = this.y;
-  this.widths = tableOptions.colWidths.slice(x, x + this.colSpan);
-  this.heights = tableOptions.rowHeights.slice(y, y + this.rowSpan);
-  this.width = _.reduce(this.widths,sumPlusOne);
-  this.height = _.reduce(this.heights,sumPlusOne);
-
-  this.hAlign = this.options.hAlign || tableOptions.colAligns[x];
-  this.vAlign = this.options.vAlign || tableOptions.rowAligns[y];
-
-  this.drawRight = x + this.colSpan == tableOptions.colWidths.length;
-};
-
-/**
- * Draws the given line of the cell.
- * This default implementation defers to methods `drawTop`, `drawBottom`, `drawLine` and `drawEmpty`.
- * @param lineNum - can be `top`, `bottom` or a numerical line number.
- * @param spanningCell - will be a number if being called from a RowSpanCell, and will represent how
- * many rows below it's being called from. Otherwise it's undefined.
- * @returns {String} The representation of this line.
- */
-Cell.prototype.draw = function(lineNum,spanningCell){
-  if(lineNum == 'top') return this.drawTop(this.drawRight);
-  if(lineNum == 'bottom') return this.drawBottom(this.drawRight);
-  var padLen = Math.max(this.height - this.lines.length, 0);
-  var padTop;
-  switch (this.vAlign){
-    case 'center':
-      padTop = Math.ceil(padLen / 2);
-      break;
-    case 'bottom':
-      padTop = padLen;
-      break;
-    default :
-      padTop = 0;
-  }
-  if( (lineNum < padTop) || (lineNum >= (padTop + this.lines.length))){
-    return this.drawEmpty(this.drawRight,spanningCell);
-  }
-  var forceTruncation = (this.lines.length > this.height) && (lineNum + 1 >= this.height);
-  return this.drawLine(lineNum - padTop, this.drawRight, forceTruncation,spanningCell);
-};
-
-/**
- * Renders the top line of the cell.
- * @param drawRight - true if this method should render the right edge of the cell.
- * @returns {String}
- */
-Cell.prototype.drawTop = function(drawRight){
-  var content = [];
-  if(this.cells){  //TODO: cells should always exist - some tests don't fill it in though
-    _.forEach(this.widths,function(width,index){
-      content.push(this._topLeftChar(index));
-      content.push(
-        utils.repeat(this.chars[this.y == 0 ? 'top' : 'mid'],width)
-      );
-    },this);
-  }
-  else {
-    content.push(this._topLeftChar(0));
-    content.push(utils.repeat(this.chars[this.y == 0 ? 'top' : 'mid'],this.width));
-  }
-  if(drawRight){
-    content.push(this.chars[this.y == 0 ? 'topRight' : 'rightMid']);
-  }
-  return this.wrapWithStyleColors('border',content.join(''));
-};
-
-Cell.prototype._topLeftChar = function(offset){
-  var x = this.x+offset;
-  var leftChar;
-  if(this.y == 0){
-    leftChar = x == 0 ? 'topLeft' : (offset == 0 ? 'topMid' : 'top');
-  } else  {
-    if(x == 0){
-      leftChar = 'leftMid';
-    }
-    else {
-      leftChar = offset == 0 ? 'midMid' : 'bottomMid';
-      if(this.cells){  //TODO: cells should always exist - some tests don't fill it in though
-        var spanAbove = this.cells[this.y-1][x] instanceof Cell.ColSpanCell;
-        if(spanAbove){
-          leftChar = offset == 0 ? 'topMid' : 'mid';
-        }
-        if(offset == 0){
-          var i = 1;
-          while(this.cells[this.y][x-i] instanceof Cell.ColSpanCell){
-            i++;
-          }
-          if(this.cells[this.y][x-i] instanceof Cell.RowSpanCell){
-            leftChar = 'leftMid';
-          }
-        }
-      }
-    }
-  }
-  return this.chars[leftChar];
-};
-
-Cell.prototype.wrapWithStyleColors = function(styleProperty,content){
-  if(this[styleProperty] && this[styleProperty].length){
-    try {
-      var colors = __webpack_require__(30);
-      for(var i = this[styleProperty].length - 1; i >= 0; i--){
-        colors = colors[this[styleProperty][i]];
-      }
-      return colors(content);
-    } catch (e) {
-      return content;
-    }
-  }
-  else {
-    return content;
-  }
-};
-
-/**
- * Renders a line of text.
- * @param lineNum - Which line of text to render. This is not necessarily the line within the cell.
- * There may be top-padding above the first line of text.
- * @param drawRight - true if this method should render the right edge of the cell.
- * @param forceTruncationSymbol - `true` if the rendered text should end with the truncation symbol even
- * if the text fits. This is used when the cell is vertically truncated. If `false` the text should
- * only include the truncation symbol if the text will not fit horizontally within the cell width.
- * @param spanningCell - a number of if being called from a RowSpanCell. (how many rows below). otherwise undefined.
- * @returns {String}
- */
-Cell.prototype.drawLine = function(lineNum,drawRight,forceTruncationSymbol,spanningCell){
-  var left = this.chars[this.x == 0 ? 'left' : 'middle'];
-  if(this.x && spanningCell && this.cells){
-    var cellLeft = this.cells[this.y+spanningCell][this.x-1];
-    while(cellLeft instanceof ColSpanCell){
-      cellLeft = this.cells[cellLeft.y][cellLeft.x-1];
-    }
-    if(!(cellLeft instanceof RowSpanCell)){
-      left = this.chars['rightMid'];
-    }
-  }
-  var leftPadding = utils.repeat(' ', this.paddingLeft);
-  var right = (drawRight ? this.chars['right'] : '');
-  var rightPadding = utils.repeat(' ', this.paddingRight);
-  var line = this.lines[lineNum];
-  var len = this.width - (this.paddingLeft + this.paddingRight);
-  if(forceTruncationSymbol) line += this.truncate || '…';
-  var content = utils.truncate(line,len,this.truncate);
-  content = utils.pad(content, len, ' ', this.hAlign);
-  content = leftPadding + content + rightPadding;
-  return this.stylizeLine(left,content,right);
-};
-
-Cell.prototype.stylizeLine = function(left,content,right){
-  left = this.wrapWithStyleColors('border',left);
-  right = this.wrapWithStyleColors('border',right);
-  if(this.y === 0){
-    content = this.wrapWithStyleColors('head',content);
-  }
-  return left + content + right;
-};
-
-/**
- * Renders the bottom line of the cell.
- * @param drawRight - true if this method should render the right edge of the cell.
- * @returns {String}
- */
-Cell.prototype.drawBottom = function(drawRight){
-  var left = this.chars[this.x == 0 ? 'bottomLeft' : 'bottomMid'];
-  var content = utils.repeat(this.chars.bottom,this.width);
-  var right = drawRight ? this.chars['bottomRight'] : '';
-  return this.wrapWithStyleColors('border',left + content + right);
-};
-
-/**
- * Renders a blank line of text within the cell. Used for top and/or bottom padding.
- * @param drawRight - true if this method should render the right edge of the cell.
- * @param spanningCell - a number of if being called from a RowSpanCell. (how many rows below). otherwise undefined.
- * @returns {String}
- */
-Cell.prototype.drawEmpty = function(drawRight,spanningCell){
-  var left = this.chars[this.x == 0 ? 'left' : 'middle'];
-  if(this.x && spanningCell && this.cells){
-    var cellLeft = this.cells[this.y+spanningCell][this.x-1];
-    while(cellLeft instanceof ColSpanCell){
-      cellLeft = this.cells[cellLeft.y][cellLeft.x-1];
-    }
-    if(!(cellLeft instanceof RowSpanCell)){
-      left = this.chars['rightMid'];
-    }
-  }
-  var right = (drawRight ? this.chars['right'] : '');
-  var content = utils.repeat(' ',this.width);
-  return this.stylizeLine(left , content , right);
-};
-
-/**
- * A Cell that doesn't do anything. It just draws empty lines.
- * Used as a placeholder in column spanning.
- * @constructor
- */
-function ColSpanCell(){}
-
-ColSpanCell.prototype.draw = function(){
-  return '';
-};
-
-ColSpanCell.prototype.init = function(tableOptions){};
-
-
-/**
- * A placeholder Cell for a Cell that spans multiple rows.
- * It delegates rendering to the original cell, but adds the appropriate offset.
- * @param originalCell
- * @constructor
- */
-function RowSpanCell(originalCell){
-  this.originalCell = originalCell;
-}
-
-RowSpanCell.prototype.init = function(tableOptions){
-  var y = this.y;
-  var originalY = this.originalCell.y;
-  this.cellOffset = y - originalY;
-  this.offset = findDimension(tableOptions.rowHeights,originalY,this.cellOffset);
-};
-
-RowSpanCell.prototype.draw = function(lineNum){
-  if(lineNum == 'top'){
-    return this.originalCell.draw(this.offset,this.cellOffset);
-  }
-  if(lineNum == 'bottom'){
-    return this.originalCell.draw('bottom');
-  }
-  return this.originalCell.draw(this.offset + 1 + lineNum);
-};
-
-ColSpanCell.prototype.mergeTableOptions =
-RowSpanCell.prototype.mergeTableOptions = function(){};
-
-// HELPER FUNCTIONS
-function setOption(objA,objB,nameB,targetObj){
-  var nameA = nameB.split('-');
-  if(nameA.length > 1) {
-    nameA[1] = nameA[1].charAt(0).toUpperCase() + nameA[1].substr(1);
-    nameA = nameA.join('');
-    targetObj[nameA] = objA[nameA] || objA[nameB] || objB[nameA] || objB[nameB];
-  }
-  else {
-    targetObj[nameB] = objA[nameB] || objB[nameB];
-  }
-}
-
-function findDimension(dimensionTable, startingIndex, span){
-  var ret = dimensionTable[startingIndex];
-  for(var i = 1; i < span; i++){
-    ret += 1 + dimensionTable[startingIndex + i];
-  }
-  return ret;
-}
-
-function sumPlusOne(a,b){
-  return a+b+1;
-}
-
-var CHAR_NAMES = [  'top'
-  , 'top-mid'
-  , 'top-left'
-  , 'top-right'
-  , 'bottom'
-  , 'bottom-mid'
-  , 'bottom-left'
-  , 'bottom-right'
-  , 'left'
-  , 'left-mid'
-  , 'mid'
-  , 'mid-mid'
-  , 'right'
-  , 'right-mid'
-  , 'middle'
-];
-module.exports = Cell;
-module.exports.ColSpanCell = ColSpanCell;
-module.exports.RowSpanCell = RowSpanCell;
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _ = __webpack_require__(2);
-var Cell = __webpack_require__(17);
-var RowSpanCell = Cell.RowSpanCell;
-var ColSpanCell = Cell.ColSpanCell;
-
-(function(){
-  function layoutTable(table){
-    _.forEach(table,function(row,rowIndex){
-      _.forEach(row,function(cell,columnIndex){
-        cell.y = rowIndex;
-        cell.x = columnIndex;
-        for(var y = rowIndex; y >= 0; y--){
-          var row2 = table[y];
-          var xMax = (y === rowIndex) ? columnIndex : row2.length;
-          for(var x = 0; x < xMax; x++){
-            var cell2 = row2[x];
-            while(cellsConflict(cell,cell2)){
-              cell.x++;
-            }
-          }
-        }
-      });
-    });
-  }
-
-  function maxWidth(table) {
-    var mw = 0;
-    _.forEach(table, function (row) {
-      _.forEach(row, function (cell) {
-        mw = Math.max(mw,cell.x + (cell.colSpan || 1));
-      });
-    });
-    return mw;
-  }
-
-  function maxHeight(table){
-    return table.length;
-  }
-
-  function cellsConflict(cell1,cell2){
-    var yMin1 = cell1.y;
-    var yMax1 = cell1.y - 1 + (cell1.rowSpan || 1);
-    var yMin2 = cell2.y;
-    var yMax2 = cell2.y - 1 + (cell2.rowSpan || 1);
-    var yConflict = !(yMin1 > yMax2 || yMin2 > yMax1);
-
-    var xMin1= cell1.x;
-    var xMax1 = cell1.x - 1 + (cell1.colSpan || 1);
-    var xMin2= cell2.x;
-    var xMax2 = cell2.x - 1 + (cell2.colSpan || 1);
-    var xConflict = !(xMin1 > xMax2 || xMin2 > xMax1);
-
-    return yConflict && xConflict;
-  }
-
-  function conflictExists(rows,x,y){
-    var i_max = Math.min(rows.length-1,y);
-    var cell = {x:x,y:y};
-    for(var i = 0; i <= i_max; i++){
-      var row = rows[i];
-      for(var j = 0; j < row.length; j++){
-        if(cellsConflict(cell,row[j])){
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
-  function allBlank(rows,y,xMin,xMax){
-    for(var x = xMin; x < xMax; x++){
-      if(conflictExists(rows,x,y)){
-        return false;
-      }
-    }
-    return true;
-  }
-
-  function addRowSpanCells(table){
-    _.forEach(table,function(row,rowIndex){
-      _.forEach(row,function(cell){
-        for(var i = 1; i < cell.rowSpan; i++){
-          var rowSpanCell = new RowSpanCell(cell);
-          rowSpanCell.x = cell.x;
-          rowSpanCell.y = cell.y + i;
-          rowSpanCell.colSpan = cell.colSpan;
-          insertCell(rowSpanCell,table[rowIndex+i]);
-        }
-      });
-    });
-  }
-
-  function addColSpanCells(cellRows){
-    for(var rowIndex = cellRows.length-1; rowIndex >= 0; rowIndex--) {
-      var cellColumns = cellRows[rowIndex];
-      for (var columnIndex = 0; columnIndex < cellColumns.length; columnIndex++) {
-        var cell = cellColumns[columnIndex];
-        for (var k = 1; k < cell.colSpan; k++) {
-          var colSpanCell = new ColSpanCell();
-          colSpanCell.x = cell.x + k;
-          colSpanCell.y = cell.y;
-          cellColumns.splice(columnIndex + 1, 0, colSpanCell);
-        }
-      }
-    }
-  }
-
-  function insertCell(cell,row){
-    var x = 0;
-    while(x < row.length && (row[x].x < cell.x)) {
-      x++;
-    }
-    row.splice(x,0,cell);
-  }
-
-  function fillInTable(table){
-    var h_max = maxHeight(table);
-    var w_max = maxWidth(table);
-    for(var y = 0; y < h_max; y++){
-      for(var x = 0; x < w_max; x++){
-        if(!conflictExists(table,x,y)){
-          var opts = {x:x,y:y,colSpan:1,rowSpan:1};
-          x++;
-          while(x < w_max && !conflictExists(table,x,y)){
-            opts.colSpan++;
-            x++;
-          }
-          var y2 = y + 1;
-          while(y2 < h_max && allBlank(table,y2,opts.x,opts.x+opts.colSpan)){
-            opts.rowSpan++;
-            y2++;
-          }
-
-          var cell = new Cell(opts);
-          cell.x = opts.x;
-          cell.y = opts.y;
-          insertCell(cell,table[y]);
-        }
-      }
-    }
-  }
-
-  function generateCells(rows){
-    return _.map(rows,function(row){
-      if(!_.isArray(row)){
-        var key = Object.keys(row)[0];
-        row = row[key];
-        if(_.isArray(row)){
-          row = row.slice();
-          row.unshift(key);
-        }
-        else {
-          row = [key,row];
-        }
-      }
-      return _.map(row,function(cell){
-        return new Cell(cell);
-      });
-    });
-  }
-
-  function makeTableLayout(rows){
-    var cellRows = generateCells(rows);
-    layoutTable(cellRows);
-    fillInTable(cellRows);
-    addRowSpanCells(cellRows);
-    addColSpanCells(cellRows);
-    return cellRows;
-  }
-
-  module.exports = {
-    makeTableLayout: makeTableLayout,
-    layoutTable: layoutTable,
-    addRowSpanCells: addRowSpanCells,
-    maxWidth:maxWidth,
-    fillInTable:fillInTable,
-    computeWidths:makeComputeWidths('colSpan','desiredWidth','x',1),
-    computeHeights:makeComputeWidths('rowSpan','desiredHeight','y',1)
-  };
-})();
-
-function makeComputeWidths(colSpan,desiredWidth,x,forcedMin){
-  return function(vals,table){
-    var result = [];
-    var spanners = [];
-    _.forEach(table,function(row){
-      _.forEach(row,function(cell){
-        if((cell[colSpan] || 1) > 1){
-          spanners.push(cell);
-        }
-        else {
-          result[cell[x]] = Math.max(result[cell[x]] || 0, cell[desiredWidth] || 0, forcedMin);
-        }
-      });
-    });
-
-    _.forEach(vals,function(val,index){
-      if(_.isNumber(val)){
-        result[index] = val;
-      }
-    });
-
-    //_.forEach(spanners,function(cell){
-    for(var k = spanners.length - 1; k >=0; k--){
-      var cell = spanners[k];
-      var span = cell[colSpan];
-      var col = cell[x];
-      var existingWidth = result[col];
-      var editableCols = _.isNumber(vals[col]) ? 0 : 1;
-      for(var i = 1; i < span; i ++){
-        existingWidth += 1 + result[col + i];
-        if(!_.isNumber(vals[col + i])){
-          editableCols++;
-        }
-      }
-      if(cell[desiredWidth] > existingWidth){
-        i = 0;
-        while(editableCols > 0 && cell[desiredWidth] > existingWidth){
-          if(!_.isNumber(vals[col+i])){
-            var dif = Math.round( (cell[desiredWidth] - existingWidth) / editableCols );
-            existingWidth += dif;
-            result[col + i] += dif;
-            editableCols--;
-          }
-          i++;
-        }
-      }
-    }
-
-    _.extend(vals,result);
-    for(var j = 0; j < vals.length; j++){
-      vals[j] = Math.max(forcedMin, vals[j] || 0);
-    }
-  };
-}
-
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var utils = __webpack_require__(9);
-var tableLayout = __webpack_require__(18);
-var _ = __webpack_require__(2);
-
-function Table(options){
-  this.options = utils.mergeOptions(options);
-}
-
-Table.prototype.__proto__ = Array.prototype;
-
-Table.prototype.toString = function(){
-  var array = this;
-  var headersPresent = this.options.head && this.options.head.length;
-  if(headersPresent){
-    array = [this.options.head];
-    if(this.length){
-      array.push.apply(array,this);
-    }
-  }
-  else {
-    this.options.style.head=[];
-  }
-
-  var cells = tableLayout.makeTableLayout(array);
-
-  _.forEach(cells,function(row){
-    _.forEach(row,function(cell){
-      cell.mergeTableOptions(this.options,cells);
-    },this);
-  },this);
-
-  tableLayout.computeWidths(this.options.colWidths,cells);
-  tableLayout.computeHeights(this.options.rowHeights,cells);
-
-  _.forEach(cells,function(row,rowIndex){
-    _.forEach(row,function(cell,cellIndex){
-      cell.init(this.options);
-    },this);
-  },this);
-
-  var result = [];
-
-  for(var rowIndex = 0; rowIndex < cells.length; rowIndex++){
-    var row = cells[rowIndex];
-    var heightOfRow = this.options.rowHeights[rowIndex];
-
-    if(rowIndex === 0 || !this.options.style.compact || (rowIndex == 1 && headersPresent)){
-      doDraw(row,'top',result);
-    }
-
-    for(var lineNum = 0; lineNum < heightOfRow; lineNum++){
-      doDraw(row,lineNum,result);
-    }
-
-    if(rowIndex + 1 == cells.length){
-      doDraw(row,'bottom',result);
-    }
-  }
-
-  return result.join('\n');
-};
-
-function doDraw(row,lineNum,result){
-  var line = [];
-  _.forEach(row,function(cell){
-    line.push(cell.draw(lineNum));
-  });
-  var str = line.join('');
-  if(str.length) result.push(str);
-}
-
-Table.prototype.__defineGetter__('width', function (){
-  var str = this.toString().split("\n");
-  return str[0].length;
-});
-
-module.exports = Table;
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* eslint-disable babel/new-cap, xo/throw-new-error */
-
-module.exports = function (str, pos) {
-	if (str === null || str === undefined) {
-		throw TypeError();
-	}
-
-	str = String(str);
-
-	var size = str.length;
-	var i = pos ? Number(pos) : 0;
-
-	if (Number.isNaN(i)) {
-		i = 0;
-	}
-
-	if (i < 0 || i >= size) {
-		return undefined;
-	}
-
-	var first = str.charCodeAt(i);
-
-	if (first >= 0xD800 && first <= 0xDBFF && size > i + 1) {
-		var second = str.charCodeAt(i + 1);
-
-		if (second >= 0xDC00 && second <= 0xDFFF) {
-			return ((first - 0xD800) * 0x400) + second - 0xDC00 + 0x10000;
-		}
-	}
-
-	return first;
-};
-
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports) {
-
-function webpackEmptyContext(req) {
-	throw new Error("Cannot find module '" + req + "'.");
-}
-webpackEmptyContext.keys = function() { return []; };
-webpackEmptyContext.resolve = webpackEmptyContext;
-module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 21;
-
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports) {
-
-module['exports'] = function runTheTrap (text, options) {
-  var result = "";
-  text = text || "Run the trap, drop the bass";
-  text = text.split('');
-  var trap = {
-    a: ["\u0040", "\u0104", "\u023a", "\u0245", "\u0394", "\u039b", "\u0414"],
-    b: ["\u00df", "\u0181", "\u0243", "\u026e", "\u03b2", "\u0e3f"],
-    c: ["\u00a9", "\u023b", "\u03fe"],
-    d: ["\u00d0", "\u018a", "\u0500" , "\u0501" ,"\u0502", "\u0503"],
-    e: ["\u00cb", "\u0115", "\u018e", "\u0258", "\u03a3", "\u03be", "\u04bc", "\u0a6c"],
-    f: ["\u04fa"],
-    g: ["\u0262"],
-    h: ["\u0126", "\u0195", "\u04a2", "\u04ba", "\u04c7", "\u050a"],
-    i: ["\u0f0f"],
-    j: ["\u0134"],
-    k: ["\u0138", "\u04a0", "\u04c3", "\u051e"],
-    l: ["\u0139"],
-    m: ["\u028d", "\u04cd", "\u04ce", "\u0520", "\u0521", "\u0d69"],
-    n: ["\u00d1", "\u014b", "\u019d", "\u0376", "\u03a0", "\u048a"],
-    o: ["\u00d8", "\u00f5", "\u00f8", "\u01fe", "\u0298", "\u047a", "\u05dd", "\u06dd", "\u0e4f"],
-    p: ["\u01f7", "\u048e"],
-    q: ["\u09cd"],
-    r: ["\u00ae", "\u01a6", "\u0210", "\u024c", "\u0280", "\u042f"],
-    s: ["\u00a7", "\u03de", "\u03df", "\u03e8"],
-    t: ["\u0141", "\u0166", "\u0373"],
-    u: ["\u01b1", "\u054d"],
-    v: ["\u05d8"],
-    w: ["\u0428", "\u0460", "\u047c", "\u0d70"],
-    x: ["\u04b2", "\u04fe", "\u04fc", "\u04fd"],
-    y: ["\u00a5", "\u04b0", "\u04cb"],
-    z: ["\u01b5", "\u0240"]
-  }
-  text.forEach(function(c){
-    c = c.toLowerCase();
-    var chars = trap[c] || [" "];
-    var rand = Math.floor(Math.random() * chars.length);
-    if (typeof trap[c] !== "undefined") {
-      result += trap[c][rand];
-    } else {
-      result += c;
-    }
-  });
-  return result;
-
-}
-
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports) {
-
-// please no
-module['exports'] = function zalgo(text, options) {
-  text = text || "   he is here   ";
-  var soul = {
-    "up" : [
-      '̍', '̎', '̄', '̅',
-      '̿', '̑', '̆', '̐',
-      '͒', '͗', '͑', '̇',
-      '̈', '̊', '͂', '̓',
-      '̈', '͊', '͋', '͌',
-      '̃', '̂', '̌', '͐',
-      '̀', '́', '̋', '̏',
-      '̒', '̓', '̔', '̽',
-      '̉', 'ͣ', 'ͤ', 'ͥ',
-      'ͦ', 'ͧ', 'ͨ', 'ͩ',
-      'ͪ', 'ͫ', 'ͬ', 'ͭ',
-      'ͮ', 'ͯ', '̾', '͛',
-      '͆', '̚'
-    ],
-    "down" : [
-      '̖', '̗', '̘', '̙',
-      '̜', '̝', '̞', '̟',
-      '̠', '̤', '̥', '̦',
-      '̩', '̪', '̫', '̬',
-      '̭', '̮', '̯', '̰',
-      '̱', '̲', '̳', '̹',
-      '̺', '̻', '̼', 'ͅ',
-      '͇', '͈', '͉', '͍',
-      '͎', '͓', '͔', '͕',
-      '͖', '͙', '͚', '̣'
-    ],
-    "mid" : [
-      '̕', '̛', '̀', '́',
-      '͘', '̡', '̢', '̧',
-      '̨', '̴', '̵', '̶',
-      '͜', '͝', '͞',
-      '͟', '͠', '͢', '̸',
-      '̷', '͡', ' ҉'
-    ]
-  },
-  all = [].concat(soul.up, soul.down, soul.mid),
-  zalgo = {};
-
-  function randomNumber(range) {
-    var r = Math.floor(Math.random() * range);
-    return r;
-  }
-
-  function is_char(character) {
-    var bool = false;
-    all.filter(function (i) {
-      bool = (i === character);
-    });
-    return bool;
-  }
-  
-
-  function heComes(text, options) {
-    var result = '', counts, l;
-    options = options || {};
-    options["up"] =   typeof options["up"]   !== 'undefined' ? options["up"]   : true;
-    options["mid"] =  typeof options["mid"]  !== 'undefined' ? options["mid"]  : true;
-    options["down"] = typeof options["down"] !== 'undefined' ? options["down"] : true;
-    options["size"] = typeof options["size"] !== 'undefined' ? options["size"] : "maxi";
-    text = text.split('');
-    for (l in text) {
-      if (is_char(l)) {
-        continue;
-      }
-      result = result + text[l];
-      counts = {"up" : 0, "down" : 0, "mid" : 0};
-      switch (options.size) {
-      case 'mini':
-        counts.up = randomNumber(8);
-        counts.mid = randomNumber(2);
-        counts.down = randomNumber(8);
-        break;
-      case 'maxi':
-        counts.up = randomNumber(16) + 3;
-        counts.mid = randomNumber(4) + 1;
-        counts.down = randomNumber(64) + 3;
-        break;
-      default:
-        counts.up = randomNumber(8) + 1;
-        counts.mid = randomNumber(6) / 2;
-        counts.down = randomNumber(8) + 1;
-        break;
-      }
-
-      var arr = ["up", "mid", "down"];
-      for (var d in arr) {
-        var index = arr[d];
-        for (var i = 0 ; i <= counts[index]; i++) {
-          if (options[index]) {
-            result = result + soul[index][randomNumber(soul[index].length)];
-          }
-        }
-      }
-    }
-    return result;
-  }
-  // don't summon him
-  return heComes(text, options);
-}
-
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var colors = __webpack_require__(1);
-
-module['exports'] = (function() {
-  return function (letter, i, exploded) {
-    if(letter === " ") return letter;
-    switch(i%3) {
-      case 0: return colors.red(letter);
-      case 1: return colors.white(letter)
-      case 2: return colors.blue(letter)
-    }
-  }
-})();
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var colors = __webpack_require__(1);
-
-module['exports'] = (function () {
-  var rainbowColors = ['red', 'yellow', 'green', 'blue', 'magenta']; //RoY G BiV
-  return function (letter, i, exploded) {
-    if (letter === " ") {
-      return letter;
-    } else {
-      return colors[rainbowColors[i++ % rainbowColors.length]](letter);
-    }
-  };
-})();
-
-
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var colors = __webpack_require__(1);
-
-module['exports'] = (function () {
-  var available = ['underline', 'inverse', 'grey', 'yellow', 'red', 'green', 'blue', 'white', 'cyan', 'magenta'];
-  return function(letter, i, exploded) {
-    return letter === " " ? letter : colors[available[Math.round(Math.random() * (available.length - 1))]](letter);
-  };
-})();
-
-/***/ }),
-/* 27 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var colors = __webpack_require__(1);
-
-module['exports'] = function (letter, i, exploded) {
-  return i % 2 === 0 ? letter : colors.inverse(letter);
-};
-
-/***/ }),
-/* 28 */
-/***/ (function(module, exports) {
-
-/*
-The MIT License (MIT)
-
-Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
-*/
-
-var styles = {};
-module['exports'] = styles;
-
-var codes = {
-  reset: [0, 0],
-
-  bold: [1, 22],
-  dim: [2, 22],
-  italic: [3, 23],
-  underline: [4, 24],
-  inverse: [7, 27],
-  hidden: [8, 28],
-  strikethrough: [9, 29],
-
-  black: [30, 39],
-  red: [31, 39],
-  green: [32, 39],
-  yellow: [33, 39],
-  blue: [34, 39],
-  magenta: [35, 39],
-  cyan: [36, 39],
-  white: [37, 39],
-  gray: [90, 39],
-  grey: [90, 39],
-
-  bgBlack: [40, 49],
-  bgRed: [41, 49],
-  bgGreen: [42, 49],
-  bgYellow: [43, 49],
-  bgBlue: [44, 49],
-  bgMagenta: [45, 49],
-  bgCyan: [46, 49],
-  bgWhite: [47, 49],
-
-  // legacy styles for colors pre v1.0.0
-  blackBG: [40, 49],
-  redBG: [41, 49],
-  greenBG: [42, 49],
-  yellowBG: [43, 49],
-  blueBG: [44, 49],
-  magentaBG: [45, 49],
-  cyanBG: [46, 49],
-  whiteBG: [47, 49]
-
-};
-
-Object.keys(codes).forEach(function (key) {
-  var val = codes[key];
-  var style = styles[key] = [];
-  style.open = '\u001b[' + val[0] + 'm';
-  style.close = '\u001b[' + val[1] + 'm';
-});
-
-/***/ }),
-/* 29 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(process) {/*
-The MIT License (MIT)
-
-Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
-*/
-
-var argv = process.argv;
-
-module.exports = (function () {
-  if (argv.indexOf('--no-color') !== -1 ||
-    argv.indexOf('--color=false') !== -1) {
-    return false;
-  }
-
-  if (argv.indexOf('--color') !== -1 ||
-    argv.indexOf('--color=true') !== -1 ||
-    argv.indexOf('--color=always') !== -1) {
-    return true;
-  }
-
-  if (process.stdout && !process.stdout.isTTY) {
-    return false;
-  }
-
-  if (process.platform === 'win32') {
-    return true;
-  }
-
-  if ('COLORTERM' in process.env) {
-    return true;
-  }
-
-  if (process.env.TERM === 'dumb') {
-    return false;
-  }
-
-  if (/^screen|^xterm|^vt100|color|ansi|cygwin|linux/i.test(process.env.TERM)) {
-    return true;
-  }
-
-  return false;
-})();
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 30 */
-/***/ (function(module, exports, __webpack_require__) {
-
-//
-// Remark: Requiring this file will use the "safe" colors API which will not touch String.prototype
-//
-//   var colors = require('colors/safe);
-//   colors.red("foo")
-//
-//
-var colors = __webpack_require__(1);
-module['exports'] = colors;
-
-/***/ }),
-/* 31 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var ansiRegex = __webpack_require__(6);
-var re = new RegExp(ansiRegex().source); // remove the `g` flag
-module.exports = re.test.bind(re);
-
-
-/***/ }),
-/* 32 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var numberIsNan = __webpack_require__(33);
-
-module.exports = function (x) {
-	if (numberIsNan(x)) {
-		return false;
-	}
-
-	// https://github.com/nodejs/io.js/blob/cff7300a578be1b10001f2d967aaedc88aee6402/lib/readline.js#L1369
-
-	// code points are derived from:
-	// http://www.unix.org/Public/UNIDATA/EastAsianWidth.txt
-	if (x >= 0x1100 && (
-		x <= 0x115f ||  // Hangul Jamo
-		0x2329 === x || // LEFT-POINTING ANGLE BRACKET
-		0x232a === x || // RIGHT-POINTING ANGLE BRACKET
-		// CJK Radicals Supplement .. Enclosed CJK Letters and Months
-		(0x2e80 <= x && x <= 0x3247 && x !== 0x303f) ||
-		// Enclosed CJK Letters and Months .. CJK Unified Ideographs Extension A
-		0x3250 <= x && x <= 0x4dbf ||
-		// CJK Unified Ideographs .. Yi Radicals
-		0x4e00 <= x && x <= 0xa4c6 ||
-		// Hangul Jamo Extended-A
-		0xa960 <= x && x <= 0xa97c ||
-		// Hangul Syllables
-		0xac00 <= x && x <= 0xd7a3 ||
-		// CJK Compatibility Ideographs
-		0xf900 <= x && x <= 0xfaff ||
-		// Vertical Forms
-		0xfe10 <= x && x <= 0xfe19 ||
-		// CJK Compatibility Forms .. Small Form Variants
-		0xfe30 <= x && x <= 0xfe6b ||
-		// Halfwidth and Fullwidth Forms
-		0xff01 <= x && x <= 0xff60 ||
-		0xffe0 <= x && x <= 0xffe6 ||
-		// Kana Supplement
-		0x1b000 <= x && x <= 0x1b001 ||
-		// Enclosed Ideographic Supplement
-		0x1f200 <= x && x <= 0x1f251 ||
-		// CJK Unified Ideographs Extension B .. Tertiary Ideographic Plane
-		0x20000 <= x && x <= 0x3fffd)) {
-		return true;
-	}
-
-	return false;
-}
-
-
-/***/ }),
 /* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -31932,103 +32170,6 @@ module.exports = Number.isNaN || function (x) {
 
 /***/ }),
 /* 34 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/*
-object-assign
-(c) Sindre Sorhus
-@license MIT
-*/
-
-
-/* eslint-disable no-unused-vars */
-var getOwnPropertySymbols = Object.getOwnPropertySymbols;
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-var propIsEnumerable = Object.prototype.propertyIsEnumerable;
-
-function toObject(val) {
-	if (val === null || val === undefined) {
-		throw new TypeError('Object.assign cannot be called with null or undefined');
-	}
-
-	return Object(val);
-}
-
-function shouldUseNative() {
-	try {
-		if (!Object.assign) {
-			return false;
-		}
-
-		// Detect buggy property enumeration order in older V8 versions.
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
-		var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
-		test1[5] = 'de';
-		if (Object.getOwnPropertyNames(test1)[0] === '5') {
-			return false;
-		}
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-		var test2 = {};
-		for (var i = 0; i < 10; i++) {
-			test2['_' + String.fromCharCode(i)] = i;
-		}
-		var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
-			return test2[n];
-		});
-		if (order2.join('') !== '0123456789') {
-			return false;
-		}
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-		var test3 = {};
-		'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
-			test3[letter] = letter;
-		});
-		if (Object.keys(Object.assign({}, test3)).join('') !==
-				'abcdefghijklmnopqrst') {
-			return false;
-		}
-
-		return true;
-	} catch (err) {
-		// We don't expect any of the above to throw, but better to be safe.
-		return false;
-	}
-}
-
-module.exports = shouldUseNative() ? Object.assign : function (target, source) {
-	var from;
-	var to = toObject(target);
-	var symbols;
-
-	for (var s = 1; s < arguments.length; s++) {
-		from = Object(arguments[s]);
-
-		for (var key in from) {
-			if (hasOwnProperty.call(from, key)) {
-				to[key] = from[key];
-			}
-		}
-
-		if (getOwnPropertySymbols) {
-			symbols = getOwnPropertySymbols(from);
-			for (var i = 0; i < symbols.length; i++) {
-				if (propIsEnumerable.call(from, symbols[i])) {
-					to[symbols[i]] = from[symbols[i]];
-				}
-			}
-		}
-	}
-
-	return to;
-};
-
-
-/***/ }),
-/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32093,14 +32234,14 @@ module.exports = {
 
 
 /***/ }),
-/* 36 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var stripAnsi = __webpack_require__(12);
-var codePointAt = __webpack_require__(20);
-var isFullwidthCodePoint = __webpack_require__(32);
+var stripAnsi = __webpack_require__(11);
+var codePointAt = __webpack_require__(19);
+var isFullwidthCodePoint = __webpack_require__(31);
 
 // https://github.com/nodejs/io.js/blob/cff7300a578be1b10001f2d967aaedc88aee6402/lib/readline.js#L1345
 module.exports = function (str) {
@@ -32137,7 +32278,7 @@ module.exports = function (str) {
 
 
 /***/ }),
-/* 37 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32195,7 +32336,7 @@ module.exports = (function () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 38 */
+/* 37 */
 /***/ (function(module, exports) {
 
 if (typeof Object.create === 'function') {
@@ -32224,7 +32365,7 @@ if (typeof Object.create === 'function') {
 
 
 /***/ }),
-/* 39 */
+/* 38 */
 /***/ (function(module, exports) {
 
 module.exports = function isBuffer(arg) {
@@ -32235,7 +32376,7 @@ module.exports = function isBuffer(arg) {
 }
 
 /***/ }),
-/* 40 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -32763,7 +32904,7 @@ function isPrimitive(arg) {
 }
 exports.isPrimitive = isPrimitive;
 
-exports.isBuffer = __webpack_require__(39);
+exports.isBuffer = __webpack_require__(38);
 
 function objectToString(o) {
   return Object.prototype.toString.call(o);
@@ -32807,7 +32948,7 @@ exports.log = function() {
  *     prototype.
  * @param {function} superCtor Constructor function to inherit prototype from.
  */
-exports.inherits = __webpack_require__(38);
+exports.inherits = __webpack_require__(37);
 
 exports._extend = function(origin, add) {
   // Don't do anything if add isn't an object
@@ -32828,10 +32969,17 @@ function hasOwnProperty(obj, prop) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(0)))
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(process) {if(process.browser){var Browser=__webpack_require__(13);module.exports=new Browser(__webpack_require__(5))}else module.exports=__webpack_require__(14);
+/* WEBPACK VAR INJECTION */(function(process) {/*global require*/
+
+if (process.browser) {
+  var Browser = __webpack_require__(12);
+  module.exports = new Browser(__webpack_require__(5));
+} else {
+  module.exports = __webpack_require__(13);
+}
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ })

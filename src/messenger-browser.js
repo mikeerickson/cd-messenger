@@ -1,6 +1,4 @@
 let logger  = require('pretty-web-logger');
-let _       = require('lodash');
-let assign  = require('object-assign');
 
 function showColorMessage(msg, bgColor = 'white', ...params) {
   let mgStyle = `background: ${bgColor}; color: white; display: block;`;
@@ -20,7 +18,7 @@ class MessengerBrowser {
     this.pkgInfo = pkgInfo;
   }
   setOptions(opts = {}) {
-    this.options = assign(this.options, opts);
+    this.options = Object.assign(this.options, opts);
   }
   version() {
     return this.pkgInfo.version;
@@ -55,7 +53,7 @@ class MessengerBrowser {
   }
   chalkline(char = '', fgColor = 'white', width = 80) {
     char = (char.length > 0) ? char.substring(0,1) : '\u2584'; // '\u2584' <-- bigger box
-    console.log('%c%s', `color: ${fgColor}; display: block`, _.repeat(char, width));
+    console.log('%c%s', `color: ${fgColor}; display: block`, char.repeat(width));
   }
 }
 module.exports = MessengerBrowser;

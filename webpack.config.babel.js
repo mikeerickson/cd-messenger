@@ -58,7 +58,7 @@ if (isDev) {
   webpackConfig.devtool = 'source-map';
   webpackConfig.plugins.push(new WebpackShellPlugin({
     onBuildStart: ['./node_modules/.bin/bump prerelease'], // need to bump version first before files copied etc
-    onBuildExit: ['echo "test"']
+    onBuildExit: []
   }));
 }
 
