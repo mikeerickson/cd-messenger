@@ -59,7 +59,7 @@ const messenger = {
       console.log(table.toString());
     }
   },
-  chalkline: (color) => {
+  line: (color) => {
     if (color.length > 0) {
       try {
         eval(`cl.${color}()`); // eslint-disable-line

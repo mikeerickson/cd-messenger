@@ -51,7 +51,7 @@ class MessengerBrowser {
   dir(...params) {
     console.dir(...params);
   }
-  chalkline(char = '', fgColor = 'white', width = 80) {
+  line(char = '', fgColor = 'white', width = 80) {
     char = (char.length > 0) ? char.substring(0, 1) : '\u2584'; // '\u2584' <-- bigger box
     console.log('%c%s', `color: ${fgColor}; display: block`, char.repeat(width));
   }

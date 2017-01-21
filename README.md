@@ -29,6 +29,9 @@ msg.error   (`name: ${name}`);  // default color Red
 msg.note    (`name: ${name}`);  // default color Orange
 msg.debug   (`name: ${name}`);  // default color white
 msg.table   (array|object)
+msg.line    ('', 'magenta');    // displays a line with solid magenta (no char)
+msg.line    ('•', 'green');     // displays a line with repeating '•' and green
+msg.line    ('', 'yellow', 40); // display with repeating (40) box, yellow
 ```
 
 

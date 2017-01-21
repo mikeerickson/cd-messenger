@@ -14,18 +14,18 @@ msg.success('Node Messenger: Success');
 msg.warning('Node Messenger: Warning');
 msg.error('Node Messenger: Error');
 
-msg.chalkline('green');
-msg.chalkline('red');
-msg.chalkline('cyan');
-msg.chalkline('magenta');
-msg.chalkline('purple');
-msg.chalkline('blue');
+msg.line('green');
+msg.line('red');
+msg.line('cyan');
+msg.line('magenta');
+msg.line('purple');
+msg.line('blue');
 
 msg.dir(family);
-msg.chalkline('blue');
+msg.line('blue');
 
 msg.table(family);
-msg.chalkline('blue');
+msg.line('blue');
 
 msg.table([
   ['fname','lname','role'],

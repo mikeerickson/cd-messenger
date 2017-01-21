@@ -21,16 +21,16 @@ messenger.error('error message');
 messenger.table(data);
 
 messenger.success('dots');
-messenger.chalkline('•','green');
+messenger.line('•','green');
 
 messenger.log('solid lines');
-messenger.chalkline('','white');
-messenger.chalkline('','red');
-messenger.chalkline('','green');
-messenger.chalkline('','blue');
-messenger.chalkline('','yellow');
-messenger.chalkline('','orange');
-messenger.chalkline('','magenta');
+messenger.line('','white');
+messenger.line('','red');
+messenger.line('','green');
+messenger.line('','blue');
+messenger.line('','yellow');
+messenger.line('','orange');
+messenger.line('','magenta');
 
 let el = document.querySelector('#app');
 el.innerHTML = '<pre>v' + vers + '</pre>';
