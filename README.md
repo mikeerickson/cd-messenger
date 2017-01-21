@@ -1,6 +1,7 @@
 # cd-messenger
 ### Node and Browser Messages
-#### Use same API across browser or node and it will be handled for you :-)
+Use same API across browser or node and cd-messenger will handle the rest for you!
+
 
 View on [npm](https://www.npmjs.com/package/cd-messenger)
 
