@@ -33,7 +33,8 @@
     "error",
     "info",
     "warning",
-    "dump"
+    "dump",
+    "browser"
   ],
   "author": "Mike Erickson <codedungeon@gmail.com>",
   "license": "MIT",
