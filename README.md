@@ -53,7 +53,7 @@ msg.setOptions(options: object)     // customize default browser appearance
 
 ### License
 
-Copyright (c) 2016-2017 Mike Erickson
+Copyright &copy; 2016-2017 Mike Erickson
 Released under the MIT license
 
 
