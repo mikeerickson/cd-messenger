@@ -9,7 +9,12 @@ View on [npm](https://www.npmjs.com/package/cd-messenger)
 ### Install with [npm](npmjs.org)
 
 ```sh
-npm install cd-messenger -S
+npm i -S cd-messenger
+```
+
+### Add as script tag
+```html
+<script src="lib/messenger.min.js"></script>
 ```
 
 ### Usage
