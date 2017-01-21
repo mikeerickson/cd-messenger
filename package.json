@@ -1,13 +1,13 @@
 {
   "name": "cd-messenger",
-  "version": "2.5.1",
+  "version": "2.5.2-build.4",
   "description": "console log logger gulp notification browser node message",
   "main": "index.js",
   "reveal": true,
   "scripts": {
     "all": "npm run eslint",
     "build:dev": "node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.babel.js && bash ./scripts/copy.sh",
-    "build:prod": "ENV=production node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.babel.js -p && bash ./scripts/copy.sh",
+    "build:prod": "ENV=production node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.babel.js && bash ./scripts/copy.sh",
     "build:watch": "node -r babel-register node_modules/.bin/webpack --hide-modules -w --config=webpack.config.babel.js",
     "build": "npm run clean && npm run build:dev && npm run build:prod",
     "clean": "./node_modules/.bin/rimraf lib && ./node_modules/.bin/rimraf examples/lib",
@@ -46,6 +46,7 @@
     "babel-loader": "6.2.10",
     "babel-preset-babili": "0.0.10",
     "babel-preset-es2015-without-strict": "0.0.4",
+    "babili-webpack-plugin": "0.0.7",
     "bump-version": "github:ianstormtaylor/bump",
     "chai": "3.5.0",
     "eslint": "3.13.1",

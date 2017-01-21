@@ -1,13 +1,13 @@
-let logger  = require('pretty-web-logger');
+let logger = require('pretty-web-logger');
 
 function showColorMessage(msg, bgColor = 'white', ...params) {
   let mgStyle = `background: ${bgColor}; color: white; display: block;`;
-  if (bgColor === 'yellow') {
+  if (bgColor === 'yellow') { // different `color` as white / yellow dont look good
     mgStyle = `background: ${bgColor}; color: black; display: block;`;
   }
-  params.length > 0
-    ? console.log('%c%s', mgStyle, msg, params)
-    : console.log('%c%s', mgStyle, msg);
+  params.length > 0 ?
+    console.log('%c%s', mgStyle, msg, params) :
+    console.log('%c%s', mgStyle, msg);
 }
 
 class MessengerBrowser {
@@ -52,7 +52,7 @@ class MessengerBrowser {
     console.dir(...params);
   }
   chalkline(char = '', fgColor = 'white', width = 80) {
-    char = (char.length > 0) ? char.substring(0,1) : '\u2584'; // '\u2584' <-- bigger box
+    char = (char.length > 0) ? char.substring(0, 1) : '\u2584'; // '\u2584' <-- bigger box
     console.log('%c%s', `color: ${fgColor}; display: block`, char.repeat(width));
   }
 }

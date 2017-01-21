@@ -1,8 +1,3 @@
 {
-  "presets": ["es2015-without-strict"],
-  "env": {
-    "production": {
-      "presets": ["babili"]
-    }
-  }
+  "presets": ["babili", "es2015-without-strict"],
 }

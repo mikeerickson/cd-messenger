@@ -41,7 +41,6 @@ const messenger = {
     let table;
     let head = [];
     if (data.length > 0) {
-
       if (_.isArray(data[0])) {
         header = data[0];
         data.splice(0,1);

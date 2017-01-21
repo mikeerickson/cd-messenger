@@ -20,7 +20,7 @@ messenger.warning('warning message');
 messenger.error('error message');
 messenger.table(data);
 
-messenger.success('dots')
+messenger.success('dots');
 messenger.chalkline('•','green');
 
 messenger.log('solid lines');

@@ -6,6 +6,7 @@ import BuildNotifierPlugin from 'webpack-build-notifier';
 import HtmlWebpackPlugin   from 'html-webpack-plugin';
 import ProgressBarPlugin   from 'progress-bar-webpack-plugin';
 import WebpackShellPlugin  from '@slightlytyler/webpack-shell-plugin';
+import BabiliPlugin        from 'babili-webpack-plugin';
 
 const isProd      = (process.env.ENV === 'production') || (process.env.NODE_ENV === 'production');
 const isDev       = !isProd;
@@ -60,6 +61,10 @@ if (isDev) {
     onBuildStart: ['./node_modules/.bin/bump prerelease'], // need to bump version first before files copied etc
     onBuildExit: []
   }));
+}
+
+if (isProd) {
+  webpackConfig.plugins.push(new BabiliPlugin({}));
 }
 
 export default webpackConfig;
