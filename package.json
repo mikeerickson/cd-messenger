@@ -7,7 +7,7 @@
   "scripts": {
     "all": "npm run eslint",
     "build:dev": "node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.babel.js && bash ./scripts/copy.sh",
-    "build:prod": "ENV=production node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.babel.js && bash ./scripts/copy.sh",
+    "build:prod": "NODE_ENV=production node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.babel.js && bash ./scripts/copy.sh",
     "build:watch": "node -r babel-register node_modules/.bin/webpack --hide-modules -w --config=webpack.config.babel.js",
     "build": "npm run clean && npm run build:dev && npm run build:prod",
     "clean": "./node_modules/.bin/rimraf lib && ./node_modules/.bin/rimraf examples/lib",

@@ -20,9 +20,7 @@ printf "\n ${COL_GREEN}[ •• ${CO_RESET}] ${COL_YELLOW} ==> Copying files to 
 # copy built lib files to examples
 cp lib/*.js ./examples/lib
 
-# copy built index.html
-if [ -d "./lib/index.html" ]; then
-  mv lib/index.html ./examples
-fi
+# move built index.html
+mv lib/index.html ./examples
 
 printf " ${COL_GREEN}[ ok ${CO_RESET}] ${COL_YELLOW} ==> Build Completed Successfully ... ${COL_RESET}\n\n"
