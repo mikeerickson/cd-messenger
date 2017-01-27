@@ -10,7 +10,7 @@
     "build:prod": "NODE_ENV=production node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.babel.js && bash ./scripts/copy.sh",
     "build:watch": "echo \"\n\n  ==> NOTE:  Running this causes an infinite loop, review cd-datetime-picker project for solution (gulp?)\n\n\"",
     "build:watch_temp": "node -r babel-register node_modules/.bin/webpack --hide-modules -w --config=webpack.config.babel.js",
-    "build": "npm run clean && npm run build:prod",
+    "build": "npm run clean && npm run build:dev && npm run build:prod",
     "clean": "./node_modules/.bin/rimraf lib && ./node_modules/.bin/rimraf examples/lib",
     "eslint": "eslint \"./**/*.js\"",
     "lint": "npm run eslint",
