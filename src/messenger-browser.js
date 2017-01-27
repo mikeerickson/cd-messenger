@@ -56,4 +56,5 @@ class MessengerBrowser {
     console.log('%c%s', `color: ${fgColor}; display: block`, char.repeat(width));
   }
 }
+// export default MessengerBrowser;
 module.exports = MessengerBrowser;

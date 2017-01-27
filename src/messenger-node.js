@@ -1,8 +1,7 @@
 
-const _       = require('lodash');
 const chalk   = require('chalk');
 const cl      = require('chalkline');
-const Table   = require('cli-table2');
+const Table   = require('cli-table');
 const pkgInfo = require('../package.json');
 
 const messenger = {
@@ -41,7 +40,7 @@ const messenger = {
     let table;
     let head = [];
     if (data.length > 0) {
-      if (_.isArray(data[0])) {
+      if (Array.isArray(data[0])) {
         header = data[0];
         data.splice(0,1);
       }
@@ -54,7 +53,8 @@ const messenger = {
       table = new Table({head: header});
 
       data.map((item) => {
-        table.push(_.values(item));
+        let values = Object.keys(item).map(key => item[key]);
+        table.push(values);
       });
       console.log(table.toString());
     }
