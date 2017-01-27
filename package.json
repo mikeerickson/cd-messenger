@@ -1,6 +1,6 @@
 {
   "name": "cd-messenger",
-  "version": "2.7.10",
+  "version": "2.7.11-4",
   "description": "console log logger gulp notification browser node message",
   "main": "index.js",
   "reveal": true,
@@ -8,13 +8,13 @@
     "all": "npm run eslint",
     "build:dev": "node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.babel.js && bash ./scripts/copy.sh",
     "build:prod": "NODE_ENV=production node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.babel.js && bash ./scripts/copy.sh",
-    "build:watch": "echo \"\n\n  ==> NOTE:  Running this causes an infinite loop, review cd-datetime-picker project for solution (gulp?)\n\n\"",
     "build:watch_temp": "node -r babel-register node_modules/.bin/webpack --hide-modules -w --config=webpack.config.babel.js",
+    "build:watch": "echo \"\n\n  ==> NOTE:  Running this causes an infinite loop, review cd-datetime-picker project for solution (gulp?)\n\n\"",
     "build": "npm run clean && npm run build:dev && npm run build:prod",
     "clean": "./node_modules/.bin/rimraf lib && ./node_modules/.bin/rimraf examples/lib",
     "eslint": "eslint \"./**/*.js\"",
     "lint": "npm run eslint",
-    "publish": "npm run build:prod",
+    "publish": "npm run build && bash ./scripts/delete-sourcemaps.sh",
     "test:node": "node examples/node-test",
     "test:watch": "./node_modules/.bin/mocha --compilers js:babel-core/register -w",
     "test": "./node_modules/.bin/mocha --compilers js:babel-core/register"
