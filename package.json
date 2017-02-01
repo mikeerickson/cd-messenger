@@ -1,6 +1,6 @@
 {
   "name": "cd-messenger",
-  "version": "2.7.13-0",
+  "version": "2.7.13",
   "description": "console log logger gulp notification browser node message",
   "main": "index.js",
   "reveal": true,
