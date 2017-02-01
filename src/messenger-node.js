@@ -4,6 +4,11 @@ const cl      = require('chalkline');
 const Table   = require('cli-table');
 const pkgInfo = require('../package.json');
 
+const CLI_ICON_FAIL = '✘';
+const CLI_ICON_PASS = '✓';
+const CLI_ICON_WARN = '♺';
+const CLI_ICON_NOTE = '✏︎';
+
 const messenger = {
   version: () => {
     return pkgInfo.version;
@@ -16,7 +21,7 @@ const messenger = {
     return params;
   },
   info: (...params) => {
-    console.log(chalk.cyan(...params));
+    console.log(chalk.cyan.bold(CLI_ICON_NOTE, ...params));
     return params;
   },
   note: (msg, ...params) => {
@@ -25,15 +30,15 @@ const messenger = {
     return params;
   },
   success: (...params) => {
-    console.log(chalk.green(...params));
+    console.log(chalk.green.bold(CLI_ICON_PASS, ...params));
     return params;
   },
   warning: (...params) => {
-    console.log(chalk.yellow(...params));
+    console.log(chalk.yellow.bold(CLI_ICON_WARN, ...params));
     return params;
   },
   error: (...params) => {
-    console.log(chalk.red(...params));
+    console.log(chalk.red.bold(CLI_ICON_FAIL, ...params));
     return params;
   },
   table: (data) => {
