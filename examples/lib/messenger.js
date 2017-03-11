@@ -1,4 +1,4 @@
-/*! cd-messenger - https://github.com/mikeerickson/cd-messenger#readme - Fri Mar 10 2017 16:50:06 */
+/*! cd-messenger - https://github.com/mikeerickson/cd-messenger#readme - Fri Mar 10 2017 17:30:43 */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -450,7 +450,7 @@ defineProps(colors, init());
 
 module.exports = {
 	"name": "cd-messenger",
-	"version": "2.7.21",
+	"version": "2.7.23",
 	"description": "console log logger gulp notification browser node message",
 	"main": "index.js",
 	"reveal": true,
@@ -510,6 +510,7 @@ module.exports = {
 		"lodash": "4.17.4",
 		"mocha": "3.2.0",
 		"mocha-sinon": "1.1.6",
+		"moment": "2.17.1",
 		"npm": "4.4.1",
 		"progress-bar-webpack-plugin": "1.9.3",
 		"rimraf": "2.6.1",
