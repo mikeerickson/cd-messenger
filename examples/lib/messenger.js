@@ -1,4 +1,4 @@
-/*! cd-messenger - v2.7.20 - https://github.com/mikeerickson/cd-messenger#readme - Fri Mar 10 2017 16:28:30 */
+/*! cd-messenger - https://github.com/mikeerickson/cd-messenger#readme - Fri Mar 10 2017 16:35:07 */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -450,7 +450,7 @@ defineProps(colors, init());
 
 module.exports = {
 	"name": "cd-messenger",
-	"version": "2.7.20",
+	"version": "2.7.21",
 	"description": "console log logger gulp notification browser node message",
 	"main": "index.js",
 	"reveal": true,
@@ -462,6 +462,7 @@ module.exports = {
 		"clean": "./node_modules/.bin/rimraf dist && ./node_modules/.bin/rimraf examples/lib",
 		"eslint": "eslint \"./**/*.js\"",
 		"lint": "npm run eslint --silent",
+		"postversion": "",
 		"test:node": "node examples/node-test",
 		"test:watch": "mocha --compilers js:babel-core/register -w",
 		"test": "mocha --compilers js:babel-core/register",

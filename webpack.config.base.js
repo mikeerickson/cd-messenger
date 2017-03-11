@@ -40,7 +40,7 @@ const webpackConfigBase = {
       clear: true,
       summary: true
     }),
-    new webpack.BannerPlugin(`${pkgInfo.name} - v${pkgInfo.version} - ${pkgInfo.homepage} - ${dateFormat()}`)
+    new webpack.BannerPlugin(`${pkgInfo.name} - ${pkgInfo.homepage} - ${dateFormat()}`)
   ]
 };
 

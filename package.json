@@ -12,6 +12,7 @@
     "clean": "./node_modules/.bin/rimraf dist && ./node_modules/.bin/rimraf examples/lib",
     "eslint": "eslint \"./**/*.js\"",
     "lint": "npm run eslint --silent",
+    "postversion": "",
     "test:node": "node examples/node-test",
     "test:watch": "mocha --compilers js:babel-core/register -w",
     "test": "mocha --compilers js:babel-core/register",
