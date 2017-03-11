@@ -1,4 +1,4 @@
-/*! cd-messenger - v2.7.20 - https://github.com/mikeerickson/cd-messenger#readme - Fri Mar 10 2017 16:26:31 */
+/*! cd-messenger - v2.7.20 - https://github.com/mikeerickson/cd-messenger#readme - Fri Mar 10 2017 16:28:30 */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
