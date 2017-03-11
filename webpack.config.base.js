@@ -1,7 +1,9 @@
-import path    from 'path';
-import config  from './config';
-import pkgInfo from './package.json';
-import chalk   from 'chalk';
+import path       from 'path';
+import config     from './config';
+import pkgInfo    from './package.json';
+import chalk      from 'chalk';
+import webpack    from 'webpack';
+import dateFormat from 'dateformat';
 
 import BuildNotifierPlugin from 'webpack-build-notifier';
 import ProgressBarPlugin   from 'progress-bar-webpack-plugin';
@@ -38,6 +40,7 @@ const webpackConfigBase = {
       clear: true,
       summary: true
     }),
+    new webpack.BannerPlugin(`${pkgInfo.name} - v${pkgInfo.version} - ${pkgInfo.homepage} - ${dateFormat()}`)
   ]
 };
 

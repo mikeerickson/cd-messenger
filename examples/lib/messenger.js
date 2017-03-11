@@ -1,3 +1,4 @@
+/*! cd-messenger - v2.7.20 - https://github.com/mikeerickson/cd-messenger#readme - Fri Mar 10 2017 16:26:31 */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -449,19 +450,18 @@ defineProps(colors, init());
 
 module.exports = {
 	"name": "cd-messenger",
-	"version": "2.7.19",
+	"version": "2.7.20",
 	"description": "console log logger gulp notification browser node message",
 	"main": "index.js",
 	"reveal": true,
 	"scripts": {
 		"build": "npm run clean && npm run eslint && npm run build:dev && npm run build:prod",
 		"build:dev": "node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.dev.js && bash ./scripts/copy.sh",
-		"build:prod": "NODE_ENV=production node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.prod.js",
+		"build:prod": "cross-env NODE_ENV=production node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.prod.js",
 		"build:watch": "node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.dev.js --watch && bash ./scripts/copy.sh",
 		"clean": "./node_modules/.bin/rimraf dist && ./node_modules/.bin/rimraf examples/lib",
 		"eslint": "eslint \"./**/*.js\"",
 		"lint": "npm run eslint --silent",
-		"publish": "",
 		"test:node": "node examples/node-test",
 		"test:watch": "mocha --compilers js:babel-core/register -w",
 		"test": "mocha --compilers js:babel-core/register",
@@ -494,12 +494,14 @@ module.exports = {
 		"@slightlytyler/webpack-shell-plugin": "0.4.5",
 		"babel-core": "6.23.1",
 		"babel-loader": "6.4.0",
+		"babel-plugin-add-header-comment": "1.0.3",
 		"babel-preset-babili": "0.0.12",
 		"babel-preset-es2015-native-modules": "6.9.4",
 		"babel-preset-es2015-without-strict": "0.0.4",
 		"babili-webpack-plugin": "0.0.11",
 		"bump-version": "0.5.0",
 		"chai": "3.5.0",
+		"cross-env": "3.2.3",
 		"eslint": "3.17.1",
 		"eslint-loader": "1.6.3",
 		"html-webpack-plugin": "2.28.0",
@@ -507,6 +509,7 @@ module.exports = {
 		"lodash": "4.17.4",
 		"mocha": "3.2.0",
 		"mocha-sinon": "1.1.6",
+		"npm": "4.4.1",
 		"progress-bar-webpack-plugin": "1.9.3",
 		"rimraf": "2.6.1",
 		"sinon": "1.17.7",
@@ -519,6 +522,7 @@ module.exports = {
 		"chalk": "1.1.3",
 		"chalkline": "0.0.5",
 		"cli-table": "0.3.1",
+		"dateformat": "2.0.0",
 		"pretty-web-logger": "1.0.7"
 	}
 };
