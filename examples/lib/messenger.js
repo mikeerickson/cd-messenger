@@ -392,7 +392,7 @@ function applyTheme (theme) {
 colors.setTheme = function (theme) {
   if (typeof theme === 'string') {
     try {
-      colors.themes[theme] = !(function webpackMissingModule() { var e = new Error("Cannot find module \".\""); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+      colors.themes[theme] = !(function webpackMissingModule() { var e = new Error("Cannot find module \".\""); e.code = 'MODULE_NOT_FOUND';; throw e; }());
       applyTheme(colors.themes[theme]);
       return colors.themes[theme];
     } catch (err) {
@@ -449,20 +449,17 @@ defineProps(colors, init());
 
 module.exports = {
 	"name": "cd-messenger",
-	"version": "2.7.15-0",
+	"version": "2.7.17-23",
 	"description": "console log logger gulp notification browser node message",
 	"main": "index.js",
 	"reveal": true,
 	"scripts": {
-		"all": "npm run eslint",
-		"build:dev": "node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.babel.js && bash ./scripts/copy.sh",
-		"build:prod": "NODE_ENV=production node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.babel.js && bash ./scripts/copy.sh",
-		"build:watch_temp": "node -r babel-register node_modules/.bin/webpack --hide-modules -w --config=webpack.config.babel.js",
-		"build:watch": "echo \"\n\n  ==> NOTE:  Running this causes an infinite loop, review cd-datetime-picker project for solution (gulp?)\n\n\"",
-		"build": "npm run clean && npm run build:dev && npm run build:prod",
-		"clean": "./node_modules/.bin/rimraf lib && ./node_modules/.bin/rimraf examples/lib",
+		"build": "npm run clean && npm run eslint && npm run build:dev && npm run build:prod",
+		"build:dev": "node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.dev.js && bash ./scripts/copy.sh",
+		"build:prod": "NODE_ENV=production node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.prod.js",
+		"clean": "./node_modules/.bin/rimraf dist && ./node_modules/.bin/rimraf examples/lib",
 		"eslint": "eslint \"./**/*.js\"",
-		"lint": "npm run eslint",
+		"lint": "npm run eslint --silent",
 		"publish": "npm run build && bash ./scripts/delete-sourcemaps.sh",
 		"test:node": "node examples/node-test",
 		"test:watch": "./node_modules/.bin/mocha --compilers js:babel-core/register -w",
@@ -493,26 +490,27 @@ module.exports = {
 	"homepage": "https://github.com/mikeerickson/cd-messenger#readme",
 	"devDependencies": {
 		"@slightlytyler/webpack-shell-plugin": "0.4.5",
-		"babel-core": "6.22.1",
-		"babel-loader": "6.2.10",
-		"babel-preset-babili": "0.0.10",
+		"babel-core": "6.23.1",
+		"babel-loader": "6.4.0",
+		"babel-preset-babili": "0.0.12",
 		"babel-preset-es2015-native-modules": "6.9.4",
 		"babel-preset-es2015-without-strict": "0.0.4",
-		"babili-webpack-plugin": "0.0.9",
+		"babili-webpack-plugin": "0.0.11",
 		"bump-version": "0.5.0",
 		"chai": "3.5.0",
-		"eslint": "3.14.1",
-		"eslint-loader": "1.6.1",
+		"eslint": "3.17.1",
+		"eslint-loader": "1.6.3",
 		"html-webpack-plugin": "2.28.0",
 		"json-loader": "0.5.4",
 		"lodash": "4.17.4",
 		"mocha": "3.2.0",
 		"mocha-sinon": "1.1.6",
 		"progress-bar-webpack-plugin": "1.9.3",
-		"rimraf": "2.5.4",
+		"rimraf": "2.6.1",
 		"sinon": "1.17.7",
-		"webpack": "2.2.0",
-		"webpack-build-notifier": "0.1.13"
+		"webpack": "2.2.1",
+		"webpack-build-notifier": "0.1.13",
+		"webpack-merge": "4.0.0"
 	},
 	"dependencies": {
 		"chalk": "1.1.3",
@@ -752,13 +750,13 @@ module.exports = function (str) {
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _createClass=function(){function a(b,c){for(var e,d=0;d<c.length;d++)e=c[d],e.enumerable=e.enumerable||!1,e.configurable=!0,'value'in e&&(e.writable=!0),Object.defineProperty(b,e.key,e)}return function(b,c,d){return c&&a(b.prototype,c),d&&a(b,d),b}}();function _classCallCheck(a,b){if(!(a instanceof b))throw new TypeError('Cannot call a class as a function')}var logger=__webpack_require__(23);function showColorMessage(a){var e=1<arguments.length&&arguments[1]!==void 0?arguments[1]:'white',f='background: '+e+'; color: white; display: block;';'yellow'===e&&(f='background: '+e+'; color: black; display: block;');for(var c=arguments.length,b=Array(2<c?c-2:0),d=2;d<c;d++)b[d-2]=arguments[d];0<b.length?console.log('%c%s',f,a,b):console.log('%c%s',f,a)}var MessengerBrowser=function(){function a(){var p=0<arguments.length&&void 0!==arguments[0]?arguments[0]:{};_classCallCheck(this,a),this.options={logger:!1},this.pkgInfo=p}return _createClass(a,[{key:'setOptions',value:function setOptions(){var p=0<arguments.length&&void 0!==arguments[0]?arguments[0]:{};this.options=Object.assign(this.options,p)}},{key:'version',value:function version(){return this.pkgInfo.version}},{key:'name',value:function name(){return this.pkgInfo.name}},{key:'log',value:function log(p){for(var t,u,r=arguments.length,q=Array(1<r?r-1:0),s=1;s<r;s++)q[s-1]=arguments[s];this.options.logger?logger.log.apply(logger,[p].concat(q)):(t=console).log.apply(t,[p].concat(q)),(u=console).log.apply(u,[p].concat(q))}},{key:'info',value:function info(p){for(var r=arguments.length,q=Array(1<r?r-1:0),s=1;s<r;s++)q[s-1]=arguments[s];this.options.logger?logger.info.apply(logger,[p].concat(q)):showColorMessage.apply(void 0,[p,'blue'].concat(q))}},{key:'note',value:function note(p){for(var r=arguments.length,q=Array(1<r?r-1:0),s=1;s<r;s++)q[s-1]=arguments[s];this.options.logger?logger.info.apply(logger,[p].concat(q)):showColorMessage.apply(void 0,[p,'orange'].concat(q))}},{key:'success',value:function success(p){for(var r=arguments.length,q=Array(1<r?r-1:0),s=1;s<r;s++)q[s-1]=arguments[s];this.options.logger?logger.info.apply(logger,[p].concat(q)):showColorMessage.apply(void 0,[p,'green'].concat(q))}},{key:'error',value:function error(p){for(var r=arguments.length,q=Array(1<r?r-1:0),s=1;s<r;s++)q[s-1]=arguments[s];this.options.logger?logger.error.apply(logger,[p].concat(q)):showColorMessage.apply(void 0,[p,'red'].concat(q))}},{key:'warning',value:function warning(p){for(var r=arguments.length,q=Array(1<r?r-1:0),s=1;s<r;s++)q[s-1]=arguments[s];this.options.logger?logger.warning.apply(logger,[p].concat(q)):showColorMessage.apply(void 0,[p,'yellow'].concat(q))}},{key:'table',value:function table(p){console.table(p)}},{key:'dir',value:function dir(){var q;(q=console).dir.apply(q,p)}},{key:'line',value:function line(){var p=0<arguments.length&&void 0!==arguments[0]?arguments[0]:'',q=1<arguments.length&&void 0!==arguments[1]?arguments[1]:'white',r=2<arguments.length&&void 0!==arguments[2]?arguments[2]:80;p=0<p.length?p.substring(0,1):'\u2584',console.log('%c%s','color: '+q+'; display: block',p.repeat(r))}}]),a}();module.exports=MessengerBrowser;
+var _createClass=function(){function a(b,c){for(var e,d=0;d<c.length;d++)e=c[d],e.enumerable=e.enumerable||!1,e.configurable=!0,'value'in e&&(e.writable=!0),Object.defineProperty(b,e.key,e)}return function(b,c,d){return c&&a(b.prototype,c),d&&a(b,d),b}}();function _classCallCheck(a,b){if(!(a instanceof b))throw new TypeError('Cannot call a class as a function')}var logger=__webpack_require__(23);function showColorMessage(a){var b=1<arguments.length&&arguments[1]!==void 0?arguments[1]:'white',c='background: '+b+'; color: white; display: block;';'yellow'===b&&(c='background: '+b+'; color: black; display: block;');for(var d=arguments.length,e=Array(2<d?d-2:0),f=2;f<d;f++)e[f-2]=arguments[f];0<e.length?console.log('%c%s',c,a,e):console.log('%c%s',c,a)}var MessengerBrowser=function(){function a(){var b=0<arguments.length&&void 0!==arguments[0]?arguments[0]:{};_classCallCheck(this,a),this.options={logger:!1},this.pkgInfo=b}return _createClass(a,[{key:'setOptions',value:function setOptions(){var b=0<arguments.length&&void 0!==arguments[0]?arguments[0]:{};this.options=Object.assign(this.options,b)}},{key:'version',value:function version(){return this.pkgInfo.version}},{key:'name',value:function name(){return this.pkgInfo.name}},{key:'log',value:function log(b){for(var c,d,e=arguments.length,f=Array(1<e?e-1:0),g=1;g<e;g++)f[g-1]=arguments[g];this.options.logger?logger.log.apply(logger,[b].concat(f)):(c=console).log.apply(c,[b].concat(f)),(d=console).log.apply(d,[b].concat(f))}},{key:'info',value:function info(b){for(var c=arguments.length,d=Array(1<c?c-1:0),e=1;e<c;e++)d[e-1]=arguments[e];this.options.logger?logger.info.apply(logger,[b].concat(d)):showColorMessage.apply(void 0,[b,'blue'].concat(d))}},{key:'note',value:function note(b){for(var c=arguments.length,d=Array(1<c?c-1:0),e=1;e<c;e++)d[e-1]=arguments[e];this.options.logger?logger.info.apply(logger,[b].concat(d)):showColorMessage.apply(void 0,[b,'orange'].concat(d))}},{key:'success',value:function success(b){for(var c=arguments.length,d=Array(1<c?c-1:0),e=1;e<c;e++)d[e-1]=arguments[e];this.options.logger?logger.info.apply(logger,[b].concat(d)):showColorMessage.apply(void 0,[b,'green'].concat(d))}},{key:'error',value:function error(b){for(var c=arguments.length,d=Array(1<c?c-1:0),e=1;e<c;e++)d[e-1]=arguments[e];this.options.logger?logger.error.apply(logger,[b].concat(d)):showColorMessage.apply(void 0,[b,'red'].concat(d))}},{key:'warning',value:function warning(b){for(var c=arguments.length,d=Array(1<c?c-1:0),e=1;e<c;e++)d[e-1]=arguments[e];this.options.logger?logger.warning.apply(logger,[b].concat(d)):showColorMessage.apply(void 0,[b,'yellow'].concat(d))}},{key:'table',value:function table(b){console.table(b)}},{key:'dir',value:function dir(){var b;(b=console).dir.apply(b,arguments)}},{key:'line',value:function line(){var b=0<arguments.length&&void 0!==arguments[0]?arguments[0]:'',c=1<arguments.length&&void 0!==arguments[1]?arguments[1]:'white',d=2<arguments.length&&void 0!==arguments[2]?arguments[2]:80;b=0<b.length?b.substring(0,1):'\u2584',console.log('%c%s','color: '+c+'; display: block',b.repeat(d))}}]),a}();module.exports=MessengerBrowser;
 
 /***/ }),
 /* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var chalk=__webpack_require__(5),cl=__webpack_require__(9),Table=__webpack_require__(10),pkgInfo=__webpack_require__(2),CLI_ICON_FAIL='\u2718',CLI_ICON_PASS='\u2713',CLI_ICON_WARN='\u267A',CLI_ICON_NOTE='\u270F\uFE0E',messenger={version:function version(){return pkgInfo.version},name:function name(){return pkgInfo.name},log:function log(){for(var d,b=arguments.length,a=Array(b),c=0;c<b;c++)a[c]=arguments[c];return(d=console).log.apply(d,a),a},info:function info(){for(var d,b=arguments.length,a=Array(b),c=0;c<b;c++)a[c]=arguments[c];return console.log((d=chalk.cyan).bold.apply(d,[CLI_ICON_NOTE].concat(a))),a},note:function note(a){for(var f,c=arguments.length,b=Array(1<c?c-1:0),d=1;d<c;d++)b[d-1]=arguments[d];return(f=console).log.apply(f,[a].concat(b)),b},success:function success(){for(var d,b=arguments.length,a=Array(b),c=0;c<b;c++)a[c]=arguments[c];return console.log((d=chalk.green).bold.apply(d,[CLI_ICON_PASS].concat(a))),a},warning:function warning(){for(var d,b=arguments.length,a=Array(b),c=0;c<b;c++)a[c]=arguments[c];return console.log((d=chalk.yellow).bold.apply(d,[CLI_ICON_WARN].concat(a))),a},error:function error(){for(var d,b=arguments.length,a=Array(b),c=0;c<b;c++)a[c]=arguments[c];return console.log((d=chalk.red).bold.apply(d,[CLI_ICON_FAIL].concat(a))),a},table:function table(a){var b;0<a.length&&(Array.isArray(a[0])?(header=a[0],a.splice(0,1)):header=Object.keys(a[0]),header=header.map(function(d){return chalk.cyan.bold(d)}),b=new Table({head:header}),a.map(function(d){var f=Object.keys(d).map(function(g){return d[g]});b.push(f)}),console.log(b.toString()))},line:function line(color){if(0<color.length)try{eval('cl.'+color+'()')}catch(a){console.error(chalk.bgRed.bold('Invalid Color: '+color))}},dir:function dir(a){return console.dir(a),a}};module.exports=messenger;
+var chalk=__webpack_require__(5),cl=__webpack_require__(9),Table=__webpack_require__(10),pkgInfo=__webpack_require__(2),CLI_ICON_FAIL='\u2718',CLI_ICON_PASS='\u2713',CLI_ICON_WARN='\u267A',CLI_ICON_NOTE='\u270F\uFE0E',messenger={version:function version(){return pkgInfo.version},name:function name(){return pkgInfo.name},log:function log(){for(var a,b=arguments.length,c=Array(b),d=0;d<b;d++)c[d]=arguments[d];return(a=console).log.apply(a,c),c},info:function info(){for(var a,b=arguments.length,c=Array(b),d=0;d<b;d++)c[d]=arguments[d];return console.log((a=chalk.cyan).bold.apply(a,[CLI_ICON_NOTE].concat(c))),c},note:function note(a){for(var b,c=arguments.length,d=Array(1<c?c-1:0),f=1;f<c;f++)d[f-1]=arguments[f];return(b=console).log.apply(b,[a].concat(d)),d},success:function success(){for(var a,b=arguments.length,c=Array(b),d=0;d<b;d++)c[d]=arguments[d];return console.log((a=chalk.green).bold.apply(a,[CLI_ICON_PASS].concat(c))),c},warning:function warning(){for(var a,b=arguments.length,c=Array(b),d=0;d<b;d++)c[d]=arguments[d];return console.log((a=chalk.yellow).bold.apply(a,[CLI_ICON_WARN].concat(c))),c},error:function error(){for(var a,b=arguments.length,c=Array(b),d=0;d<b;d++)c[d]=arguments[d];return console.log((a=chalk.red).bold.apply(a,[CLI_ICON_FAIL].concat(c))),c},table:function table(a){var b;0<a.length&&(Array.isArray(a[0])?(header=a[0],a.splice(0,1)):header=Object.keys(a[0]),header=header.map(function(d){return chalk.cyan.bold(d)}),b=new Table({head:header}),a.map(function(d){var f=Object.keys(d).map(function(g){return d[g]});b.push(f)}),console.log(b.toString()))},line:function line(color){if(0<color.length)try{eval('cl.'+color+'()')}catch(a){console.error(chalk.bgRed.bold('Invalid Color: '+color))}},dir:function dir(a){return console.dir(a),a}};module.exports=messenger;
 
 /***/ }),
 /* 9 */
@@ -2512,7 +2510,7 @@ module.exports = function(module) {
 /* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(process) {if(process.browser){var Browser=__webpack_require__(7);module.exports=new Browser(__webpack_require__(2))}else module.exports=__webpack_require__(8);
+/* WEBPACK VAR INJECTION */(function(process) {if(process.browser){var a=__webpack_require__(7);module.exports=new a(__webpack_require__(2))}else module.exports=__webpack_require__(8);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ })

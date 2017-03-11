@@ -12,6 +12,12 @@ View on [npm](https://www.npmjs.com/package/cd-messenger)
 npm i -S cd-messenger
 ```
 
+### Install with [yarn](https://yarnpkg.com/lang/en/docs/install/#mac-tab)
+
+```sh
+yarn add cd-messenger
+```
+
 ### Add as script tag
 ```html
 <script src="lib/messenger.min.js"></script>
