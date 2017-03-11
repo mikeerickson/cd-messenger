@@ -449,7 +449,7 @@ defineProps(colors, init());
 
 module.exports = {
 	"name": "cd-messenger",
-	"version": "2.7.17-23",
+	"version": "2.7.17",
 	"description": "console log logger gulp notification browser node message",
 	"main": "index.js",
 	"reveal": true,
@@ -457,13 +457,15 @@ module.exports = {
 		"build": "npm run clean && npm run eslint && npm run build:dev && npm run build:prod",
 		"build:dev": "node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.dev.js && bash ./scripts/copy.sh",
 		"build:prod": "NODE_ENV=production node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.prod.js",
+		"build:watch": "node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.dev.js --watch && bash ./scripts/copy.sh",
 		"clean": "./node_modules/.bin/rimraf dist && ./node_modules/.bin/rimraf examples/lib",
 		"eslint": "eslint \"./**/*.js\"",
 		"lint": "npm run eslint --silent",
-		"publish": "npm run build && bash ./scripts/delete-sourcemaps.sh",
+		"publish": "npm run build",
 		"test:node": "node examples/node-test",
-		"test:watch": "./node_modules/.bin/mocha --compilers js:babel-core/register -w",
-		"test": "./node_modules/.bin/mocha --compilers js:babel-core/register"
+		"test:watch": "mocha --compilers js:babel-core/register -w",
+		"test": "mocha --compilers js:babel-core/register",
+		"test:coverage": "nyc --report-dir ./test/coverage -r html mocha --require babel-register && open ./test/coverage/index.html"
 	},
 	"repository": {
 		"type": "git",
@@ -508,6 +510,7 @@ module.exports = {
 		"progress-bar-webpack-plugin": "1.9.3",
 		"rimraf": "2.6.1",
 		"sinon": "1.17.7",
+		"watch-ignore-webpack-plugin": "1.0.0",
 		"webpack": "2.2.1",
 		"webpack-build-notifier": "0.1.13",
 		"webpack-merge": "4.0.0"

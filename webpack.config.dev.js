@@ -12,9 +12,6 @@ import webpackConfigBase from './webpack.config.base';
 const webpackConfigDev = {
   devtool: 'source-map',
   plugins: [
-    new WebpackShellPlugin({
-    onBuildStart: ['./node_modules/.bin/bump prerelease'], // need to bump version first before files copied etc
-    onBuildExit: []}),
     new HtmlWebpackPlugin({
       template: path.join(__dirname,'src/index.ejs'),
       inject: false,
