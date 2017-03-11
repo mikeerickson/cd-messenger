@@ -449,7 +449,7 @@ defineProps(colors, init());
 
 module.exports = {
 	"name": "cd-messenger",
-	"version": "2.7.17",
+	"version": "2.7.19",
 	"description": "console log logger gulp notification browser node message",
 	"main": "index.js",
 	"reveal": true,
@@ -461,7 +461,7 @@ module.exports = {
 		"clean": "./node_modules/.bin/rimraf dist && ./node_modules/.bin/rimraf examples/lib",
 		"eslint": "eslint \"./**/*.js\"",
 		"lint": "npm run eslint --silent",
-		"publish": "npm run build",
+		"publish": "",
 		"test:node": "node examples/node-test",
 		"test:watch": "mocha --compilers js:babel-core/register -w",
 		"test": "mocha --compilers js:babel-core/register",
