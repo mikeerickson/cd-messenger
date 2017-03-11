@@ -15,4 +15,5 @@ if [ -f "./dist/messenger.js.map" ]; then
   rm dist/messenger.js.map
 fi
 
+printf "\n"
 printf " ${COL_GREEN}[ •• ${CO_RESET}] ${COL_YELLOW} ==> Cleaning Production ... ${COL_RESET}\n\n"

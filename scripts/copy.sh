@@ -15,7 +15,7 @@ if [ ! -d "./examples/lib" ]; then
   mkdir ./examples/lib
 fi
 
-printf "\n ${COL_GREEN}[ •• ${CO_RESET}] ${COL_YELLOW} ==> Copying files to ${COL_CYAN}./examples${COL_GREEN} ...   ${COL_RESET}\n"
+printf "\n ${COL_GREEN}[ •• ${CO_RESET}] ${COL_YELLOW} Copying files to ${COL_CYAN}./examples${COL_YELLOW} ...   ${COL_RESET}\n"
 
 # copy built lib files to examples
 cp dist/*.js ./examples/lib
@@ -23,4 +23,4 @@ cp dist/*.js ./examples/lib
 # move built index.html
 mv dist/index.html ./examples
 
-printf " ${COL_GREEN}[ ok ${CO_RESET}] ${COL_YELLOW} ==> Build Completed Successfully ... ${COL_RESET}\n\n"
+printf " ${COL_GREEN}[ ok ${CO_RESET}] ${COL_YELLOW} Build Completed Successfully ... ${COL_RESET}\n\n"

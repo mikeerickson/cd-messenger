@@ -5,7 +5,7 @@
   "main": "index.js",
   "reveal": true,
   "scripts": {
-    "build": "npm run clean && npm run test && npm run eslint && npm run build:dev && npm run build:prod",
+    "build": "npm run clean && npm run test && npm run eslint && npm run build:dev && npm run build:prod && node ./scripts/post-build-all",
     "build:dev": "node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.dev.js && bash ./scripts/copy.sh",
     "build:prod": "cross-env NODE_ENV=production node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.prod.js",
     "build:watch": "node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.dev.js --watch && bash ./scripts/copy.sh",
@@ -15,7 +15,7 @@
     "postversion": "",
     "test:node": "node examples/node-test",
     "test:watch": "mocha --compilers js:babel-core/register -w",
-    "test": "mocha --compilers js:babel-core/register",
+    "test": "node ./scripts/pre-test && mocha --compilers js:babel-core/register",
     "test:coverage": "nyc --report-dir ./test/coverage -r html mocha --require babel-register && open ./test/coverage/index.html"
   },
   "repository": {
@@ -60,6 +60,7 @@
     "lodash": "4.17.4",
     "mocha": "3.2.0",
     "mocha-sinon": "1.1.6",
+    "moment": "2.17.1",
     "npm": "4.4.1",
     "progress-bar-webpack-plugin": "1.9.3",
     "rimraf": "2.6.1",

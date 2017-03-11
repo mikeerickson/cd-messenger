@@ -1,4 +1,4 @@
-/*! cd-messenger - https://github.com/mikeerickson/cd-messenger#readme - Fri Mar 10 2017 16:35:07 */
+/*! cd-messenger - https://github.com/mikeerickson/cd-messenger#readme - Fri Mar 10 2017 16:50:06 */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -455,7 +455,7 @@ module.exports = {
 	"main": "index.js",
 	"reveal": true,
 	"scripts": {
-		"build": "npm run clean && npm run eslint && npm run build:dev && npm run build:prod",
+		"build": "npm run clean && npm run test && npm run eslint && npm run build:dev && npm run build:prod && node ./scripts/post-build-all",
 		"build:dev": "node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.dev.js && bash ./scripts/copy.sh",
 		"build:prod": "cross-env NODE_ENV=production node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.prod.js",
 		"build:watch": "node -r babel-register node_modules/.bin/webpack --hide-modules --config=webpack.config.dev.js --watch && bash ./scripts/copy.sh",
@@ -465,7 +465,7 @@ module.exports = {
 		"postversion": "",
 		"test:node": "node examples/node-test",
 		"test:watch": "mocha --compilers js:babel-core/register -w",
-		"test": "mocha --compilers js:babel-core/register",
+		"test": "node ./scripts/pre-test && mocha --compilers js:babel-core/register",
 		"test:coverage": "nyc --report-dir ./test/coverage -r html mocha --require babel-register && open ./test/coverage/index.html"
 	},
 	"repository": {
