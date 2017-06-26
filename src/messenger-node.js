@@ -1,3 +1,4 @@
+/*global module, require */
 
 const chalk   = require('chalk');
 const cl      = require('chalkline');

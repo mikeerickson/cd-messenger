@@ -1,4 +1,4 @@
-/*! cd-messenger - https://github.com/mikeerickson/cd-messenger#readme - Fri Mar 10 2017 17:30:43 */
+/*! cd-messenger - https://github.com/mikeerickson/cd-messenger#readme - Thu Jun 08 2017 08:22:51 */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -450,7 +450,7 @@ defineProps(colors, init());
 
 module.exports = {
 	"name": "cd-messenger",
-	"version": "2.7.23",
+	"version": "2.7.24",
 	"description": "console log logger gulp notification browser node message",
 	"main": "index.js",
 	"reveal": true,

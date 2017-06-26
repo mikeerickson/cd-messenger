@@ -1,3 +1,5 @@
+/*global module, require */
+
 let logger = require('pretty-web-logger');
 
 function showColorMessage(msg, bgColor = 'white', ...params) {

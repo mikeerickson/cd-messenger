@@ -1,4 +1,4 @@
-/*global require, process*/
+/*global module, require, process*/
 
 if (process.browser) {
   let Browser = require('./src/messenger-browser');

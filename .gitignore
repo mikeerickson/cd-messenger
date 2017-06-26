@@ -6,3 +6,5 @@ TODO.md
 todo.json
 /.idea/
 sandbox
+.nyc_output/
+/test/coverage/
