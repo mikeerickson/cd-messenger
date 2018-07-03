@@ -1,6 +1,6 @@
-let chai   = require('chai');
-let sinon  = require('sinon');
-let _      = require('lodash');
+let chai = require('chai');
+let sinon = require('sinon');
+let isObject = require('isobject');
 let messenger = require('../src/messenger-node');
 
 let assert = chai.assert;
@@ -23,7 +23,7 @@ function once(fn) {
 describe('==> Messenger Node (Console)', () => {
 
   let msg;
-  let methods = ['version','info','note','log','error','success','warning','table','dir'];
+  let methods = ['version', 'info', 'note', 'log', 'error', 'success', 'warning', 'table', 'dir'];
   let proxy;
 
   beforeEach(() => {
@@ -35,7 +35,7 @@ describe('==> Messenger Node (Console)', () => {
   });
 
   it('should be instance of messenger-node', () => {
-    assert(_.isObject(messenger));
+    assert(isObject(messenger));
   });
 
   it('should contain log method', () => {
@@ -49,15 +49,15 @@ describe('==> Messenger Node (Console)', () => {
   });
 
   it('should return supplied message', () => {
-    let log    = sinon.spy();
-    let logFn  = once(log);
-    let result = logFn();
-    assert(log.calledOnce);
+    // let log = sinon.spy();
+    // let logFn = once(log);
+    // let result = logFn();
+    // assert(log.calledOnce);
 
-    // var result = messenger.log('test message');
-    // expect(result).to.be.array;
-    // expect(result.length).to.equal(1);
-    // expect(result[0]).to.equal('test message');
+    var result = messenger.log('test message');
+    expect(result).to.be.array;
+    expect(result.length).to.equal(1);
+    expect(result[0]).to.equal('test message');
   });
 
   it('should return stub value', () => {
@@ -69,14 +69,10 @@ describe('==> Messenger Node (Console)', () => {
   it('should stub log method', () => {
     var msg = messenger;
     var spy = sinon.spy(messenger, 'log');
-    spy.withArgs('test call 1');
-    spy.withArgs('test call 2');
 
     msg.log('test call 1');
-    msg.log('test call 2');
 
     assert(spy.withArgs('test call 1').calledOnce);
-    assert(spy.withArgs('test call 2').calledOnce);
   });
 
   it('should be a spy', () => {

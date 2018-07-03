@@ -8,3 +8,4 @@ todo.json
 sandbox
 .nyc_output/
 /test/coverage/
+test/

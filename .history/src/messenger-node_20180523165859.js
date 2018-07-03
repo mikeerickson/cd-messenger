@@ -7,8 +7,8 @@ const pkgInfo = require('../package.json');
 
 const CLI_ICON_FAIL = '✘';
 const CLI_ICON_PASS = '✓';
-const CLI_ICON_WARN = '♺ ';
-const CLI_ICON_NOTE = '✏︎ ';
+const CLI_ICON_WARN = '♺';
+const CLI_ICON_NOTE = '✏︎';
 
 const messenger = {
   version: () => {
@@ -49,11 +49,10 @@ const messenger = {
       if (Array.isArray(data[0])) {
         header = data[0];
         data.splice(0, 1);
-      }
-      else {
+      } else {
         header = Object.keys(data[0]);
       }
-      header = header.map(function (item) {
+      header = header.map(function(item) {
         return chalk.cyan.bold(item);
       });
       table = new Table({ head: header });
@@ -69,8 +68,7 @@ const messenger = {
     if (color.length > 0) {
       try {
         eval(`cl.${color}()`); // eslint-disable-line
-      }
-      catch (e) {
+      } catch (e) {
         console.error(chalk.bgRed.bold(`Invalid Color: ${color}`));
       }
     }
