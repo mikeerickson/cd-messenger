@@ -67,10 +67,10 @@ const messenger = {
   },
   line: color => {
     if (color.length > 0) {
-      try {
-        eval(`cl.${color}()`); // eslint-disable-line
+      if (typeof cl[color] === 'function') {
+        cl[color]();
       }
-      catch (e) {
+      else {
         console.error(chalk.bgRed.bold(`Invalid Color: ${color}`));
       }
     }
